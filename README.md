@@ -10,7 +10,7 @@ The plugin jar file is generated in the project's `target/` directory.
 
 <h2>Deploy</h2>
 <h4>"Cold" Deploy</h4>
-The standard way to install the plugin for regular users is to copy the jar artifact, from the `target/` directory to the `extensions/plugins/` directory of your SonarQube Server installation, then start the server. The file logs/web.log will then contain a log line similar to:
+The standard way to install the plugin for regular users is to copy the jar artifact, from the target/ directory to the extensions/plugins/ directory of your SonarQube Server installation, then start the server. The file logs/web.log will then contain a log line similar to:
 Deploy plugin Example Plugin / 0.1-SNAPSHOT
 Scanner extensions such as sensors are immediately retrieved and loaded when scanning source code.
 
