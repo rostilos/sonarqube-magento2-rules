@@ -9,6 +9,12 @@
   <name>sonarqube-js-custom-rules</name>
   <packaging>sonar-plugin</packaging>
 
+  <properties>
+  <maven.compiler.source>1.8</maven.compiler.source>
+  <maven.compiler.target>1.8</maven.compiler.target>
+  <maven.compiler.debug>true</maven.compiler.debug>
+</properties>
+
   <dependencies>
     <dependency>
       <groupId>org.sonarsource.api.plugin</groupId>
@@ -19,13 +25,19 @@
     <dependency>
       <groupId>org.sonarsource.php</groupId>
       <artifactId>sonar-php-plugin</artifactId>
-      <version>3.43.0.12862</version>
+      <version>3.38.0.12239</version>
     </dependency>
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter</artifactId>
         <version>5.10.3</version>
         <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.sonarsource.php</groupId>
+        <artifactId>php-checks</artifactId>
+        <version>3.38.0.12239</version>
+        <scope>provided</scope>
     </dependency>
   </dependencies>
 
@@ -40,7 +52,7 @@
           <pluginKey>custom</pluginKey>
           <pluginName>PHP Custom Rules for Magento 2 CMS</pluginName>
           <requiredForLanguages>php</requiredForLanguages>
-          <pluginClass>org.perpectiveteam.sonarrules.php.PHPCustomRulesPlugin</pluginClass>
+          <pluginClass>org.perspectiveteam.sonarrules.php.PHPCustomRulesPlugin</pluginClass>
           <skipDependenciesPackaging>true</skipDependenciesPackaging>
           <pluginDescription>Magento 2 Specific Rules</pluginDescription>
           <archive>
@@ -61,5 +73,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>

@@ -1,4 +1,4 @@
-package org.perpectiveteam.sonarrules.php;
+package org.perspectiveteam.sonarrules.php;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.perspectiveteam.sonarrules.php.checks.EventsInConstructorsCheck;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 import org.sonar.plugins.php.api.visitors.PHPCustomRuleRepository;
-import org.perpectiveteam.sonarrules.php.EventsInConstructorsCheck;
 
 /**
  * Extension point to define a PHP rule repository.

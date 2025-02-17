@@ -1,4 +1,4 @@
-package org.perpectiveteam.sonarrules.php;
+package org.perspectiveteam.sonarrules.php;
 
 import org.sonar.api.Plugin;
 

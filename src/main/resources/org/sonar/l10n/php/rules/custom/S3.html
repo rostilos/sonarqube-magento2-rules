@@ -21,23 +21,5 @@
             $this->data = $fileReader->read('cache.xml');
             $eventManager->dispatch('config_read_after');
         }
-    }
-    
-    <?php
-    /**
-     * Copyright [first year code created] Adobe
-     * All rights reserved.
-     */
-    
-    class Config
-    {
-        private $data;
-    
-        public function __construct($fileReader, $eventManager)
-        {
-            $this->data = $fileReader->read('cache.xml');
-            $eventManager->dispatch('config_read_after');
-        }
-    }
-
+    }    
 </pre>
