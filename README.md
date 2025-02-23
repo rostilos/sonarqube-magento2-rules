@@ -79,14 +79,11 @@ All rules will refer to the current Technical guidelines specified by Adobe <a h
 </ul>
 <ul>
     <li>❌  2.1. Object decomposition MUST follow the SOLID principles.</li>
-
     <li>❌ 2.2. Object instantiation </li>
     <li>❌ 2.2.1. An object MUST be ready for use after instantiation. No additional public initialization methods are allowed.</li>
     <li>❌ 2.2.2. Factories SHOULD be used for object instantiation instead of new keyword. An object SHOULD be replaceable for testing or extensibility purposes. Exception: DTOs. There is no behavior in DTOs, so there is no reason for its replaceability. 
        Tests can create real DTOs for stubs. Data interfaces, Exceptions and Zend_Db_Expr are examples of DTOs.</li>
-    
     <li>2.3. Class constructor can have only dependency assignment operations and/or argument validation operations. No other operations are allowed.</li>
-
     <li>❌ 2.3.1. Constructor SHOULD throw an exception when validation of an argument has failed.</li>
     <li>✅ 2.3.2. Events MUST NOT be triggered in constructors.</li>
     <li>❌ 2.4. All dependencies MUST be requested by the most generic type that is required by the client object.</li>
