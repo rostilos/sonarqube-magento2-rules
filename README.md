@@ -72,8 +72,8 @@ All rules will refer to the current Technical guidelines specified by Adobe <a h
 </a>
 
 <ul>
-    <li>❌ 1.1. Function arguments SHOULD NOT be modified.</li>
-    <li>❌ 1.2. Explicit return types MUST BE declared on functions.</li>
+    <li>✅ 1.1. Function arguments SHOULD NOT be modified.</li>
+    <li>✅ 1.2. Explicit return types MUST BE declared on functions.</li>
     <li>❌ 1.3. Type hints for scalar arguments SHOULD be used.</li>
     <li>❌ 1.3.1. All new PHP files MUST have strict type mode enabled by starting with declare(strict_types=1);. All updated PHP files SHOULD have strict type mode enabled. PHP interfaces MAY have this declaration.
 </ul>

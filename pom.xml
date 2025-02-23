@@ -10,10 +10,11 @@
   <packaging>sonar-plugin</packaging>
 
   <properties>
-  <maven.compiler.source>1.8</maven.compiler.source>
-  <maven.compiler.target>1.8</maven.compiler.target>
-  <maven.compiler.debug>true</maven.compiler.debug>
-</properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.debug>true</maven.compiler.debug>
+  </properties>
+
 
   <dependencies>
     <dependency>

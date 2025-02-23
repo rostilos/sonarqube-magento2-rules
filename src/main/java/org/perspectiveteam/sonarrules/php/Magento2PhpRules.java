@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.perspectiveteam.sonarrules.php.checks.EventsInConstructorsCheck;
 import org.perspectiveteam.sonarrules.php.checks.ReturnTypesOnFunctionsCheck;
+import org.perspectiveteam.sonarrules.php.checks.FunctionArgumentsShouldNotBeModifiedCheck;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
@@ -35,7 +36,11 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
    */
   @Override
   public List<Class<?>> checkClasses() {
-    return List.of(EventsInConstructorsCheck.class, ReturnTypesOnFunctionsCheck.class);
+    return List.of(
+            EventsInConstructorsCheck.class,
+            ReturnTypesOnFunctionsCheck.class,
+            FunctionArgumentsShouldNotBeModifiedCheck.class
+    );
   }
 
   @Override
@@ -52,8 +57,11 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
 
     // Optionally define remediation costs
     Map<String, String> remediationCosts = new HashMap<>();
+
     remediationCosts.put(EventsInConstructorsCheck.KEY, "2min");
     remediationCosts.put(ReturnTypesOnFunctionsCheck.KEY, "2min");
+    remediationCosts.put(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "2min");
+
     repository.rules().forEach(rule -> rule.setDebtRemediationFunction(
       rule.debtRemediationFunctions().constantPerIssue(remediationCosts.get(rule.key()))));
 
