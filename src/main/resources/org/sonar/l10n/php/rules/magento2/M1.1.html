@@ -1,1 +1,31 @@
-test
+<h2></h2>
+<p>
+    <b>Immutability of Arguments: </b>
+    When a function is called, the arguments (the values or references passed to it) should not be altered within the function.
+    Modifying arguments can lead to unintended side effects, making the code harder to debug, test, and maintain.
+    For example, if a function modifies an argument that is passed by reference, it can affect other parts of the code that rely on the original value of that argument.
+</p>
+<p>
+    <b>Predictability: </b>
+    Functions that don’t modify their arguments are easier to understand because they behave predictably: the input values remain the same throughout the function’s execution.
+    This is especially important in large applications like Magento 2, where functions might be reused across multiple places, and modifying arguments can introduce bugs that are hard to trace.
+</p>
+<p>
+    <b>Avoiding Side Effects: </b>
+    In object-oriented programming (OOP), side effects (such as changing arguments or global state) can introduce hard-to-find bugs.
+    Modifying arguments would make the function impure, which is discouraged in OOP as it reduces the reusability and reliability of functions.
+</p>
+
+<pre data-diff-id="2" data-diff-type="noncompliant">
+function updateUser(&$user) {  // Noncompliant
+    $user['name'] = 'New Name';
+}
+</pre>
+
+<pre data-diff-id="1" data-diff-type="compliant">
+function updateUser($user) {      // Compiliant
+    $newUser = $user;
+    $newUser['name'] = 'New Name';
+    return $newUser;
+}
+</pre>
