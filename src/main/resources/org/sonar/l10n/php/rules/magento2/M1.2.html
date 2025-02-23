@@ -6,6 +6,14 @@
 <p>It means that every function or method you define should specify the type of value that it will return.</p>
 <p>This helps with code clarity, maintenance, and avoids potential runtime errors due to mismatched types.</p>
 
+<h3>Noncompliant code example</h3>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+function doSomething(){ // Noncompliant
+    return 'test';
+}
+</pre>
+
+<h3>Compliant solution</h3>
 <pre data-diff-id="1" data-diff-type="compliant">
 function doSomething() :string // compilant
 {
@@ -13,11 +21,6 @@ function doSomething() :string // compilant
 }
 </pre>
 
-<pre data-diff-id="2" data-diff-type="noncompliant">
-function doSomething(){ // Noncompliant
-    return 'test';
-}
-</pre>
 
 <h3>Exceptions</h3>
 <p>Magic methods (<code>__construct()</code>, <code>__destruct()</code>,
