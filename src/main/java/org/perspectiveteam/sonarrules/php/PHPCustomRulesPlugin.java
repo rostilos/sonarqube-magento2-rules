@@ -9,6 +9,6 @@ public class PHPCustomRulesPlugin implements Plugin {
 
   @Override
   public void define(Context context) {
-    context.addExtension(MyPhpRules.class);
+    context.addExtension(Magento2PhpRules.class);
   }
 }

@@ -1,6 +1,6 @@
 package org.perspectiveteam.sonarrules.php.checks;
 
-import org.perspectiveteam.sonarrules.php.checks.utils.CheckUtils;
+import org.sonar.php.checks.utils.CheckUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.check.Rule;
@@ -15,7 +15,7 @@ import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
 
 public class EventsInConstructorsCheck extends PHPVisitorCheck {
 
-    public static final String KEY = "S3";
+    public static final String KEY = "M2.3.2";
     public static final String FORBIDDEN_METHOD = "dispatch";
     public static final String MESSAGE = "Events MUST NOT be triggered in constructors.";
 

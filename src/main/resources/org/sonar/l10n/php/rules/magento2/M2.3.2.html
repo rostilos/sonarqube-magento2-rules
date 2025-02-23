@@ -1,0 +1,12 @@
+<p>
+    Events MUST NOT be triggered in constructors.
+</p>
+
+<pre data-diff-id="2" data-diff-type="noncompliant">
+    public function __construct($fileReader, $eventManager)
+    {
+        $this->data = $fileReader->read('cache.xml');
+        $eventManager->dispatch('config_read_after'); // Noncompliant
+    }
+
+</pre>

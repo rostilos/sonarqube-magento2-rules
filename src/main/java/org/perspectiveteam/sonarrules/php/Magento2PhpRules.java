@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.perspectiveteam.sonarrules.php.checks.EventsInConstructorsCheck;
+import org.perspectiveteam.sonarrules.php.checks.ReturnTypesOnFunctionsCheck;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 import org.sonar.plugins.php.api.visitors.PHPCustomRuleRepository;
@@ -17,14 +19,14 @@ import org.sonar.plugins.php.api.visitors.PHPCustomRuleRepository;
 /**
  * Extension point to define a PHP rule repository.
  */
-public class MyPhpRules implements RulesDefinition, PHPCustomRuleRepository {
+public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepository {
 
   /**
    * Provide the repository key
    */
   @Override
   public String repositoryKey() {
-    return "custom";
+    return "Magento2";
   }
 
   /**
@@ -33,24 +35,25 @@ public class MyPhpRules implements RulesDefinition, PHPCustomRuleRepository {
    */
   @Override
   public List<Class<?>> checkClasses() {
-    return List.of(EventsInConstructorsCheck.class);
+    return List.of(EventsInConstructorsCheck.class, ReturnTypesOnFunctionsCheck.class);
   }
 
   @Override
   public void define(Context context) {
     NewRepository repository = context.createRepository(repositoryKey(), "php")
-      .setName("MyCompany Custom Repository");
+      .setName("Magento2 Repository");
 
     // Load rule meta data from annotations
     RulesDefinitionAnnotationLoader annotationLoader = new RulesDefinitionAnnotationLoader();
     checkClasses().forEach(ruleClass -> annotationLoader.load(repository, ruleClass));
 
     // Optionally override html description from annotation with content from html files
-    repository.rules().forEach(rule -> rule.setHtmlDescription(loadResource("/org/sonar/l10n/php/rules/custom/" + rule.key() + ".html")));
+    repository.rules().forEach(rule -> rule.setHtmlDescription(loadResource("/org/sonar/l10n/php/rules/magento2/" + rule.key() + ".html")));
 
     // Optionally define remediation costs
     Map<String, String> remediationCosts = new HashMap<>();
     remediationCosts.put(EventsInConstructorsCheck.KEY, "2min");
+    remediationCosts.put(ReturnTypesOnFunctionsCheck.KEY, "2min");
     repository.rules().forEach(rule -> rule.setDebtRemediationFunction(
       rule.debtRemediationFunctions().constantPerIssue(remediationCosts.get(rule.key()))));
 
