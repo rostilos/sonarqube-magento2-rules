@@ -1,6 +1,6 @@
 # sonarqube-magento2-rules
-Set of advanced rules for SonarQube, for Magento 2 CMS
-⚠️⚠️⚠️The project is in the concept stage, and is not yet recommended for deployment to real SonarQube Server instances. I will be grateful for ideas and any help in its development⚠️⚠️⚠️
+<p>Set of advanced rules for SonarQube, for Magento 2 CMS<p>
+<p><strong>⚠️⚠️⚠️The project is in the concept stage, and is not yet recommended for deployment to real SonarQube Server instances. I will be grateful for ideas and any help in its development⚠️⚠️⚠️</strong></p>
 
 <h2>Installation</h2>
 To build your plugin project, execute this command from the project root directory:
