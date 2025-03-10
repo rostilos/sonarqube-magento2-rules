@@ -74,8 +74,8 @@ All rules will refer to the current Technical guidelines specified by Adobe <a h
 <ul>
     <li>✅ 1.1. Function arguments SHOULD NOT be modified.</li>
     <li>✅ 1.2. Explicit return types MUST BE declared on functions.</li>
-    <li>❌ 1.3. Type hints for scalar arguments SHOULD be used.</li>
-    <li>❌ 1.3.1. All new PHP files MUST have strict type mode enabled by starting with declare(strict_types=1);. All updated PHP files SHOULD have strict type mode enabled. PHP interfaces MAY have this declaration.
+    <li>⚠️ 1.3. Type hints for scalar arguments SHOULD be used.</li>
+    <li>✅ 1.3.1. All new PHP files MUST have strict type mode enabled by starting with declare(strict_types=1);. All updated PHP files SHOULD have strict type mode enabled. PHP interfaces MAY have this declaration.
 </ul>
 <ul>
     <li>❌  2.1. Object decomposition MUST follow the SOLID principles.</li>
@@ -85,7 +85,7 @@ All rules will refer to the current Technical guidelines specified by Adobe <a h
        Tests can create real DTOs for stubs. Data interfaces, Exceptions and Zend_Db_Expr are examples of DTOs.</li>
     <li>2.3. Class constructor can have only dependency assignment operations and/or argument validation operations. No other operations are allowed.</li>
     <li>❌ 2.3.1. Constructor SHOULD throw an exception when validation of an argument has failed.</li>
-    <li>✅ 2.3.2. Events MUST NOT be triggered in constructors.</li>
+    <li>✅  2.3.2. Events MUST NOT be triggered in constructors.</li>
     <li>❌ 2.4. All dependencies MUST be requested by the most generic type that is required by the client object.</li>
     <li>❌ 2.5. Proxies and interceptors MUST NEVER be explicitly requested in constructors.
     <li>❌ 2.6. Inheritance SHOULD NOT be used. Composition SHOULD be used for code reuse.</li>
