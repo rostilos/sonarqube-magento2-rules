@@ -1,0 +1,99 @@
+package org.perspectiveteam.sonarrules.php.checks;
+
+import org.sonar.check.Rule;
+import org.sonar.plugins.php.api.tree.Tree;
+import org.sonar.plugins.php.api.tree.declaration.MethodDeclarationTree;
+import org.sonar.plugins.php.api.tree.expression.ArrayAccessTree;
+import org.sonar.plugins.php.api.tree.expression.FunctionCallTree;
+import org.sonar.plugins.php.api.tree.statement.*;
+import org.sonar.plugins.php.api.tree.expression.AssignmentExpressionTree;
+import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
+import org.sonar.plugins.php.api.tree.expression.MemberAccessTree;
+import java.util.List;
+
+@Rule(
+        key = ConstructorDependencyCheck.KEY,
+        name = ConstructorDependencyCheck.MESSAGE,
+        tags = {"convention"}
+)
+
+public class ConstructorDependencyCheck extends PHPVisitorCheck {
+    public static final String KEY = "M2.3";
+    public static final String MESSAGE = "Class constructor can have only dependency assignment operations and/or argument validation operations.";
+
+    @Override
+    public void visitMethodDeclaration(MethodDeclarationTree tree) {
+        if (isConstructorPropertyPromotion(tree)) {
+            if(tree.body().is(Tree.Kind.BLOCK)){
+                List<StatementTree> statements = ((BlockTree) tree.body()).statements();
+                statements.forEach(statement -> {
+                    if (!isAllowedStatement(statement)) {
+                        context().newIssue(this,statement,MESSAGE );
+                    }
+                });
+            }
+        }
+        super.visitMethodDeclaration(tree);
+    }
+
+    private static boolean isConstructorPropertyPromotion(MethodDeclarationTree tree) {
+        return tree.name().text().equalsIgnoreCase("__construct") && ( (long) tree.parameters().parameters().size() > 0 );
+    }
+
+    /**
+     * Only assignments at MemberAccess and Throw level are allowed ( as a result of argument validation )
+     */
+    private boolean isAllowedStatement(Tree statement) {
+        if(statement instanceof ForEachStatementTree) {
+            List<StatementTree> childStatements = ((ForEachStatementTree) statement).statements();
+            return isNestedStatementsValid(childStatements);
+        }
+
+        if(statement instanceof IfStatementTree) {
+            List<StatementTree> childStatements = ((IfStatementTree) statement).statements();
+            return isNestedStatementsValid(childStatements);
+        }
+
+        if (statement instanceof ExpressionStatementTree) {
+            // Allow `$this->dependency = $dependency;`
+            ExpressionStatementTree expressionStatement = (ExpressionStatementTree) statement;
+            if (expressionStatement.expression() instanceof AssignmentExpressionTree) {
+                AssignmentExpressionTree assignment = (AssignmentExpressionTree) expressionStatement.expression();
+                return assignment.variable() instanceof MemberAccessTree;
+            }
+
+            // Allow parent::__construct()
+            if(expressionStatement.expression() instanceof FunctionCallTree){
+                FunctionCallTree functionCall = (FunctionCallTree) expressionStatement.expression();
+                return isParent(functionCall);
+            }
+        }
+        // Allow Throw Statements ( as part of argument validation )
+        return statement instanceof ThrowStatementTree;
+    }
+
+    /**
+     * Check for nested statements
+     * ( for example, if the composite argument loop contains validity checks on the argument ) and throw an exception
+     */
+    private boolean isNestedStatementsValid(List<StatementTree> statements) {
+        for (StatementTree statement : statements) {
+            if(statement.is(Tree.Kind.BLOCK)){
+                List<StatementTree> nestedStatements = ((BlockTree) statement).statements();
+                return isNestedStatementsValid(nestedStatements);
+            }else{
+                return isAllowedStatement(statement);
+            }
+        }
+        return true;
+    }
+
+    private static boolean isParent(FunctionCallTree functionCall) {
+        if(functionCall.callee() instanceof MemberAccessTree){
+            MemberAccessTree callee = (MemberAccessTree) functionCall.callee();
+            return callee.object().toString().equals("parent");
+        }
+        return false;
+    }
+
+}

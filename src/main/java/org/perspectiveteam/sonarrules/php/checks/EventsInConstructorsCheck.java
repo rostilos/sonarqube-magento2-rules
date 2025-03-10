@@ -1,6 +1,5 @@
 package org.perspectiveteam.sonarrules.php.checks;
 
-import org.sonar.php.checks.utils.CheckUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.check.Rule;
@@ -28,12 +27,6 @@ public class EventsInConstructorsCheck extends PHPVisitorCheck {
             context().newIssue(this, tree.callee(), MESSAGE);
         }
         super.visitFunctionCall(tree);
-        //String functionName = CheckUtils.getLowerCaseFunctionName(tree);
-        // if(functionName != null && !functionName.isEmpty() && functionName.equals("__construct")) {
-        //   if(isEventDispatch(tree)){
-        //     context().newIssue(this, tree.callee(), MESSAGE);
-        //   }
-        // }
     }
 
     private boolean isEventDispatch(FunctionCallTree functionCallTree) {

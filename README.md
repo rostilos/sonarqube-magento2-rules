@@ -75,25 +75,25 @@ All rules will refer to the current Technical guidelines specified by Adobe <a h
 <ul>
     <li>✅ 1.1. Function arguments SHOULD NOT be modified.</li>
     <li>✅ 1.2. Explicit return types MUST BE declared on functions.</li>
-    <li>⚠️ 1.3. Type hints for scalar arguments SHOULD be used.</li>
+    <li>⚠️ 1.3. Type hints for scalar arguments SHOULD be used <i>(I think this rule is more of a “ manual” code-review rule.)</i> .</li>
     <li>✅ 1.3.1. All new PHP files MUST have strict type mode enabled by starting with declare(strict_types=1);. All updated PHP files SHOULD have strict type mode enabled. PHP interfaces MAY have this declaration.
 </ul>
 <ul>
-    <li>❌  2.1. Object decomposition MUST follow the SOLID principles.</li>
+    <li>❌ 2.1. Object decomposition MUST follow the SOLID principles.</li>
     <li>❌ 2.2. Object instantiation </li>
     <li>❌ 2.2.1. An object MUST be ready for use after instantiation. No additional public initialization methods are allowed.</li>
     <li>❌ 2.2.2. Factories SHOULD be used for object instantiation instead of new keyword. An object SHOULD be replaceable for testing or extensibility purposes. Exception: DTOs. There is no behavior in DTOs, so there is no reason for its replaceability. 
        Tests can create real DTOs for stubs. Data interfaces, Exceptions and Zend_Db_Expr are examples of DTOs.</li>
-    <li>2.3. Class constructor can have only dependency assignment operations and/or argument validation operations. No other operations are allowed.</li>
-    <li>❌ 2.3.1. Constructor SHOULD throw an exception when validation of an argument has failed.</li>
-    <li>✅  2.3.2. Events MUST NOT be triggered in constructors.</li>
+    <li>✅ 2.3. Class constructor can have only dependency assignment operations and/or argument validation operations. No other operations are allowed.</li>
+    <li>️⚠️ 2.3.1. Constructor SHOULD throw an exception when validation of an argument has failed. <i>( I don't see a way to implement this check correctly, but Throw is allowed in constructors under 2.3 )</i> </li>
+    <li>✅ 2.3.2. Events MUST NOT be triggered in constructors.</li>
     <li>❌ 2.4. All dependencies MUST be requested by the most generic type that is required by the client object.</li>
     <li>❌ 2.5. Proxies and interceptors MUST NEVER be explicitly requested in constructors.
     <li>❌ 2.6. Inheritance SHOULD NOT be used. Composition SHOULD be used for code reuse.</li>
     <li>❌ 2.7. All non-public properties and methods SHOULD be private.</</li>li>
     <li>❌ 2.8. Abstract classes MUST NOT be marked as public @api.</li>
     <li>❌ 2.9. Service classes (ones that provide behavior but not data, like EventManager) SHOULD NOT have a mutable state.</li>
-    <li>❌ 2.10. Only data objects or entities (Product, Category, etc.) MAY have any observable state.</li>
+                                    <li>❌ 2.10. Only data objects or entities (Product, Category, etc.) MAY have any observable state.</li>
     <li>❌ 2.11. "Setters" SHOULD NOT be used. They are only allowed in Data Transfer Objects.</li>
     <li>❌ 2.12. "Getters" SHOULD NOT change the state of an object.</li>
     <li>❌ 2.13. Static methods SHOULD NOT be used.</li>
