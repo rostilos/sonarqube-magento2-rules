@@ -3,12 +3,12 @@ package org.perspectiveteam.sonarrules.php.checks;
 import org.sonar.check.Rule;
 import org.sonar.plugins.php.api.tree.Tree;
 import org.sonar.plugins.php.api.tree.declaration.MethodDeclarationTree;
-import org.sonar.plugins.php.api.tree.expression.ArrayAccessTree;
 import org.sonar.plugins.php.api.tree.expression.FunctionCallTree;
 import org.sonar.plugins.php.api.tree.statement.*;
 import org.sonar.plugins.php.api.tree.expression.AssignmentExpressionTree;
 import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
 import org.sonar.plugins.php.api.tree.expression.MemberAccessTree;
+import org.perspectiveteam.sonarrules.php.utils.CheckUtils;
 import java.util.List;
 
 @Rule(
@@ -23,7 +23,7 @@ public class ConstructorDependencyCheck extends PHPVisitorCheck {
 
     @Override
     public void visitMethodDeclaration(MethodDeclarationTree tree) {
-        if (isConstructorPropertyPromotion(tree)) {
+        if (CheckUtils.isConstructorMethodPromotion(tree)) {
             if(tree.body().is(Tree.Kind.BLOCK)){
                 List<StatementTree> statements = ((BlockTree) tree.body()).statements();
                 statements.forEach(statement -> {
@@ -34,10 +34,6 @@ public class ConstructorDependencyCheck extends PHPVisitorCheck {
             }
         }
         super.visitMethodDeclaration(tree);
-    }
-
-    private static boolean isConstructorPropertyPromotion(MethodDeclarationTree tree) {
-        return tree.name().text().equalsIgnoreCase("__construct") && ( (long) tree.parameters().parameters().size() > 0 );
     }
 
     /**
