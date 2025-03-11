@@ -14,6 +14,7 @@ import org.perspectiveteam.sonarrules.php.checks.ReturnTypesOnFunctionsCheck;
 import org.perspectiveteam.sonarrules.php.checks.FunctionArgumentsShouldNotBeModifiedCheck;
 import org.perspectiveteam.sonarrules.php.checks.StrictTypesDeclarationCheck;
 import org.perspectiveteam.sonarrules.php.checks.ConstructorDependencyCheck;
+import org.perspectiveteam.sonarrules.php.checks.EscapeOutputCheck;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
@@ -43,7 +44,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
       ReturnTypesOnFunctionsCheck.class,
       FunctionArgumentsShouldNotBeModifiedCheck.class,
       StrictTypesDeclarationCheck.class,
-      ConstructorDependencyCheck.class
+      ConstructorDependencyCheck.class,
+      EscapeOutputCheck.class
     );
   }
 
@@ -67,6 +69,7 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
     remediationCosts.put(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "2min");
     remediationCosts.put(StrictTypesDeclarationCheck.KEY, "2min");
     remediationCosts.put(ConstructorDependencyCheck.KEY, "2min");
+    remediationCosts.put(EscapeOutputCheck.KEY, "2min");
 
     repository.rules().forEach(rule -> rule.setDebtRemediationFunction(
       rule.debtRemediationFunctions().constantPerIssue(remediationCosts.get(rule.key()))));
