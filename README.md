@@ -83,7 +83,7 @@ All rules will refer to the current Technical guidelines specified by Adobe <a h
     <li>✅ 2.3.2. Events MUST NOT be triggered in constructors.</li>
 </ul>
 <ul>
-    <li>✅ 15.3.1. Sanitize input; escape output. <i>(only escape check)</i></li>
+    <li>✅ 15.3.1. Sanitize input; escape output. <i>(only escape check & .phtml)</i></li>
 </ul>
 
 

@@ -4,6 +4,7 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.php.api.tree.CompilationUnitTree;
 import org.sonar.plugins.php.api.tree.SeparatedList;
 import org.sonar.plugins.php.api.tree.Tree;
+import org.sonar.plugins.php.api.tree.expression.ConditionalExpressionTree;
 import org.sonar.plugins.php.api.tree.expression.ExpressionTree;
 import org.sonar.plugins.php.api.tree.expression.FunctionCallTree;
 import org.sonar.plugins.php.api.tree.lexical.SyntaxTrivia;
@@ -25,7 +26,9 @@ public class EscapeOutputCheck extends PHPVisitorCheck {
     public static final String KEY = "M15.3.1";
     public static final String MESSAGE = "Escape output";
 
-    public static final Pattern NO_ESCAPE_COMMENT_PATTERN = Pattern.compile("@noEscape\\b");
+    public static final Pattern NO_ESCAPE_COMMENT_PATTERN = Pattern.compile("@(?:noEscape|escapeNotVerified)\\b");
+    public static final Pattern SAFE_METHODS_PATTER = Pattern.compile("^(.*?)Html(.*)?$");
+
     private final Set<Integer> noEscapeLines = new HashSet<>();
     private final Map<Integer, Tree> unescapedEchos = new HashMap<>();
 
@@ -57,7 +60,7 @@ public class EscapeOutputCheck extends PHPVisitorCheck {
             SeparatedList<ExpressionTree> expressions = tree.expressions();
             ExpressionTree firstExpression = expressions.get(0);
             int startLine = tree.eosToken().line();
-            if(isNotEscaped(firstExpression.toString())){
+            if(isXSSVulnerableOutput(tree.expressions().get(0), firstExpression.toString())){
                 unescapedEchos.put(startLine, firstExpression);
             }
         }
@@ -70,18 +73,37 @@ public class EscapeOutputCheck extends PHPVisitorCheck {
             ExpressionTree callee = ((FunctionCallTree)tree.expression()).callee();
             String functionName = callee.toString();
             int startLine = tree.eosToken().line();
-            if ("echo".equals(functionName) && isNotEscaped(tree.toString())) {
+            if ("echo".equals(functionName) && isXSSVulnerableOutput(tree.expression(), tree.toString())) {
                 unescapedEchos.put(startLine, callee);
             }
         }
+    }
+
+    private boolean isXSSVulnerableOutput(Tree tree, String expressionName) {
+        return isNotEscaped(expressionName) && !isAllowedMethod(tree);
     }
 
     private boolean isNotEscaped(String content) {
         return !content.matches(".*\\$escaper->escape[A-Za-z]+\\(.*\\).*");
     }
 
-    private boolean isIncludedFile() {
-        return context().getPhpFile().filename().endsWith(".phtml");
+    private boolean isAllowedMethod(Tree tree) {
+        switch (tree.getKind()) {
+            case FUNCTION_CALL:
+                String calleeName = ((FunctionCallTree) tree).callee().toString();
+                Matcher matcher = SAFE_METHODS_PATTER.matcher(calleeName);
+                return matcher.find();
+            case CONDITIONAL_EXPRESSION:
+                ConditionalExpressionTree conditionalExpressionTree = (ConditionalExpressionTree) tree;
+                boolean allowedTrueExpression = isAllowedMethod(Objects.requireNonNull(conditionalExpressionTree.trueExpression()));
+                boolean allowedFalseExpression = isAllowedMethod(Objects.requireNonNull(conditionalExpressionTree.falseExpression()));
+                return allowedTrueExpression && allowedFalseExpression;
+            //Only CAST_EXPRESSION allowed
+            case VARIABLE_IDENTIFIER:
+                return false;
+            default:
+                return true;
+        }
     }
 
     private void reportIssues() {
@@ -91,5 +113,9 @@ public class EscapeOutputCheck extends PHPVisitorCheck {
                 context().newIssue(this, entry.getValue(), MESSAGE);
             }
         }
+    }
+
+    private boolean isIncludedFile() {
+        return context().getPhpFile().filename().endsWith(".phtml");
     }
 }
