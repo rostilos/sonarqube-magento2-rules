@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.perpectiveteam.sonarrules</groupId>
-  <artifactId>sonarqube-js-custom-rules</artifactId>
-  <version>10.0.0</version>
-  <name>sonarqube-js-custom-rules</name>
+  <artifactId>sonarqube-magento2-rules</artifactId>
+  <version>1.0.0</version>
+  <name>sonarqube-magento2-rules</name>
   <packaging>sonar-plugin</packaging>
 
   <properties>
@@ -81,6 +81,14 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>9</source>
+          <target>9</target>
+        </configuration>
       </plugin>
     </plugins>
   </build>
