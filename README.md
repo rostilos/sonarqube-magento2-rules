@@ -81,6 +81,16 @@ All rules will refer to the current Technical guidelines specified by Adobe <a h
     <li>✅ 2.3. Class constructor can have only dependency assignment operations and/or argument validation operations. No other operations are allowed.</li>
     <li>️⚠️ 2.3.1. Constructor SHOULD throw an exception when validation of an argument has failed. <i>( I don't see a way to implement this check correctly, but Throw is allowed in constructors under 2.3 )</i> </li>
     <li>✅ 2.3.2. Events MUST NOT be triggered in constructors.</li>
+    <li>✅ 2.5 Proxies and interceptors MUST NEVER be explicitly requested in constructors.</li>
+</ul>
+<ul>
+    <li>✅ 4.4 Plugins MUST be stateless.</li>
+</ul>
+<ul>
+    <li>❌ 5.14. Any exception SHOULD be logged only in the catch block where it is processed, and SHOULD NOT be re-thrown.</li>
+</ul>
+<ul>
+    <li>✅ 6.2.6 Templates MUST NOT instantiate objects. All objects MUST be passed from the Block objects.</li>
 </ul>
 <ul>
     <li>✅ 15.3.1. Sanitize input; escape output. <i>(only escape check & .phtml)</i></li>

@@ -15,6 +15,9 @@ import org.perspectiveteam.sonarrules.php.checks.FunctionArgumentsShouldNotBeMod
 import org.perspectiveteam.sonarrules.php.checks.StrictTypesDeclarationCheck;
 import org.perspectiveteam.sonarrules.php.checks.ConstructorDependencyCheck;
 import org.perspectiveteam.sonarrules.php.checks.EscapeOutputCheck;
+import org.perspectiveteam.sonarrules.php.checks.NoObjectInstantiationInTemplatesCheck;
+import org.perspectiveteam.sonarrules.php.checks.NoProxyInterceptorInConstructorRule;
+import org.perspectiveteam.sonarrules.php.checks.StatelessPluginCheck;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
@@ -45,7 +48,10 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
       FunctionArgumentsShouldNotBeModifiedCheck.class,
       StrictTypesDeclarationCheck.class,
       ConstructorDependencyCheck.class,
-      EscapeOutputCheck.class
+      EscapeOutputCheck.class,
+      NoObjectInstantiationInTemplatesCheck.class,
+      NoProxyInterceptorInConstructorRule.class,
+      StatelessPluginCheck.class
     );
   }
 
@@ -54,14 +60,20 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
     NewRepository repository = context.createRepository(repositoryKey(), "php")
       .setName("Magento2 Repository");
 
-    // Load rule meta data from annotations
     RulesDefinitionAnnotationLoader annotationLoader = new RulesDefinitionAnnotationLoader();
     checkClasses().forEach(ruleClass -> annotationLoader.load(repository, ruleClass));
 
-    // Optionally override html description from annotation with content from html files
     repository.rules().forEach(rule -> rule.setHtmlDescription(loadResource("/org/sonar/l10n/php/rules/magento2/" + rule.key() + ".html")));
 
-    // Optionally define remediation costs
+    Map<String, String> remediationCosts = getStringStringMap();
+
+    repository.rules().forEach(rule -> rule.setDebtRemediationFunction(
+      rule.debtRemediationFunctions().constantPerIssue(remediationCosts.get(rule.key()))));
+
+    repository.done();
+  }
+
+  private static Map<String, String> getStringStringMap() {
     Map<String, String> remediationCosts = new HashMap<>();
 
     remediationCosts.put(EventsInConstructorsCheck.KEY, "2min");
@@ -70,11 +82,10 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
     remediationCosts.put(StrictTypesDeclarationCheck.KEY, "2min");
     remediationCosts.put(ConstructorDependencyCheck.KEY, "2min");
     remediationCosts.put(EscapeOutputCheck.KEY, "2min");
-
-    repository.rules().forEach(rule -> rule.setDebtRemediationFunction(
-      rule.debtRemediationFunctions().constantPerIssue(remediationCosts.get(rule.key()))));
-
-    repository.done();
+    remediationCosts.put(NoObjectInstantiationInTemplatesCheck.KEY, "2min");
+    remediationCosts.put(NoProxyInterceptorInConstructorRule.KEY, "2min");
+    remediationCosts.put(StatelessPluginCheck.KEY, "2min");
+    return remediationCosts;
   }
 
   private String loadResource(String path) {
