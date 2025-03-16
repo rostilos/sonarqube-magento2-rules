@@ -1,5 +1,6 @@
 package org.perspectiveteam.sonarrules.php.checks;
 
+import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.php.api.tree.Tree;
 import org.sonar.plugins.php.api.tree.declaration.MethodDeclarationTree;
@@ -12,14 +13,16 @@ import org.perspectiveteam.sonarrules.php.utils.CheckUtils;
 @Rule(
         key = EventsInConstructorsCheck.KEY,
         name = EventsInConstructorsCheck.MESSAGE,
-        tags = {"convention"}
+        description = "Events MUST NOT be triggered in constructors. Triggering events during object construction can lead to unpredictable behavior since the object may not be fully initialized.",
+        priority = Priority.CRITICAL,
+        tags = {"magento2", "bug", "event-handling"}
 )
 
 public class EventsInConstructorsCheck extends PHPVisitorCheck {
 
     public static final String KEY = "M2.3.2";
     public static final String FORBIDDEN_METHOD = "dispatch";
-    public static final String MESSAGE = "Events MUST NOT be triggered in constructors.";
+    public static final String MESSAGE = "No events in constructors.";
 
     @Override
     public void visitFunctionCall(FunctionCallTree tree){

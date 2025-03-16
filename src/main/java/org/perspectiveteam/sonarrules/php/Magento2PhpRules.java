@@ -76,15 +76,15 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
   private static Map<String, String> getStringStringMap() {
     Map<String, String> remediationCosts = new HashMap<>();
 
-    remediationCosts.put(EventsInConstructorsCheck.KEY, "2min");
+    remediationCosts.put(EventsInConstructorsCheck.KEY, "5min");
     remediationCosts.put(ReturnTypesOnFunctionsCheck.KEY, "2min");
-    remediationCosts.put(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "2min");
-    remediationCosts.put(StrictTypesDeclarationCheck.KEY, "2min");
-    remediationCosts.put(ConstructorDependencyCheck.KEY, "2min");
+    remediationCosts.put(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "5min");
+    remediationCosts.put(StrictTypesDeclarationCheck.KEY, "5min");
+    remediationCosts.put(ConstructorDependencyCheck.KEY, "5min");
     remediationCosts.put(EscapeOutputCheck.KEY, "2min");
-    remediationCosts.put(NoObjectInstantiationInTemplatesCheck.KEY, "2min");
-    remediationCosts.put(NoProxyInterceptorInConstructorRule.KEY, "2min");
-    remediationCosts.put(StatelessPluginCheck.KEY, "2min");
+    remediationCosts.put(NoObjectInstantiationInTemplatesCheck.KEY, "10min");
+    remediationCosts.put(NoProxyInterceptorInConstructorRule.KEY, "5min");
+    remediationCosts.put(StatelessPluginCheck.KEY, "15min");
     return remediationCosts;
   }
 

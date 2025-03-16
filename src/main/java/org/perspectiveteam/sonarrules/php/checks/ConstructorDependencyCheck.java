@@ -1,5 +1,6 @@
 package org.perspectiveteam.sonarrules.php.checks;
 
+import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.php.api.tree.Tree;
 import org.sonar.plugins.php.api.tree.declaration.MethodDeclarationTree;
@@ -14,12 +15,14 @@ import java.util.List;
 @Rule(
         key = ConstructorDependencyCheck.KEY,
         name = ConstructorDependencyCheck.MESSAGE,
-        tags = {"convention"}
+        description = "Class constructor must only contain dependency assignment operations and/or argument validation operations. Complex logic should be moved to separate methods.",
+        priority = Priority.MAJOR,
+        tags = {"magento2", "clean-code", "design"}
 )
 
 public class ConstructorDependencyCheck extends PHPVisitorCheck {
     public static final String KEY = "M2.3";
-    public static final String MESSAGE = "Class constructor can have only dependency assignment operations and/or argument validation operations.";
+    public static final String MESSAGE = "Constructor limited to dependency assignment and validation";
 
     @Override
     public void visitMethodDeclaration(MethodDeclarationTree tree) {

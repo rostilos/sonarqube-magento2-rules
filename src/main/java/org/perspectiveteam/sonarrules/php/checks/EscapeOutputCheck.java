@@ -1,5 +1,6 @@
 package org.perspectiveteam.sonarrules.php.checks;
 
+import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.php.api.tree.CompilationUnitTree;
 import org.sonar.plugins.php.api.tree.SeparatedList;
@@ -19,12 +20,14 @@ import java.util.regex.Pattern;
 @Rule(
         key = org.perspectiveteam.sonarrules.php.checks.EscapeOutputCheck.KEY,
         name = org.perspectiveteam.sonarrules.php.checks.EscapeOutputCheck.MESSAGE,
-        tags = {"convention"}
+        description = "All output that could contain user-supplied data must be properly escaped before being rendered in HTML, JavaScript, or other contexts to prevent XSS vulnerabilities.",
+        priority = Priority.CRITICAL,
+        tags = {"magento2", "security", "xss"}
 )
 
 public class EscapeOutputCheck extends PHPVisitorCheck {
     public static final String KEY = "M15.3.1";
-    public static final String MESSAGE = "Escape output";
+    public static final String MESSAGE = "Escape output for display";
 
     public static final Pattern NO_ESCAPE_COMMENT_PATTERN = Pattern.compile("@(?:noEscape|escapeNotVerified)\\b");
     public static final Pattern SAFE_METHODS_PATTER = Pattern.compile("^(.*?)Html(.*)?$");
