@@ -13,6 +13,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.debug>true</maven.compiler.debug>
+    <version.sonarqube-plugin-api>10.7.0.2191</version.sonarqube-plugin-api>
   </properties>
 
 
@@ -20,7 +21,7 @@
     <dependency>
       <groupId>org.sonarsource.api.plugin</groupId>
       <artifactId>sonar-plugin-api</artifactId>
-      <version>10.6.0.2114</version>
+      <version>${version.sonarqube-plugin-api}</version>
       <scope>provided</scope>
     </dependency>
 
@@ -41,6 +42,12 @@
         <artifactId>junit-jupiter</artifactId>
         <version>5.10.3</version>
         <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.sonarsource.sonarqube</groupId>
+      <artifactId>sonar-plugin-api-impl</artifactId>
+      <version>10.7.0.96327</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

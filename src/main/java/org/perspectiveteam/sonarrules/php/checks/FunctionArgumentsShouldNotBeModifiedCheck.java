@@ -6,6 +6,7 @@ import org.sonar.plugins.php.api.tree.Tree;
 import org.sonar.plugins.php.api.tree.declaration.FunctionDeclarationTree;
 import org.sonar.plugins.php.api.tree.declaration.MethodDeclarationTree;
 import org.sonar.plugins.php.api.tree.declaration.ParameterTree;
+import org.sonar.plugins.php.api.tree.expression.ArrayAccessTree;
 import org.sonar.plugins.php.api.tree.expression.AssignmentExpressionTree;
 import org.sonar.plugins.php.api.tree.expression.VariableIdentifierTree;
 import org.sonar.plugins.php.api.tree.statement.ForEachStatementTree;
@@ -83,15 +84,26 @@ public class FunctionArgumentsShouldNotBeModifiedCheck extends PHPVisitorCheck {
 
         @Override
         public void visitAssignmentExpression(AssignmentExpressionTree tree) {
-            if (tree.variable().is(Tree.Kind.VARIABLE_IDENTIFIER)) {
-                VariableIdentifierTree variable = (VariableIdentifierTree) tree.variable();
-                String variableName = variable.text();
+            String variableName = "";
 
-                if (!variableName.isEmpty() && parameterNames.contains(variableName)) {
-                    issues.add(new IssueInfo(tree,
-                            "Function argument \"" + variableName + "\" should not be modified. Use a local variable instead."));
+            switch (tree.variable().getKind()){
+                case VARIABLE_IDENTIFIER:
+                    VariableIdentifierTree variable = (VariableIdentifierTree) tree.variable();
+                    variableName = variable.text();
+                    break;
+                case ARRAY_ACCESS:
+                    ArrayAccessTree arrayAccessVariable = (ArrayAccessTree) tree.variable();
+                    if(arrayAccessVariable.object().is(Tree.Kind.VARIABLE_IDENTIFIER)){
+                        variableName = ((VariableIdentifierTree) arrayAccessVariable.object()).text();
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (!variableName.isEmpty() && parameterNames.contains(variableName)) {
+                issues.add(new IssueInfo(tree,
+                        "Function argument \"" + variableName + "\" should not be modified. Use a local variable instead."));
 
-                }
             }
             super.visitAssignmentExpression(tree);
         }
@@ -99,14 +111,10 @@ public class FunctionArgumentsShouldNotBeModifiedCheck extends PHPVisitorCheck {
         @Override
         public void visitForEachStatement(ForEachStatementTree tree) {
             if (tree.value() != null && tree.value().is(Tree.Kind.REFERENCE_VARIABLE)) {
-                if (tree.value().is(Tree.Kind.VARIABLE_IDENTIFIER)) {
-                    VariableIdentifierTree variable = (VariableIdentifierTree) tree.value();
-                    String variableName = variable.text();
-
-                    if (parameterNames.contains(variableName)) {
-                        issues.add(new IssueInfo(tree,
-                                "Function argument \"" + variableName + "\" should not be modified through foreach reference. Use a local variable instead."));
-                    }
+                String iterableVariableName = tree.expression().toString();
+                if (parameterNames.contains(iterableVariableName)) {
+                    issues.add(new IssueInfo(tree,
+                            "Potential modification of the function argument by reference variable. Use a local variable instead."));
                 }
             }
             super.visitForEachStatement(tree);

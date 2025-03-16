@@ -1,33 +1,41 @@
-<h2></h2>
-<p>
-    <b>Immutability of Arguments: </b>
-    When a function is called, the arguments (the values or references passed to it) should not be altered within the function.
-    Modifying arguments can lead to unintended side effects, making the code harder to debug, test, and maintain.
-    For example, if a function modifies an argument that is passed by reference, it can affect other parts of the code that rely on the original value of that argument.
-</p>
-<p>
-    <b>Predictability: </b>
-    Functions that don’t modify their arguments are easier to understand because they behave predictably: the input values remain the same throughout the function’s execution.
-    This is especially important in large applications like Magento 2, where functions might be reused across multiple places, and modifying arguments can introduce bugs that are hard to trace.
-</p>
-<p>
-    <b>Avoiding Side Effects: </b>
-    In object-oriented programming (OOP), side effects (such as changing arguments or global state) can introduce hard-to-find bugs.
-    Modifying arguments would make the function impure, which is discouraged in OOP as it reduces the reusability and reliability of functions.
-</p>
+<h2>Why is this an issue?</h2>
+<p>Modifying function arguments can lead to:</p>
+<ul>
+    <li>Unexpected behavior when the modified argument is used later in the calling code</li>
+    <li>Decreased code readability and maintainability</li>
+    <li>Difficulty in reasoning about the function's behavior</li>
+    <li>Potential side effects in the calling code</li>
+</ul>
 
-<h3>Noncompliant code example</h3>
+<h2>Noncompliant Code Example</h2>
 <pre data-diff-id="2" data-diff-type="noncompliant">
-function updateUser(&$user) {  // Noncompliant
-    $user['name'] = 'New Name';
+public function arrayFunction(array $items)
+{
+    $items[] = 'new item'; // Noncompliant: Function argument "$items" should not be modified.
+    $items['key'] = 'value'; // Noncompliant: Function argument "$items" should not be modified.
+
+    foreach ($items as &$item) { // Using reference in foreach is also modifying the argument
+        $item = strtoupper($item); //  Noncompliant This modifies $items indirectly
+    }
+
+    return $items;
 }
 </pre>
 
-<h3>Compliant solution</h3>
+<h2>Compliant Solution</h2>
 <pre data-diff-id="1" data-diff-type="compliant">
-function updateUser($user) {      // Compiliant
-    $newUser = $user;
-    $newUser['name'] = 'New Name';
-    return $newUser;
+function processData($data) {
+  $processedData = trim($data); // Compliant - using a local variable
+  return $processedData;
 }
 </pre>
+
+<h2>Why is this important?</h2>
+
+
+<h2>Exceptions</h2>
+<p>
+    There are some cases where modifying function arguments might be acceptable, particularly for
+    performance reasons with large data structures. However, in such cases, it should be clearly
+    documented that the function modifies its arguments.
+</p>
