@@ -69,9 +69,13 @@ networks:
 ````
 
 <h2>Available rules</h2>
-All rules will refer to the current Technical guidelines specified by Adobe <a href="https://developer.adobe.com/commerce/php/coding-standards/technical-guidelines/">Technical guidelines
-</a>
 
+<p>Rules not explicitly stated in the technical guideline</p>
+<ul>
+    <li>✅ 0.1. Direct use of objectManager is prohibited</li>
+</ul>
+
+<p>Rules defined in Adobe's technical guideline <a href="https://developer.adobe.com/commerce/php/coding-standards/technical-guidelines/">Technical guidelines</a></p>
 <ul>
     <li>✅ 1.1. Function arguments SHOULD NOT be modified.</li>
     <li>✅ 1.2. Explicit return types MUST BE declared on functions.</li>
@@ -93,7 +97,9 @@ All rules will refer to the current Technical guidelines specified by Adobe <a h
     <li>✅ 6.2.6 Templates MUST NOT instantiate objects. All objects MUST be passed from the Block objects.</li>
 </ul>
 <ul>
+    <li>❌ 9.4 HTML markup generated on server should not contain user-specific data</li>
+</ul>
+<ul>
     <li>✅ 15.3.1. Sanitize input; escape output. <i>(only escape check & .phtml)</i></li>
 </ul>
-
 
