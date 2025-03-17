@@ -86,14 +86,14 @@ public class FunctionArgumentsShouldNotBeModifiedCheck extends PHPVisitorCheck {
         public void visitAssignmentExpression(AssignmentExpressionTree tree) {
             String variableName = "";
 
-            switch (tree.variable().getKind()){
+            switch (tree.variable().getKind()) {
                 case VARIABLE_IDENTIFIER:
                     VariableIdentifierTree variable = (VariableIdentifierTree) tree.variable();
                     variableName = variable.text();
                     break;
                 case ARRAY_ACCESS:
                     ArrayAccessTree arrayAccessVariable = (ArrayAccessTree) tree.variable();
-                    if(arrayAccessVariable.object().is(Tree.Kind.VARIABLE_IDENTIFIER)){
+                    if (arrayAccessVariable.object().is(Tree.Kind.VARIABLE_IDENTIFIER)) {
                         variableName = ((VariableIdentifierTree) arrayAccessVariable.object()).text();
                     }
                     break;

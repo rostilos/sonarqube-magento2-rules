@@ -9,8 +9,10 @@ import org.sonar.plugins.php.api.tree.statement.BlockTree;
 import org.sonar.plugins.php.api.tree.statement.ExpressionStatementTree;
 import org.sonar.plugins.php.api.tree.statement.StatementTree;
 import org.sonar.plugins.php.api.visitors.PHPSubscriptionCheck;
+
 import java.util.Collections;
 import java.util.List;
+
 import org.perspectiveteam.sonarrules.php.utils.CheckUtils;
 
 @Rule(

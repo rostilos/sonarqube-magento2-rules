@@ -25,28 +25,28 @@ public class EventsInConstructorsCheck extends PHPVisitorCheck {
     public static final String MESSAGE = "No events in constructors.";
 
     @Override
-    public void visitFunctionCall(FunctionCallTree tree){
+    public void visitFunctionCall(FunctionCallTree tree) {
         boolean isCalledInConstructor = isCalledInConstructor(tree);
-        if(isCalledInConstructor && isEventDispatch(tree)) {
+        if (isCalledInConstructor && isEventDispatch(tree)) {
             context().newIssue(this, tree.callee(), MESSAGE);
         }
         super.visitFunctionCall(tree);
     }
 
     private boolean isCalledInConstructor(Tree tree) {
-        if(!tree.is(Tree.Kind.METHOD_DECLARATION)){
-            if(tree.getParent() == null){
+        if (!tree.is(Tree.Kind.METHOD_DECLARATION)) {
+            if (tree.getParent() == null) {
                 return false;
             }
             return isCalledInConstructor(tree.getParent());
-        }else{
+        } else {
             return CheckUtils.isConstructorMethodPromotion((MethodDeclarationTree) tree);
         }
 
     }
 
     private boolean isEventDispatch(FunctionCallTree functionCallTree) {
-        if(functionCallTree.callee().is(Tree.Kind.OBJECT_MEMBER_ACCESS)){
+        if (functionCallTree.callee().is(Tree.Kind.OBJECT_MEMBER_ACCESS)) {
             MemberAccessTree callee = (MemberAccessTree) functionCallTree.callee();
             NameIdentifierTree member = (NameIdentifierTree) callee.member();
             return member.text().equals(FORBIDDEN_METHOD);

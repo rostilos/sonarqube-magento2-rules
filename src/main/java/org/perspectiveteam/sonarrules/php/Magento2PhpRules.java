@@ -29,82 +29,82 @@ import org.sonar.plugins.php.api.visitors.PHPCustomRuleRepository;
  */
 public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepository {
 
-  /**
-   * Provide the repository key
-   */
-  @Override
-  public String repositoryKey() {
-    return "Magento2";
-  }
-
-  /**
-   * Provide the list of checks class that implements rules
-   * to be part of the rule repository
-   */
-  @Override
-  public List<Class<?>> checkClasses() {
-    return List.of(
-      EventsInConstructorsCheck.class,
-      ReturnTypesOnFunctionsCheck.class,
-      FunctionArgumentsShouldNotBeModifiedCheck.class,
-      StrictTypesDeclarationCheck.class,
-      ConstructorDependencyCheck.class,
-      EscapeOutputCheck.class,
-      NoObjectInstantiationInTemplatesCheck.class,
-      NoProxyInterceptorInConstructorRule.class,
-      StatelessPluginCheck.class,
-      DirectUseOfObjectManagerCheck.class
-    );
-  }
-
-  @Override
-  public void define(Context context) {
-    NewRepository repository = context.createRepository(repositoryKey(), "php")
-      .setName("Magento2 Repository");
-
-    RulesDefinitionAnnotationLoader annotationLoader = new RulesDefinitionAnnotationLoader();
-    checkClasses().forEach(ruleClass -> annotationLoader.load(repository, ruleClass));
-
-    repository.rules().forEach(rule -> rule.setHtmlDescription(loadResource("/org/sonar/l10n/php/rules/magento2/" + rule.key() + ".html")));
-
-    Map<String, String> remediationCosts = getStringStringMap();
-
-    repository.rules().forEach(rule -> rule.setDebtRemediationFunction(
-      rule.debtRemediationFunctions().constantPerIssue(remediationCosts.get(rule.key()))));
-
-    repository.done();
-  }
-
-  private static Map<String, String> getStringStringMap() {
-    Map<String, String> remediationCosts = new HashMap<>();
-
-    remediationCosts.put(EventsInConstructorsCheck.KEY, "5min");
-    remediationCosts.put(ReturnTypesOnFunctionsCheck.KEY, "2min");
-    remediationCosts.put(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "5min");
-    remediationCosts.put(StrictTypesDeclarationCheck.KEY, "5min");
-    remediationCosts.put(ConstructorDependencyCheck.KEY, "5min");
-    remediationCosts.put(EscapeOutputCheck.KEY, "2min");
-    remediationCosts.put(NoObjectInstantiationInTemplatesCheck.KEY, "10min");
-    remediationCosts.put(NoProxyInterceptorInConstructorRule.KEY, "5min");
-    remediationCosts.put(StatelessPluginCheck.KEY, "15min");
-    remediationCosts.put(DirectUseOfObjectManagerCheck.KEY, "30min");
-    return remediationCosts;
-  }
-
-  private String loadResource(String path) {
-    URL resource = getClass().getResource(path);
-    if (resource == null) {
-      throw new IllegalStateException("Resource not found: " + path);
+    /**
+     * Provide the repository key
+     */
+    @Override
+    public String repositoryKey() {
+        return "Magento2";
     }
-    ByteArrayOutputStream result = new ByteArrayOutputStream();
-    try (InputStream in = resource.openStream()) {
-      byte[] buffer = new byte[1024];
-      for (int len = in.read(buffer); len != -1; len = in.read(buffer)) {
-        result.write(buffer, 0, len);
-      }
-      return new String(result.toByteArray(), StandardCharsets.UTF_8);
-    } catch (IOException e) {
-      throw new IllegalStateException("Failed to read resource: " + path, e);
+
+    /**
+     * Provide the list of checks class that implements rules
+     * to be part of the rule repository
+     */
+    @Override
+    public List<Class<?>> checkClasses() {
+        return List.of(
+                EventsInConstructorsCheck.class,
+                ReturnTypesOnFunctionsCheck.class,
+                FunctionArgumentsShouldNotBeModifiedCheck.class,
+                StrictTypesDeclarationCheck.class,
+                ConstructorDependencyCheck.class,
+                EscapeOutputCheck.class,
+                NoObjectInstantiationInTemplatesCheck.class,
+                NoProxyInterceptorInConstructorRule.class,
+                StatelessPluginCheck.class,
+                DirectUseOfObjectManagerCheck.class
+        );
     }
-  }
+
+    @Override
+    public void define(Context context) {
+        NewRepository repository = context.createRepository(repositoryKey(), "php")
+                .setName("Magento2 Repository");
+
+        RulesDefinitionAnnotationLoader annotationLoader = new RulesDefinitionAnnotationLoader();
+        checkClasses().forEach(ruleClass -> annotationLoader.load(repository, ruleClass));
+
+        repository.rules().forEach(rule -> rule.setHtmlDescription(loadResource("/org/sonar/l10n/php/rules/magento2/" + rule.key() + ".html")));
+
+        Map<String, String> remediationCosts = getStringStringMap();
+
+        repository.rules().forEach(rule -> rule.setDebtRemediationFunction(
+                rule.debtRemediationFunctions().constantPerIssue(remediationCosts.get(rule.key()))));
+
+        repository.done();
+    }
+
+    private static Map<String, String> getStringStringMap() {
+        Map<String, String> remediationCosts = new HashMap<>();
+
+        remediationCosts.put(EventsInConstructorsCheck.KEY, "5min");
+        remediationCosts.put(ReturnTypesOnFunctionsCheck.KEY, "2min");
+        remediationCosts.put(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "5min");
+        remediationCosts.put(StrictTypesDeclarationCheck.KEY, "5min");
+        remediationCosts.put(ConstructorDependencyCheck.KEY, "5min");
+        remediationCosts.put(EscapeOutputCheck.KEY, "2min");
+        remediationCosts.put(NoObjectInstantiationInTemplatesCheck.KEY, "10min");
+        remediationCosts.put(NoProxyInterceptorInConstructorRule.KEY, "5min");
+        remediationCosts.put(StatelessPluginCheck.KEY, "15min");
+        remediationCosts.put(DirectUseOfObjectManagerCheck.KEY, "30min");
+        return remediationCosts;
+    }
+
+    private String loadResource(String path) {
+        URL resource = getClass().getResource(path);
+        if (resource == null) {
+            throw new IllegalStateException("Resource not found: " + path);
+        }
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        try (InputStream in = resource.openStream()) {
+            byte[] buffer = new byte[1024];
+            for (int len = in.read(buffer); len != -1; len = in.read(buffer)) {
+                result.write(buffer, 0, len);
+            }
+            return new String(result.toByteArray(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to read resource: " + path, e);
+        }
+    }
 }

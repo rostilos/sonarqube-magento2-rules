@@ -7,8 +7,8 @@ import org.sonar.api.Plugin;
  */
 public class PHPCustomRulesPlugin implements Plugin {
 
-  @Override
-  public void define(Context context) {
-    context.addExtension(Magento2PhpRules.class);
-  }
+    @Override
+    public void define(Context context) {
+        context.addExtension(Magento2PhpRules.class);
+    }
 }

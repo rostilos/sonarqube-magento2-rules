@@ -1,5 +1,6 @@
 package org.perspectiveteam.sonarrules.php.checks;
 
+import org.perspectiveteam.sonarrules.php.utils.CheckUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.php.api.tree.declaration.ReturnTypeClauseTree;
@@ -22,16 +23,12 @@ public class ReturnTypesOnFunctionsCheck extends PHPVisitorCheck {
 
     public static final String KEY = "M1.2";
     public static final String MESSAGE = "Functions must declare explicit return types.";
-    private static final Set<String> MAGIC_METHODS = Set.of(
-            "__construct", "__destruct", "__call", "__callStatic", "__get",
-            "__set", "__isset", "__unset", "__sleep", "__wakeup", "__toString", "__invoke",
-            "__set_state", "__clone", "__debugInfo");
 
     @Override
-    public void visitMethodDeclaration(MethodDeclarationTree tree){
-        if(!isExceptionMethod(tree)){
+    public void visitMethodDeclaration(MethodDeclarationTree tree) {
+        if (!isExceptionMethod(tree)) {
             boolean hasReturnType = checkIfHasReturnType(tree);
-            if(!hasReturnType){
+            if (!hasReturnType) {
                 context().newIssue(this, tree.name(), MESSAGE);
             }
         }
@@ -40,7 +37,7 @@ public class ReturnTypesOnFunctionsCheck extends PHPVisitorCheck {
     }
 
     private boolean checkIfHasReturnType(MethodDeclarationTree tree) {
-        if(tree.returnTypeClause() == null){
+        if (tree.returnTypeClause() == null) {
             return false;
         }
         ReturnTypeClauseTree functionReturnClause = Objects.requireNonNull(tree.returnTypeClause());
@@ -50,7 +47,7 @@ public class ReturnTypesOnFunctionsCheck extends PHPVisitorCheck {
 
     private boolean isExceptionMethod(MethodDeclarationTree tree) {
         String methodName = tree.name().toString();
-        return MAGIC_METHODS.contains(methodName);
+        return CheckUtils.MAGIC_METHODS.contains(methodName);
     }
 
 }

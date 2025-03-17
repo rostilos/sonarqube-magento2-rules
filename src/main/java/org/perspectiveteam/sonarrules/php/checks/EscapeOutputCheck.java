@@ -60,11 +60,11 @@ public class EscapeOutputCheck extends PHPVisitorCheck {
     @Override
     public void visitEchoTagStatement(EchoTagStatementTree tree) {
         super.visitEchoTagStatement(tree);
-        if(isIncludedFile()){
+        if (isIncludedFile()) {
             SeparatedList<ExpressionTree> expressions = tree.expressions();
             ExpressionTree firstExpression = expressions.get(0);
             int startLine = tree.eosToken().line();
-            if(isXSSVulnerableOutput(tree.expressions().get(0), firstExpression.toString())){
+            if (isXSSVulnerableOutput(tree.expressions().get(0), firstExpression.toString())) {
                 unescapedEchos.put(startLine, firstExpression);
             }
         }
@@ -73,16 +73,16 @@ public class EscapeOutputCheck extends PHPVisitorCheck {
     @Override
     public void visitExpressionStatement(ExpressionStatementTree tree) {
         super.visitExpressionStatement(tree);
-        if(isIncludedFile() && tree.expression().is(Tree.Kind.FUNCTION_CALL)){
-            ExpressionTree callee = ((FunctionCallTree)tree.expression()).callee();
+        if (isIncludedFile() && tree.expression().is(Tree.Kind.FUNCTION_CALL)) {
+            ExpressionTree callee = ((FunctionCallTree) tree.expression()).callee();
             String calleeName = callee.toString();
-            if (!"echo".equals(calleeName)){
+            if (!"echo".equals(calleeName)) {
                 return;
             }
 
             SeparatedList<CallArgumentTree> callArgument = ((FunctionCallTree) tree.expression()).callArguments();
             Tree firstArgumentExpression = callArgument.get(0).value();
-            if(!firstArgumentExpression.is(Tree.Kind.FUNCTION_CALL)){
+            if (!firstArgumentExpression.is(Tree.Kind.FUNCTION_CALL)) {
                 return;
             }
 

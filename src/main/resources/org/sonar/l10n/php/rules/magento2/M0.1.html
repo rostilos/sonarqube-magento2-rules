@@ -45,6 +45,7 @@ namespace Vendor\Module\Model;
 
 use Magento\Catalog\Model\ProductFactory;
 use Magento\Catalog\Model\CategoryRepository;
+use Magento\Framework\ObjectManagerInterface;
 
 class MyClass
 {
@@ -63,7 +64,7 @@ class MyClass
         CategoryRepository $categoryRepository
     ) {
         $this->productFactory = $productFactory;
-        $this->categoryRepository = $categoryRepository;
+        $this->categoryRepository = $categoryRepository ?: ObjectManager::getInstance()->get(CategoryRepository::class);
     }
 
     public function createProduct()
