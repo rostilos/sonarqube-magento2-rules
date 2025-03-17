@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 public class NoProxyInterceptorInConstructorRule extends PHPVisitorCheck {
     public static final String KEY = "M2.5";
-    public static final String MESSAGE = "No explicit proxy/interceptor requests in constructors";
+    public static final String MESSAGE = "No explicit proxy/interceptor requests in constructors.";
     public static final Pattern PROXY_INTERCEPTOR_PATTERN = Pattern.compile(".*(Proxy|Interceptor)$");
 
     @Override

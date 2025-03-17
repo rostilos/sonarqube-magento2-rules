@@ -21,7 +21,7 @@ import java.util.Set;
 public class ReturnTypesOnFunctionsCheck extends PHPVisitorCheck {
 
     public static final String KEY = "M1.2";
-    public static final String MESSAGE = "Functions must declare explicit return types";
+    public static final String MESSAGE = "Functions must declare explicit return types.";
     private static final Set<String> MAGIC_METHODS = Set.of(
             "__construct", "__destruct", "__call", "__callStatic", "__get",
             "__set", "__isset", "__unset", "__sleep", "__wakeup", "__toString", "__invoke",
