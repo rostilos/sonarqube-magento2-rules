@@ -1,0 +1,105 @@
+<h2>Why is this an issue?</h2>
+<p>
+    Magento 2 prohibits the direct use of ObjectManager in your code
+    because it violates the principles of Dependency Injection (DI), makes code harder to test and maintain
+    and hides the real dependencies of a class.
+</p>
+
+
+<h2>Rule Description</h2>
+<p>
+    This rule checks for direct usage of ObjectManager in your Magento 2 code:
+</p>
+<ul>
+    <li>Using <code>ObjectManager::getInstance()</code> static method</li>
+    <li>Calling methods like <code>get()</code> or <code>create()</code> on an ObjectManager instance</li>
+    <li>Using any variables that appear to reference ObjectManager (like <code>$_objectManager</code>, <code>$objectManager</code>)</li>
+</ul>
+
+<h2>Noncompliant Code Example</h2>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+namespace Vendor\Module\Model;
+
+class MyClass
+{
+    public function createProduct()
+    {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        return $objectManager->create('Magento\Catalog\Model\Product');
+    }
+
+    public function getCategory($categoryId)
+    {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $categoryRepository = $objectManager->get('Magento\Catalog\Model\CategoryRepository');
+        return $categoryRepository->get($categoryId);
+    }
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<p>Instead of using ObjectManager directly, use constructor dependency injection:</p>
+
+<pre data-diff-id="1" data-diff-type="compliant">
+namespace Vendor\Module\Model;
+
+use Magento\Catalog\Model\ProductFactory;
+use Magento\Catalog\Model\CategoryRepository;
+
+class MyClass
+{
+    private ProductFactory $productFactory;
+
+    private CategoryRepository $categoryRepository;
+
+    /**
+     * Constructor with proper dependency injection
+     *
+     * @param ProductFactory $productFactory
+     * @param CategoryRepository $categoryRepository
+     */
+    public function __construct(
+        ProductFactory $productFactory,
+        CategoryRepository $categoryRepository
+    ) {
+        $this->productFactory = $productFactory;
+        $this->categoryRepository = $categoryRepository;
+    }
+
+    public function createProduct()
+    {
+        return $this->productFactory->create();
+    }
+
+    public function getCategory($categoryId)
+    {
+        return $this->categoryRepository->get($categoryId);
+    }
+}
+</pre>
+
+<h2>Exceptions</h2>
+<p>
+    This rule allows ObjectManager usage in the following specific class types where it's considered acceptable practice in Magento 2:
+</p>
+<ul>
+    <li><strong>Factories</strong>: Classes with names ending in "Factory"</li>
+    <li><strong>Proxies</strong>: Classes with names ending in "Proxy"</li>
+    <li><strong>Interceptors</strong>: Classes with names ending in "Interceptor"</li>
+    <li>Usage in <code>__construct</code> method</li>
+</ul>
+
+
+<h2>References</h2>
+<ul>
+    <li>
+        <a href="https://developer.adobe.com/commerce/php/development/components/object-manager/" target="_blank">
+            Magento 2 Object Manager Documentation
+        </a>
+    </li>
+    <li>
+        <a href="https://developer.adobe.com/commerce/php/development/components/dependency-injection/" target="_blank">
+            Configuring Dependency Injection
+        </a>
+    </li>
+</ul>

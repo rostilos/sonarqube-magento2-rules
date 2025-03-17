@@ -18,6 +18,7 @@ import org.perspectiveteam.sonarrules.php.checks.EscapeOutputCheck;
 import org.perspectiveteam.sonarrules.php.checks.NoObjectInstantiationInTemplatesCheck;
 import org.perspectiveteam.sonarrules.php.checks.NoProxyInterceptorInConstructorRule;
 import org.perspectiveteam.sonarrules.php.checks.StatelessPluginCheck;
+import org.perspectiveteam.sonarrules.php.checks.DirectUseOfObjectManagerCheck;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
@@ -51,7 +52,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
       EscapeOutputCheck.class,
       NoObjectInstantiationInTemplatesCheck.class,
       NoProxyInterceptorInConstructorRule.class,
-      StatelessPluginCheck.class
+      StatelessPluginCheck.class,
+      DirectUseOfObjectManagerCheck.class
     );
   }
 
@@ -85,6 +87,7 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
     remediationCosts.put(NoObjectInstantiationInTemplatesCheck.KEY, "10min");
     remediationCosts.put(NoProxyInterceptorInConstructorRule.KEY, "5min");
     remediationCosts.put(StatelessPluginCheck.KEY, "15min");
+    remediationCosts.put(DirectUseOfObjectManagerCheck.KEY, "30min");
     return remediationCosts;
   }
 
