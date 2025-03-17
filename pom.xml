@@ -64,6 +64,7 @@
           <requiredForLanguages>php</requiredForLanguages>
           <pluginClass>org.perspectiveteam.sonarrules.php.PHPCustomRulesPlugin</pluginClass>
           <skipDependenciesPackaging>true</skipDependenciesPackaging>
+          <sonarLintSupported>true</sonarLintSupported>
           <pluginDescription>Magento 2 Specific Rules</pluginDescription>
           <archive>
             <manifest>
