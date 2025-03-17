@@ -1,0 +1,10 @@
+<div>
+    <?= __('Text to translate') // Noncompliant {{Escape output for display.}} ?>
+    <?php echo $customer->getName() // Noncompliant {{Escape output for display.}} ?>
+
+    <?= $escaper->escapeHtml(__('Text to translate')) // Compliant ?>
+    <?= $block->getChildBlock('test')->toHtml() // Compliant ?>
+    <?php echo $escaper->escapeHtml($customer->getName()) // Compliant ?>
+    <?php echo 1 // Compliant?>
+    <?= /* @escapeNotVerified */ __('Test') // Compliant?>
+</div>

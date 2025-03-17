@@ -5,6 +5,7 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.php.api.tree.CompilationUnitTree;
 import org.sonar.plugins.php.api.tree.SeparatedList;
 import org.sonar.plugins.php.api.tree.Tree;
+import org.sonar.plugins.php.api.tree.declaration.CallArgumentTree;
 import org.sonar.plugins.php.api.tree.expression.ConditionalExpressionTree;
 import org.sonar.plugins.php.api.tree.expression.ExpressionTree;
 import org.sonar.plugins.php.api.tree.expression.FunctionCallTree;
@@ -27,7 +28,7 @@ import java.util.regex.Pattern;
 
 public class EscapeOutputCheck extends PHPVisitorCheck {
     public static final String KEY = "M15.3.1";
-    public static final String MESSAGE = "Escape output for display";
+    public static final String MESSAGE = "Escape output for display.";
 
     public static final Pattern NO_ESCAPE_COMMENT_PATTERN = Pattern.compile("@(?:noEscape|escapeNotVerified)\\b");
     public static final Pattern SAFE_METHODS_PATTER = Pattern.compile("^(.*?)Html(.*)?$");
@@ -74,9 +75,22 @@ public class EscapeOutputCheck extends PHPVisitorCheck {
         super.visitExpressionStatement(tree);
         if(isIncludedFile() && tree.expression().is(Tree.Kind.FUNCTION_CALL)){
             ExpressionTree callee = ((FunctionCallTree)tree.expression()).callee();
-            String functionName = callee.toString();
+            String calleeName = callee.toString();
+            if (!"echo".equals(calleeName)){
+                return;
+            }
+
+            SeparatedList<CallArgumentTree> callArgument = ((FunctionCallTree) tree.expression()).callArguments();
+            Tree firstArgumentExpression = callArgument.get(0).value();
+            if(!firstArgumentExpression.is(Tree.Kind.FUNCTION_CALL)){
+                return;
+            }
+
+            FunctionCallTree firstCall = (FunctionCallTree) firstArgumentExpression;
+            String firstFunctionCallName = firstCall.callee().toString();
             int startLine = tree.eosToken().line();
-            if ("echo".equals(functionName) && isXSSVulnerableOutput(tree.expression(), tree.toString())) {
+
+            if (isXSSVulnerableOutput(firstArgumentExpression, firstFunctionCallName)) {
                 unescapedEchos.put(startLine, callee);
             }
         }
