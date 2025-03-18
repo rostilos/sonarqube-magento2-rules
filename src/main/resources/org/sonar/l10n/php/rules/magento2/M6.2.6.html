@@ -1,6 +1,11 @@
 <h2>Why is this an issue?</h2>
 <p>
-    Templates MUST NOT instantiate objects. All objects MUST be passed from the Block objects.
+    This rule enforces that Magento 2 HTML templates must not directly instantiate objects.
+    All required objects must be passed from Block objects instead.
+</p>
+<p>
+    In Magento's architecture, templates should only use objects that have been properly injected into and exposed by their associated Block classes.
+    Direct object instantiation in templates violates Magento's dependency injection pattern, creates tight coupling, complicates testing, and reduces maintainability.
 </p>
 
 <h3>Noncompliant code example</h3>
@@ -12,3 +17,12 @@ $customer = new \Magento\Customer\Model\Customer(); // Noncompliant
 <pre data-diff-id="1" data-diff-type="compliant">
 $customer = $this->getCustomer(); // Compliant
 </pre>
+
+<h2>References</h2>
+<ul>
+    <li>
+        <a href="https://developer.adobe.com/commerce/frontend-core/guide/templates/" target="_blank">
+            Magento 2 Templates documentation
+        </a>
+    </li>
+</ul>

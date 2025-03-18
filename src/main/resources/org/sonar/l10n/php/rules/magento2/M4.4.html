@@ -1,8 +1,5 @@
 <h2>Why is this an issue?</h2>
 <p>
-    Plugins MUST be stateless.
-</p>
-<p>
     Magento 2 plugins can be instantiated multiple times during a single request.
     If a plugin maintains state, it can lead to unpredictable behavior, race conditions, and difficult-to-debug issues.
 </p>
@@ -120,5 +117,18 @@ class CatalogProductPlugin
         return $result . ' - Enhanced';
     }
 }
-
 </pre>
+
+<h2>References</h2>
+<ul>
+    <li>
+        <a href="https://developer.adobe.com/commerce/php/development/components/plugins/" target="_blank">
+            Magento 2 Plugins documentation
+        </a>
+    </li>
+    <li>
+        <a href="https://developer.adobe.com/commerce/php/development/components/dependency-injection/" target="_blank">
+            Configuring Dependency Injection
+        </a>
+    </li>
+</ul>
