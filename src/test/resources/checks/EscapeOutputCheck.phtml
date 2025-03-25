@@ -7,4 +7,13 @@
     <?php echo $escaper->escapeHtml($customer->getName()) // Compliant ?>
     <?php echo 1 // Compliant?>
     <?= /* @escapeNotVerified */ __('Test') // Compliant?>
+    <?= /* @noEscape */ $this->helper(Magento\Catalog\Helper\Output::class)->testMethod(
+                $block->getData(),
+                $block->getAdditionalData(),
+                'description'
+            ) ?>
+    <?= $test
+        ? '123'
+        : $block->getSomeInfo() // Noncompliant {{Escape output for display.}}
+    ?>
 </div>

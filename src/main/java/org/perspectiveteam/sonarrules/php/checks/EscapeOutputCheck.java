@@ -63,10 +63,8 @@ public class EscapeOutputCheck extends PHPVisitorCheck {
         if (isIncludedFile()) {
             SeparatedList<ExpressionTree> expressions = tree.expressions();
             ExpressionTree firstExpression = expressions.get(0);
-            int startLine = tree.eosToken().line();
-            if (isXSSVulnerableOutput(tree.expressions().get(0), firstExpression.toString())) {
-                unescapedEchos.put(startLine, firstExpression);
-            }
+
+            checkXSSVulnerableOutput(firstExpression, firstExpression.toString());
         }
     }
 
@@ -82,44 +80,43 @@ public class EscapeOutputCheck extends PHPVisitorCheck {
 
             SeparatedList<CallArgumentTree> callArgument = ((FunctionCallTree) tree.expression()).callArguments();
             Tree firstArgumentExpression = callArgument.get(0).value();
-            if (!firstArgumentExpression.is(Tree.Kind.FUNCTION_CALL)) {
-                return;
-            }
-
-            FunctionCallTree firstCall = (FunctionCallTree) firstArgumentExpression;
-            String firstFunctionCallName = firstCall.callee().toString();
-            int startLine = tree.eosToken().line();
-
-            if (isXSSVulnerableOutput(firstArgumentExpression, firstFunctionCallName)) {
-                unescapedEchos.put(startLine, callee);
-            }
+            checkXSSVulnerableOutput(firstArgumentExpression, firstArgumentExpression.toString());
         }
     }
 
-    private boolean isXSSVulnerableOutput(Tree tree, String expressionName) {
-        return isNotEscaped(expressionName) && !isAllowedMethod(tree);
+
+    private boolean isEscaped(String content) {
+        return content.matches(".*\\$escaper->escape[A-Za-z]+\\(.*\\).*");
     }
 
-    private boolean isNotEscaped(String content) {
-        return !content.matches(".*\\$escaper->escape[A-Za-z]+\\(.*\\).*");
-    }
-
-    private boolean isAllowedMethod(Tree tree) {
+    private void checkXSSVulnerableOutput(Tree tree, String functionName) {
+        if (isEscaped(functionName)) {
+            return;
+        }
         switch (tree.getKind()) {
             case FUNCTION_CALL:
                 String calleeName = ((FunctionCallTree) tree).callee().toString();
                 Matcher matcher = SAFE_METHODS_PATTER.matcher(calleeName);
-                return matcher.find();
+                if (!matcher.find()) {
+                    int line = ((FunctionCallTree) tree).openParenthesisToken().line();
+                    unescapedEchos.put(line, ((FunctionCallTree) tree).callee());
+                }
+                break;
             case CONDITIONAL_EXPRESSION:
                 ConditionalExpressionTree conditionalExpressionTree = (ConditionalExpressionTree) tree;
-                boolean allowedTrueExpression = isAllowedMethod(Objects.requireNonNull(conditionalExpressionTree.trueExpression()));
-                boolean allowedFalseExpression = isAllowedMethod(Objects.requireNonNull(conditionalExpressionTree.falseExpression()));
-                return allowedTrueExpression && allowedFalseExpression;
-            //Only CAST_EXPRESSION allowed
-            case VARIABLE_IDENTIFIER:
-                return false;
+                if (conditionalExpressionTree.trueExpression() == null || conditionalExpressionTree.falseExpression() == null) {
+                    return;
+                }
+                if (conditionalExpressionTree.trueExpression() != null && conditionalExpressionTree.trueExpression().toString() != null) {
+                    checkXSSVulnerableOutput(conditionalExpressionTree.trueExpression(), conditionalExpressionTree.trueExpression().toString());
+                }
+                checkXSSVulnerableOutput(conditionalExpressionTree.falseExpression(), conditionalExpressionTree.falseExpression().toString());
+                break;
+            case EXPRESSION_STATEMENT:
+                unescapedEchos.put(((ExpressionStatementTree) tree).eosToken().line(), tree);
+                break;
             default:
-                return true;
+                break;
         }
     }
 
