@@ -72,34 +72,39 @@ networks:
 
 <p>Rules not explicitly stated in the technical guideline</p>
 <ul>
-    <li>✅ 0.1. Direct use of objectManager is prohibited</li>
+    <li>✅ M0.1. Direct use of objectManager is prohibited</li>
+</ul>
+
+<p>CodeSniffer Rules</p>
+<ul>
+    <li>✅ MCS0.1. Avoid Literal Namespace Strings.</li>
 </ul>
 
 <p>Rules defined in Adobe's technical guideline <a href="https://developer.adobe.com/commerce/php/coding-standards/technical-guidelines/">Technical guidelines</a></p>
 <ul>
-    <li>✅ 1.1. Function arguments SHOULD NOT be modified.</li>
-    <li>✅ 1.2. Explicit return types MUST BE declared on functions.</li>
-    <li>✅ 1.3.1. All new PHP files MUST have strict type mode enabled by starting with declare(strict_types=1);. All updated PHP files SHOULD have strict type mode enabled. PHP interfaces MAY have this declaration.
+    <li>✅ M1.1. Function arguments SHOULD NOT be modified.</li>
+    <li>✅ M1.2. Explicit return types MUST BE declared on functions.</li>
+    <li>✅ M1.3.1. All new PHP files MUST have strict type mode enabled by starting with declare(strict_types=1);. All updated PHP files SHOULD have strict type mode enabled. PHP interfaces MAY have this declaration.
 </ul>
 <ul>
-    <li>✅ 2.3. Class constructor can have only dependency assignment operations and/or argument validation operations. No other operations are allowed.</li>
-    <li>️⚠️ 2.3.1. Constructor SHOULD throw an exception when validation of an argument has failed. <i>( I don't see a way to implement this check correctly, but Throw is allowed in constructors under 2.3 )</i> </li>
-    <li>✅ 2.3.2. Events MUST NOT be triggered in constructors.</li>
-    <li>✅ 2.5 Proxies and interceptors MUST NEVER be explicitly requested in constructors.</li>
+    <li>✅ M2.3. Class constructor can have only dependency assignment operations and/or argument validation operations. No other operations are allowed.</li>
+    <li>️⚠️ M2.3.1. Constructor SHOULD throw an exception when validation of an argument has failed. <i>( I don't see a way to implement this check correctly, but Throw is allowed in constructors under 2.3 )</i> </li>
+    <li>✅ M2.3.2. Events MUST NOT be triggered in constructors.</li>
+    <li>✅ M2.5 Proxies and interceptors MUST NEVER be explicitly requested in constructors.</li>
 </ul>
 <ul>
-    <li>✅ 4.4 Plugins MUST be stateless.</li>
+    <li>✅ M4.4 Plugins MUST be stateless.</li>
 </ul>
 <ul>
-    <li>❌ 5.14. Any exception SHOULD be logged only in the catch block where it is processed, and SHOULD NOT be re-thrown.</li>
+    <li>❌ M5.14. Any exception SHOULD be logged only in the catch block where it is processed, and SHOULD NOT be re-thrown.</li>
 </ul>
 <ul>
-    <li>✅ 6.2.6 Templates MUST NOT instantiate objects. All objects MUST be passed from the Block objects.</li>
+    <li>✅ M6.2.6 Templates MUST NOT instantiate objects. All objects MUST be passed from the Block objects.</li>
 </ul>
 <ul>
-    <li>❌ 9.4 HTML markup generated on server should not contain user-specific data</li>
+    <li>❌ M9.4 HTML markup generated on server should not contain user-specific data</li>
 </ul>
 <ul>
-    <li>✅ 15.3.1. Sanitize input; escape output. <i>(only escape check & .phtml)</i></li>
+    <li>✅ M15.3.1. Sanitize input; escape output. <i>(only escape check & .phtml)</i></li>
 </ul>
 

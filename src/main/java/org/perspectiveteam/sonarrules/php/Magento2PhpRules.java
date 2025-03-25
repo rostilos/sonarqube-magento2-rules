@@ -9,17 +9,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.perspectiveteam.sonarrules.php.checks.EventsInConstructorsCheck;
-import org.perspectiveteam.sonarrules.php.checks.ReturnTypesOnFunctionsCheck;
-import org.perspectiveteam.sonarrules.php.checks.FunctionArgumentsShouldNotBeModifiedCheck;
-import org.perspectiveteam.sonarrules.php.checks.StrictTypesDeclarationCheck;
 import org.perspectiveteam.sonarrules.php.checks.ConstructorDependencyCheck;
+import org.perspectiveteam.sonarrules.php.checks.DirectUseOfObjectManagerCheck;
 import org.perspectiveteam.sonarrules.php.checks.EscapeOutputCheck;
+import org.perspectiveteam.sonarrules.php.checks.EventsInConstructorsCheck;
+import org.perspectiveteam.sonarrules.php.checks.FunctionArgumentsShouldNotBeModifiedCheck;
+import org.perspectiveteam.sonarrules.php.checks.LiteralNamespaceCheck;
 import org.perspectiveteam.sonarrules.php.checks.NoObjectInstantiationInTemplatesCheck;
 import org.perspectiveteam.sonarrules.php.checks.NoProxyInterceptorInConstructorRule;
+import org.perspectiveteam.sonarrules.php.checks.ReturnTypesOnFunctionsCheck;
 import org.perspectiveteam.sonarrules.php.checks.StatelessPluginCheck;
-import org.perspectiveteam.sonarrules.php.checks.DirectUseOfObjectManagerCheck;
-
+import org.perspectiveteam.sonarrules.php.checks.StrictTypesDeclarationCheck;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 import org.sonar.plugins.php.api.visitors.PHPCustomRuleRepository;
@@ -38,8 +38,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
     }
 
     /**
-     * Provide the list of checks class that implements rules
-     * to be part of the rule repository
+     * Provide the list of checks class that implements rules to be part of the
+     * rule repository
      */
     @Override
     public List<Class<?>> checkClasses() {
@@ -53,7 +53,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 NoObjectInstantiationInTemplatesCheck.class,
                 NoProxyInterceptorInConstructorRule.class,
                 StatelessPluginCheck.class,
-                DirectUseOfObjectManagerCheck.class
+                DirectUseOfObjectManagerCheck.class,
+                LiteralNamespaceCheck.class
         );
     }
 
@@ -88,6 +89,7 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
         remediationCosts.put(NoProxyInterceptorInConstructorRule.KEY, "5min");
         remediationCosts.put(StatelessPluginCheck.KEY, "15min");
         remediationCosts.put(DirectUseOfObjectManagerCheck.KEY, "30min");
+        remediationCosts.put(LiteralNamespaceCheck.KEY, "5min");
         return remediationCosts;
     }
 
