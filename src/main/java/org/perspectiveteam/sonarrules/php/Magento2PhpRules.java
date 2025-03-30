@@ -20,6 +20,7 @@ import org.perspectiveteam.sonarrules.php.checks.NoProxyInterceptorInConstructor
 import org.perspectiveteam.sonarrules.php.checks.ReturnTypesOnFunctionsCheck;
 import org.perspectiveteam.sonarrules.php.checks.StatelessPluginCheck;
 import org.perspectiveteam.sonarrules.php.checks.StrictTypesDeclarationCheck;
+import org.perspectiveteam.sonarrules.php.checks.ThisInTemplatesCheck;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 import org.sonar.plugins.php.api.visitors.PHPCustomRuleRepository;
@@ -54,7 +55,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 NoProxyInterceptorInConstructorRule.class,
                 StatelessPluginCheck.class,
                 DirectUseOfObjectManagerCheck.class,
-                LiteralNamespaceCheck.class
+                LiteralNamespaceCheck.class,
+                ThisInTemplatesCheck.class
         );
     }
 
@@ -90,6 +92,7 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
         remediationCosts.put(StatelessPluginCheck.KEY, "15min");
         remediationCosts.put(DirectUseOfObjectManagerCheck.KEY, "30min");
         remediationCosts.put(LiteralNamespaceCheck.KEY, "5min");
+        remediationCosts.put(ThisInTemplatesCheck.KEY, "45min");
         return remediationCosts;
     }
 

@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
         priority = Priority.BLOCKER,
         tags = {"magento2", "dependency-injection", "design", "bug"}
 )
-
+//TODO : \Proxy instead of *Proxy postfix
 public class NoProxyInterceptorInConstructorRule extends PHPVisitorCheck {
     public static final String KEY = "M2.5";
     public static final String MESSAGE = "No explicit proxy/interceptor requests in constructors.";

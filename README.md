@@ -70,14 +70,10 @@ networks:
 
 <h2>Available rules</h2>
 
-<p>Rules not explicitly stated in the technical guideline</p>
-<ul>
-    <li>✅ M0.1. Direct use of objectManager is prohibited</li>
-</ul>
-
 <p>CodeSniffer Rules</p>
 <ul>
     <li>✅ MCS0.1. Avoid Literal Namespace Strings.</li>
+    <li>✅ MCS0.2. Direct use of objectManager is prohibited</li>
 </ul>
 
 <p>Rules defined in Adobe's technical guideline <a href="https://developer.adobe.com/commerce/php/coding-standards/technical-guidelines/">Technical guidelines</a></p>

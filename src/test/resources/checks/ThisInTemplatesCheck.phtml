@@ -1,0 +1,9 @@
+<?php
+$helper = $block->getHelper(); // Noncompliant {{The use of helpers in templates is discouraged. Use ViewModel instead.}}
+$_helper = $block->getHelper(); // Noncompliant {{The use of helpers in templates is discouraged. Use ViewModel instead.}}
+$someData = $this->getData(); // Noncompliant {{The use of $this in templates is deprecated. Use $block instead.}}
+?>
+
+<div>
+    <?= $this->getHtmlData(); // Noncompliant {{The use of $this in templates is deprecated. Use $block instead.}} ?>
+</div>

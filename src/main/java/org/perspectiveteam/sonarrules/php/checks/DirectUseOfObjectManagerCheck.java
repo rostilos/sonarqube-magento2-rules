@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
         tags = {"magento2", "convention", "maintainability"}
 )
 public class DirectUseOfObjectManagerCheck extends PHPVisitorCheck {
-    public static final String KEY = "M0.1";
+    public static final String KEY = "MCS0.2";
     public static final String MESSAGE = "The application prohibits the direct use of the ObjectManager in your code.";
 
     private static final Pattern ALLOWED_CLASS_PATTERN = Pattern.compile("(?i).*(Factory|Proxy|Interceptor)$");

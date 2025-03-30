@@ -1,5 +1,10 @@
 package org.perspectiveteam.sonarrules.php.checks;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.php.api.tree.Tree;
@@ -12,11 +17,6 @@ import org.sonar.plugins.php.api.tree.expression.VariableIdentifierTree;
 import org.sonar.plugins.php.api.tree.statement.ForEachStatementTree;
 import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Rule(
         key = org.perspectiveteam.sonarrules.php.checks.FunctionArgumentsShouldNotBeModifiedCheck.KEY,
         name = org.perspectiveteam.sonarrules.php.checks.FunctionArgumentsShouldNotBeModifiedCheck.MESSAGE,
@@ -27,7 +27,7 @@ import java.util.Set;
 public class FunctionArgumentsShouldNotBeModifiedCheck extends PHPVisitorCheck {
 
     public static final String KEY = "M1.1";
-    public static final String MESSAGE = "Function arguments SHOULD NOT be modified.";
+    public static final String MESSAGE = "Function arguments should not be modified.";
 
     @Override
     public void visitMethodDeclaration(MethodDeclarationTree tree) {
