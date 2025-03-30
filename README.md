@@ -74,6 +74,7 @@ networks:
 <ul>
     <li>✅ MCS0.1. Avoid Literal Namespace Strings.</li>
     <li>✅ MCS0.2. Direct use of objectManager is prohibited</li>
+    <li>✅ MCS0.3. The use of $this in templates is forbidden. Using $helper is discouraged.</li>
 </ul>
 
 <p>Rules defined in Adobe's technical guideline <a href="https://developer.adobe.com/commerce/php/coding-standards/technical-guidelines/">Technical guidelines</a></p>

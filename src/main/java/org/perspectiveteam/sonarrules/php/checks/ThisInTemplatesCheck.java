@@ -10,7 +10,7 @@ import java.util.List;
 
 @Rule(
         key = ThisInTemplatesCheck.KEY,
-        name = "The use of $this and $helper is prohibited",
+        name = "The use of $this in templates is forbidden. Using $helper is discouraged.",
         description = "The use of $this in templates is forbidden. Using $helper is discouraged.",
         priority = Priority.MAJOR,
         tags = {"magento2", "convention"}
