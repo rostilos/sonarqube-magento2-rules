@@ -1,6 +1,5 @@
 # sonarqube-magento2-rules
 <p>Set of advanced rules for SonarQube, for Magento 2 CMS<p>
-<p><strong>⚠️⚠️⚠️The project is in the concept stage, and is not yet recommended for deployment to real SonarQube Server instances. I will be grateful for ideas and any help in its development⚠️⚠️⚠️</strong></p>
 
 <h2>Installation</h2>
 To build your plugin project, execute this command from the project root directory:
@@ -21,7 +20,7 @@ Scanner extensions such as sensors are immediately retrieved and loaded when sca
 version: "3.8"
 services:
   sonarqube:
-    image: sonarqube:community
+    image: sonarqube:10.7-community
     ports:
       - "9000:9000"
       - "9092:9092"
@@ -37,7 +36,7 @@ services:
       - sonarqube_logs:/opt/sonarqube/logs
       - sonarqube_extensions:/opt/sonarqube/extensions
       - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
-      - ../sonar-custom-plugin-example-10.x/target:/opt/sonarqube/extensions/plugins
+      - ./sonarqube-magento2-rules-1.0.0.jar:/opt/sonarqube/extensions/plugins/sonarqube-magento2-rules-1.0.0.jar
     networks:
       sonar_network:
   db:
@@ -85,7 +84,6 @@ networks:
 </ul>
 <ul>
     <li>✅ M2.3. Class constructor can have only dependency assignment operations and/or argument validation operations. No other operations are allowed.</li>
-    <li>️⚠️ M2.3.1. Constructor SHOULD throw an exception when validation of an argument has failed. <i>( I don't see a way to implement this check correctly, but Throw is allowed in constructors under 2.3 )</i> </li>
     <li>✅ M2.3.2. Events MUST NOT be triggered in constructors.</li>
     <li>✅ M2.5 Proxies and interceptors MUST NEVER be explicitly requested in constructors.</li>
 </ul>
@@ -93,13 +91,7 @@ networks:
     <li>✅ M4.4 Plugins MUST be stateless.</li>
 </ul>
 <ul>
-    <li>❌ M5.14. Any exception SHOULD be logged only in the catch block where it is processed, and SHOULD NOT be re-thrown.</li>
-</ul>
-<ul>
     <li>✅ M6.2.6 Templates MUST NOT instantiate objects. All objects MUST be passed from the Block objects.</li>
-</ul>
-<ul>
-    <li>❌ M9.4 HTML markup generated on server should not contain user-specific data</li>
 </ul>
 <ul>
     <li>✅ M15.3.1. Sanitize input; escape output. <i>(only escape check & .phtml)</i></li>
