@@ -18,18 +18,20 @@ import java.util.regex.Pattern;
         priority = Priority.BLOCKER,
         tags = {"magento2", "dependency-injection", "design", "bug"}
 )
-//TODO : \Proxy instead of *Proxy postfix
 public class NoProxyInterceptorInConstructorRule extends PHPVisitorCheck {
     public static final String KEY = "M2.5";
     public static final String MESSAGE = "No explicit proxy/interceptor requests in constructors.";
-    public static final Pattern PROXY_INTERCEPTOR_PATTERN = Pattern.compile(".*(Proxy|Interceptor)$");
+    public static final Pattern PROXY_INTERCEPTOR_PATTERN = Pattern.compile(".*(\\\\Proxy|\\\\Interceptor)$");
 
     @Override
     public void visitMethodDeclaration(MethodDeclarationTree tree) {
         if (CheckUtils.isConstructorMethodPromotion(tree)) {
             List<ParameterTree> parameters = tree.parameters().parameters();
             for (ParameterTree param : parameters) {
-                if (Objects.requireNonNull(param.declaredType()).toString() != null && PROXY_INTERCEPTOR_PATTERN.matcher(Objects.requireNonNull(param.declaredType()).toString()).matches()) {
+                if(param.declaredType().toString() == null){
+                    continue;
+                }
+                if (PROXY_INTERCEPTOR_PATTERN.matcher(param.declaredType().toString()).matches()) {
                     context().newIssue(this, param, MESSAGE);
                 }
             }
