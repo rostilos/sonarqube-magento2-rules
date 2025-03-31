@@ -7,7 +7,8 @@
 </p>
 
 <h2>Installation</h2>
-To build your plugin project, execute this command from the project root directory:
+To install the plugin you can take either a compiled binary from the assets of the corresponding releases, or build from source.
+To build a plugin from source, execute this command from the project root directory:
 
 `mvn clean package`
 
@@ -15,11 +16,14 @@ The plugin jar file is generated in the project's `target/` directory.
 
 <h2>Deploy</h2>
 <h4>"Cold" Deploy</h4>
-The standard way to install the plugin for regular users is to copy the jar artifact, from the target/ directory to the extensions/plugins/ directory of your SonarQube Server installation, then start the server. The file logs/web.log will then contain a log line similar to:
-Deploy plugin Example Plugin / 0.1-SNAPSHOT
-Scanner extensions such as sensors are immediately retrieved and loaded when scanning source code.
 
-<h4>Installation example</h4>
+The standard way to install the plugin for regular users is to copy the jar artifact, from the `target/` directory to the `extensions/plugins/` directory of your SonarQube Server installation, then start the server.
+
+The file `logs/web.log` will then contain a log line similar to:
+`Deploy plugin Example Plugin / 0.1-SNAPSHOT
+Scanner extensions such as sensors are immediately retrieved and loaded when scanning source code.`
+
+<h4>Installation example ( Docker-based )</h4>
 
 ````
 version: "3.8"
