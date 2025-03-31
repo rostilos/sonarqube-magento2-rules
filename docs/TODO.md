@@ -4,7 +4,7 @@
     This TODO list is taken from the <a href="https://github.com/magento/magento-coding-standard/blob/develop/Magento2/ruleset.xml">
         official rule set for PHPCodeSniffer for Magento 2
     </a>. 
-    Only rules from Magento 2 nymspace are considered, as the rest are pretty well covered by standard SQ rules. 
+    Only rules from Magento 2 namespace are considered, as the rest are pretty well covered by standard SQ rules. 
     Also omitted are rules not related to .php & .phtml files
 </p>
 
