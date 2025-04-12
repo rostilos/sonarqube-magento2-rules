@@ -83,6 +83,7 @@ networks:
     <li>✅ LiteralNamespaces</li>
     <li>✔️ Var ( As part of the standard PHP ruleset, php:S1765 )</li>
 </ul>
+
 <h3>Classes</h3>
 <ul>
     <li>✅ DiscouragedDependencies ( No explicit proxy/interceptor requests in constructors. )</li>
@@ -93,11 +94,16 @@ networks:
     <li>✅ XssTemplate ( All output that could contain user-supplied data must be properly escaped )</li>
 </ul>
 
-
 <h3>Templates</h3>
 <ul>
     <li>✅ ThisInTemplate ( The use of $this in templates is forbidden. Using $helper is discouraged )</li>
     <li>✅ ObjectManager ( Direct use of objectManager is prohibited )</li>
+</ul>
+
+
+<h3>Legacy</h3>
+<ul>
+    <li>✅ InstallUpgrade</li>
 </ul>
 
 <h3>CodeAnalysis</h3>
