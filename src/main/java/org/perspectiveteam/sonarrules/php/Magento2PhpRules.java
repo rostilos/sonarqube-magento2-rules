@@ -9,19 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.perspectiveteam.sonarrules.php.checks.ConstructorDependencyCheck;
-import org.perspectiveteam.sonarrules.php.checks.ObjectManagerCheck;
-import org.perspectiveteam.sonarrules.php.checks.XssTemplateCheck;
-import org.perspectiveteam.sonarrules.php.checks.EventsInConstructorsCheck;
-import org.perspectiveteam.sonarrules.php.checks.FunctionArgumentsShouldNotBeModifiedCheck;
-import org.perspectiveteam.sonarrules.php.checks.LiteralNamespaceCheck;
-import org.perspectiveteam.sonarrules.php.checks.NoObjectInstantiationInTemplatesCheck;
-import org.perspectiveteam.sonarrules.php.checks.DiscouragedDependenciesCheck;
-import org.perspectiveteam.sonarrules.php.checks.ReturnValueCheckCheck;
-import org.perspectiveteam.sonarrules.php.checks.StatelessPluginCheck;
-import org.perspectiveteam.sonarrules.php.checks.StrictTypesDeclarationCheck;
-import org.perspectiveteam.sonarrules.php.checks.ThisInTemplatesCheck;
-import org.perspectiveteam.sonarrules.php.checks.TryProcessSystemResourcesCheck;
+import org.perspectiveteam.sonarrules.php.checks.*;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 import org.sonar.plugins.php.api.visitors.PHPCustomRuleRepository;
@@ -58,7 +47,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 ObjectManagerCheck.class,
                 LiteralNamespaceCheck.class,
                 ThisInTemplatesCheck.class,
-                TryProcessSystemResourcesCheck.class
+                TryProcessSystemResourcesCheck.class,
+                ObsoleteInstallUpgradeScriptsCheck.class
         );
     }
 
@@ -96,6 +86,7 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
         remediationCosts.put(LiteralNamespaceCheck.KEY, "5min");
         remediationCosts.put(ThisInTemplatesCheck.KEY, "45min");
         remediationCosts.put(TryProcessSystemResourcesCheck.KEY, "10min");
+        remediationCosts.put(ObsoleteInstallUpgradeScriptsCheck.KEY, "40min");
         return remediationCosts;
     }
 
