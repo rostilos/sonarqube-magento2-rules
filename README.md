@@ -70,30 +70,56 @@ networks:
 <h2>Available rules</h2>
 
 <p>CodeSniffer Rules</p>
+
+<h3>Exceptions</h3>
 <ul>
-    <li>✅ MCS0.1. Avoid Literal Namespace Strings.</li>
-    <li>✅ MCS0.2. Direct use of objectManager is prohibited</li>
-    <li>✅ MCS0.3. The use of $this in templates is forbidden. Using $helper is discouraged.</li>
+    <li>✅ TryProcessSystemResources ( Functions that use system resources should be properly wrapped in try-catch blocks )</li>
 </ul>
+
+<h3>PHP</h3>
+<ul>
+    <li>✔️ Goto ( As part of the standard PHP ruleset, php:S907 )</li>
+    <li>✅ ReturnValue ( Explicit return types MUST BE declared on functions. )</li>
+    <li>✅ LiteralNamespaces</li>
+    <li>✔️ Var ( As part of the standard PHP ruleset, php:S1765 )</li>
+</ul>
+<h3>Classes</h3>
+<ul>
+    <li>✅ DiscouragedDependencies ( No explicit proxy/interceptor requests in constructors. )</li>
+</ul>
+
+<h3>Security</h3>
+<ul>
+    <li>✅ XssTemplate ( All output that could contain user-supplied data must be properly escaped )</li>
+</ul>
+
+
+<h3>Templates</h3>
+<ul>
+    <li>✅ ThisInTemplate ( The use of $this in templates is forbidden. Using $helper is discouraged )</li>
+    <li>✅ ObjectManager ( Direct use of objectManager is prohibited )</li>
+</ul>
+
+<h3>CodeAnalysis</h3>
+<ul>
+    <li>✔️ EmptyBlock ( As part of the standard PHP ruleset, php:S1116 )</li>
+</ul>
+
 
 <p>Rules defined in Adobe's technical guideline <a href="https://developer.adobe.com/commerce/php/coding-standards/technical-guidelines/">Technical guidelines</a></p>
 <ul>
-    <li>✅ M1.1. Function arguments SHOULD NOT be modified.</li>
-    <li>✅ M1.2. Explicit return types MUST BE declared on functions.</li>
-    <li>✅ M1.3.1. All new PHP files MUST have strict type mode enabled by starting with declare(strict_types=1);. All updated PHP files SHOULD have strict type mode enabled. PHP interfaces MAY have this declaration.
+    <li>✅ FunctionArgumentsShouldNotBeModified ( Function arguments should not be modified ).</li>
+    <li>✅ StrictTypesDeclaration ( All new PHP files MUST have strict type mode enabled by starting with declare(strict_types=1);. All updated PHP files SHOULD have strict type mode enabled. PHP interfaces MAY have this declaration. ) </li>
+</ul>
+
+<ul>
+    <li>✅ ConstructorDependency ( Class constructor can have only dependency assignment operations and/or argument validation operations. No other operations are allowed. )</li>
+    <li>✅ EventsInConstructors ( Events MUST NOT be triggered in constructors. )</li>
 </ul>
 <ul>
-    <li>✅ M2.3. Class constructor can have only dependency assignment operations and/or argument validation operations. No other operations are allowed.</li>
-    <li>✅ M2.3.2. Events MUST NOT be triggered in constructors.</li>
-    <li>✅ M2.5 Proxies and interceptors MUST NEVER be explicitly requested in constructors.</li>
+    <li>✅ StatelessPlugin ( Plugins MUST be stateless. )</li>
 </ul>
 <ul>
-    <li>✅ M4.4 Plugins MUST be stateless.</li>
-</ul>
-<ul>
-    <li>✅ M6.2.6 Templates MUST NOT instantiate objects. All objects MUST be passed from the Block objects.</li>
-</ul>
-<ul>
-    <li>✅ M15.3.1. Sanitize input; escape output. <i>(only escape check & .phtml)</i></li>
+    <li>✅ NoObjectInstantiationInTemplates ( Templates MUST NOT instantiate objects. All objects MUST be passed from the Block objects. )</li>
 </ul>
 

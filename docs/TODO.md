@@ -83,8 +83,7 @@
 <ul>
     <li>❌ DirectThrow</li>
     <li>❌ ThrowCatch</li>
-    <li>❌ TryProcessSystemResources</li>
-
+    <li>✅ TryProcessSystemResources</li>
 </ul>
 
 <h3>Functions</h3>
