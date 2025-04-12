@@ -48,7 +48,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 LiteralNamespaceCheck.class,
                 ThisInTemplatesCheck.class,
                 TryProcessSystemResourcesCheck.class,
-                ObsoleteInstallUpgradeScriptsCheck.class
+                ObsoleteInstallUpgradeScriptsCheck.class,
+                InterfaceNameCheck.class
         );
     }
 
@@ -87,6 +88,7 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
         remediationCosts.put(ThisInTemplatesCheck.KEY, "45min");
         remediationCosts.put(TryProcessSystemResourcesCheck.KEY, "10min");
         remediationCosts.put(ObsoleteInstallUpgradeScriptsCheck.KEY, "40min");
+        remediationCosts.put(InterfaceNameCheck.KEY, "5min");
         return remediationCosts;
     }
 

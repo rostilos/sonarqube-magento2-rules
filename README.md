@@ -106,6 +106,11 @@ networks:
     <li>✅ InstallUpgrade</li>
 </ul>
 
+<h4>NamingConvention</h4>
+<ul>
+    <li>✅ InterfaceName ( Interfaces should have names that end with the 'Interface' suffix )</li>
+</ul>
+
 <h4>CodeAnalysis</h4>
 <ul>
     <li>✔️ EmptyBlock ( As part of the standard PHP ruleset, php:S1116 )</li>
