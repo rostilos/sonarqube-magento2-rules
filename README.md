@@ -69,14 +69,14 @@ networks:
 
 <h2>Available rules</h2>
 
-<p>CodeSniffer Rules</p>
+<h3>CodeSniffer Rules, <a href="https://github.com/magento/magento-coding-standard/blob/develop/Magento2/ruleset.xml">Ref</a></h3>
 
-<h3>Exceptions</h3>
+<h4>Exceptions</h4>
 <ul>
     <li>✅ TryProcessSystemResources ( Functions that use system resources should be properly wrapped in try-catch blocks )</li>
 </ul>
 
-<h3>PHP</h3>
+<h4>PHP</h4>
 <ul>
     <li>✔️ Goto ( As part of the standard PHP ruleset, php:S907 )</li>
     <li>✅ ReturnValue ( Explicit return types MUST BE declared on functions. )</li>
@@ -84,35 +84,34 @@ networks:
     <li>✔️ Var ( As part of the standard PHP ruleset, php:S1765 )</li>
 </ul>
 
-<h3>Classes</h3>
+<h4>Classes</h4>
 <ul>
     <li>✅ DiscouragedDependencies ( No explicit proxy/interceptor requests in constructors. )</li>
 </ul>
 
-<h3>Security</h3>
+<h4>Security</h4>
 <ul>
     <li>✅ XssTemplate ( All output that could contain user-supplied data must be properly escaped )</li>
 </ul>
 
-<h3>Templates</h3>
+<h4>Templates</h4>
 <ul>
     <li>✅ ThisInTemplate ( The use of $this in templates is forbidden. Using $helper is discouraged )</li>
     <li>✅ ObjectManager ( Direct use of objectManager is prohibited )</li>
 </ul>
 
 
-<h3>Legacy</h3>
+<h4>Legacy</h4>
 <ul>
     <li>✅ InstallUpgrade</li>
 </ul>
 
-<h3>CodeAnalysis</h3>
+<h4>CodeAnalysis</h4>
 <ul>
     <li>✔️ EmptyBlock ( As part of the standard PHP ruleset, php:S1116 )</li>
 </ul>
 
-
-<p>Rules defined in Adobe's technical guideline <a href="https://developer.adobe.com/commerce/php/coding-standards/technical-guidelines/">Technical guidelines</a></p>
+<h3>Adobe's technical guideline rules, <a href="https://developer.adobe.com/commerce/php/coding-standards/technical-guidelines/">Ref.</a></h3>
 <ul>
     <li>✅ FunctionArgumentsShouldNotBeModified ( Function arguments should not be modified ).</li>
     <li>✅ StrictTypesDeclaration ( All new PHP files MUST have strict type mode enabled by starting with declare(strict_types=1);. All updated PHP files SHOULD have strict type mode enabled. PHP interfaces MAY have this declaration. ) </li>
