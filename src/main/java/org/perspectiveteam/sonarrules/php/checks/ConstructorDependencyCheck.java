@@ -22,7 +22,7 @@ import java.util.List;
 )
 
 public class ConstructorDependencyCheck extends PHPVisitorCheck {
-    public static final String KEY = "M2.3";
+    public static final String KEY = "ConstructorDependency";
     public static final String MESSAGE = "Constructor limited to dependency assignment and validation.";
 
     @Override

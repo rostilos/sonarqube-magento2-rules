@@ -19,15 +19,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Rule(
-        key = org.perspectiveteam.sonarrules.php.checks.EscapeOutputCheck.KEY,
-        name = org.perspectiveteam.sonarrules.php.checks.EscapeOutputCheck.MESSAGE,
+        key = XssTemplateCheck.KEY,
+        name = XssTemplateCheck.MESSAGE,
         description = "All output that could contain user-supplied data must be properly escaped before being rendered in HTML, JavaScript, or other contexts to prevent XSS vulnerabilities.",
         priority = Priority.CRITICAL,
         tags = {"magento2", "security", "xss"}
 )
 
-public class EscapeOutputCheck extends PHPVisitorCheck {
-    public static final String KEY = "M15.3.1";
+public class XssTemplateCheck extends PHPVisitorCheck {
+    public static final String KEY = "XssTemplate";
     public static final String MESSAGE = "Unescaped output detected.";
 
     public static final Pattern NO_ESCAPE_COMMENT_PATTERN = Pattern.compile("@(?:noEscape|escapeNotVerified)\\b");

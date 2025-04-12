@@ -9,19 +9,18 @@ import org.sonar.plugins.php.api.tree.declaration.MethodDeclarationTree;
 import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
 
 import java.util.Objects;
-import java.util.Set;
 
 @Rule(
-        key = ReturnTypesOnFunctionsCheck.KEY,
-        name = ReturnTypesOnFunctionsCheck.MESSAGE,
+        key = ReturnValueCheckCheck.KEY,
+        name = ReturnValueCheckCheck.MESSAGE,
         description = "Explicit return types must be declared on all functions to improve code clarity and type safety.",
         priority = Priority.MAJOR,
         tags = {"magento2", "convention", "psr", "maintainability", "php7"}
 )
 
-public class ReturnTypesOnFunctionsCheck extends PHPVisitorCheck {
+public class ReturnValueCheckCheck extends PHPVisitorCheck {
 
-    public static final String KEY = "M1.2";
+    public static final String KEY = "ReturnValue";
     public static final String MESSAGE = "Functions must declare explicit return types.";
 
     @Override

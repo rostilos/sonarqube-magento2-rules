@@ -16,14 +16,14 @@ import java.util.List;
 import org.perspectiveteam.sonarrules.php.utils.CheckUtils;
 
 @Rule(
-        key = "M4.4",
+        key = StatelessPluginCheck.KEY,
         name = "Plugins must be stateless",
         description = "Plugins in Magento 2 should not have properties with state as they can be instantiated multiple times during a request",
         priority = Priority.CRITICAL,
         tags = {"magento2", "bug"}
 )
 public class StatelessPluginCheck extends PHPSubscriptionCheck {
-    public static final String KEY = "M4.4";
+    public static final String KEY = "StatelessPlugin";
     private static final String MESSAGE = "Plugins must be stateless. Found potential stateful behavior: %s";
 
     private static final Tree.Kind[] INCREMENT_DECREMENT = {

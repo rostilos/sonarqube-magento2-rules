@@ -19,14 +19,14 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 @Rule(
-        key = org.perspectiveteam.sonarrules.php.checks.DirectUseOfObjectManagerCheck.KEY,
-        name = org.perspectiveteam.sonarrules.php.checks.DirectUseOfObjectManagerCheck.MESSAGE,
+        key = ObjectManagerCheck.KEY,
+        name = ObjectManagerCheck.MESSAGE,
         description = "The application prohibits the direct use of the ObjectManager in your code because it hides the real dependencies of a class",
         priority = Priority.MAJOR,
         tags = {"magento2", "convention", "maintainability"}
 )
-public class DirectUseOfObjectManagerCheck extends PHPVisitorCheck {
-    public static final String KEY = "MCS0.2";
+public class ObjectManagerCheck extends PHPVisitorCheck {
+    public static final String KEY = "ObjectManager";
     public static final String MESSAGE = "The application prohibits the direct use of the ObjectManager in your code.";
 
     private static final Pattern ALLOWED_CLASS_PATTERN = Pattern.compile("(?i).*(Factory|Proxy|Interceptor)$");

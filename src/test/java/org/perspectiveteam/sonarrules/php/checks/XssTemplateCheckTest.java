@@ -3,9 +3,9 @@ package org.perspectiveteam.sonarrules.php.checks;
 import org.junit.jupiter.api.Test;
 import org.perspectiveteam.sonarrules.plugins.php.CheckVerifier;
 
-public class EscapeOutputCheckTest {
+public class XssTemplateCheckTest {
     @Test
     void test() throws Exception {
-        CheckVerifier.verify(new EscapeOutputCheck(), "EscapeOutputCheck.phtml");
+        CheckVerifier.verify(new XssTemplateCheck(), "XssTemplateCheck.phtml");
     }
 }
