@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PACKAGE_NAME="sonarqube-magento2-rules"
-PACKAGE_VERSION="1.0.0"
+PACKAGE_VERSION="1.1.0"
 SONARQUBE_VERSION="25.2.0.102705"
 INSTANCE_DIR="../sonarqube-instance/native/sonarqube-${SONARQUBE_VERSION}"
 PLUGIN_DIR="${INSTANCE_DIR}/extensions/plugins"

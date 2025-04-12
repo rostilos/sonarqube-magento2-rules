@@ -19,7 +19,7 @@
     <li>❌ MageEntity</li>
     <li>❌ AbstractBlock</li>
     <li>❌ EmailTemplate</li>
-    <li>❌ InstallUpgrade</li>
+    <li>✅ InstallUpgrade</li>
     <li>❌ PhtmlTemplate</li>
     <li>❌ ObsoleteConnection</li>
     <li>✖️ ObsoleteConfigNodes ( XML scope )</li>
