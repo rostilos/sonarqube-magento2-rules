@@ -24,7 +24,7 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
      */
     @Override
     public String repositoryKey() {
-        return "Magento2";
+        return "magento2";
     }
 
     /**
