@@ -119,6 +119,7 @@ networks:
 <h4>Legacy</h4>
 <ul>
     <li>✅ InstallUpgrade ( ObsoleteInstallUpgradeScripts, Magento 2 has deprecated install and upgrade scripts )</li>
+    <li>✅ ObsoleteConnection</li>
 </ul>
 
 <h4>NamingConvention</h4>

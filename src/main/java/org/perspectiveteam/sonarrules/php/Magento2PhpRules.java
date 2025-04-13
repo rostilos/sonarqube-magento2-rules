@@ -50,7 +50,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 ObsoleteInstallUpgradeScriptsCheck.class,
                 InterfaceNameCheck.class,
                 PerformanceArrayOperationsInLoopCheck.class,
-                ArrayAutovivificationCheck.class
+                ArrayAutovivificationCheck.class,
+                ObsoleteConnectionCheck.class
         );
     }
 
@@ -75,14 +76,14 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
 
     private static Map<String, String> getStringStringMap() {
         return Map.ofEntries(
-                Map.entry(EventsInConstructorsCheck.KEY, "5min"),
-                Map.entry(ReturnValueCheckCheck.KEY, "2min"),
+                Map.entry(EventsInConstructorsCheck.KEY, "10min"),
+                Map.entry(ReturnValueCheckCheck.KEY, "15min"),
                 Map.entry(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "5min"),
-                Map.entry(StrictTypesDeclarationCheck.KEY, "5min"),
-                Map.entry(ConstructorDependencyCheck.KEY, "5min"),
-                Map.entry(XssTemplateCheck.KEY, "2min"),
+                Map.entry(StrictTypesDeclarationCheck.KEY, "10min"),
+                Map.entry(ConstructorDependencyCheck.KEY, "15min"),
+                Map.entry(XssTemplateCheck.KEY, "10min"),
                 Map.entry(NoObjectInstantiationInTemplatesCheck.KEY, "10min"),
-                Map.entry(DiscouragedDependenciesCheck.KEY, "5min"),
+                Map.entry(DiscouragedDependenciesCheck.KEY, "20min"),
                 Map.entry(StatelessPluginCheck.KEY, "15min"),
                 Map.entry(ObjectManagerCheck.KEY, "30min"),
                 Map.entry(LiteralNamespaceCheck.KEY, "5min"),
@@ -91,7 +92,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 Map.entry(ObsoleteInstallUpgradeScriptsCheck.KEY, "40min"),
                 Map.entry(InterfaceNameCheck.KEY, "5min"),
                 Map.entry(PerformanceArrayOperationsInLoopCheck.KEY, "20min"),
-                Map.entry(ArrayAutovivificationCheck.KEY, "10min")
+                Map.entry(ArrayAutovivificationCheck.KEY, "10min"),
+                Map.entry(ObsoleteConnectionCheck.KEY, "20min")
         );
     }
 
