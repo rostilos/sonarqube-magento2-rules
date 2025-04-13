@@ -121,7 +121,7 @@
 
 <h3>Performance</h3>
 <ul>
-    <li>❌ ForeachArrayMerge</li>
+    <li>✅ ForeachArrayMerge ( extended in PerformanceArrayOperationsInLoop )</li>
 </ul>
 
 <h3>Strings</h3>

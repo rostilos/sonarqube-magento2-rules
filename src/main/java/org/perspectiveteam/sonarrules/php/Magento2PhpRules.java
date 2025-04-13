@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +48,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 ThisInTemplatesCheck.class,
                 TryProcessSystemResourcesCheck.class,
                 ObsoleteInstallUpgradeScriptsCheck.class,
-                InterfaceNameCheck.class
+                InterfaceNameCheck.class,
+                PerformanceArrayOperationsInLoopCheck.class
         );
     }
 
@@ -71,25 +71,26 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
         repository.done();
     }
 
-    private static Map<String, String> getStringStringMap() {
-        Map<String, String> remediationCosts = new HashMap<>();
 
-        remediationCosts.put(EventsInConstructorsCheck.KEY, "5min");
-        remediationCosts.put(ReturnValueCheckCheck.KEY, "2min");
-        remediationCosts.put(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "5min");
-        remediationCosts.put(StrictTypesDeclarationCheck.KEY, "5min");
-        remediationCosts.put(ConstructorDependencyCheck.KEY, "5min");
-        remediationCosts.put(XssTemplateCheck.KEY, "2min");
-        remediationCosts.put(NoObjectInstantiationInTemplatesCheck.KEY, "10min");
-        remediationCosts.put(DiscouragedDependenciesCheck.KEY, "5min");
-        remediationCosts.put(StatelessPluginCheck.KEY, "15min");
-        remediationCosts.put(ObjectManagerCheck.KEY, "30min");
-        remediationCosts.put(LiteralNamespaceCheck.KEY, "5min");
-        remediationCosts.put(ThisInTemplatesCheck.KEY, "45min");
-        remediationCosts.put(TryProcessSystemResourcesCheck.KEY, "10min");
-        remediationCosts.put(ObsoleteInstallUpgradeScriptsCheck.KEY, "40min");
-        remediationCosts.put(InterfaceNameCheck.KEY, "5min");
-        return remediationCosts;
+    private static Map<String, String> getStringStringMap() {
+        return Map.ofEntries(
+                Map.entry(EventsInConstructorsCheck.KEY, "5min"),
+                Map.entry(ReturnValueCheckCheck.KEY, "2min"),
+                Map.entry(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "5min"),
+                Map.entry(StrictTypesDeclarationCheck.KEY, "5min"),
+                Map.entry(ConstructorDependencyCheck.KEY, "5min"),
+                Map.entry(XssTemplateCheck.KEY, "2min"),
+                Map.entry(NoObjectInstantiationInTemplatesCheck.KEY, "10min"),
+                Map.entry(DiscouragedDependenciesCheck.KEY, "5min"),
+                Map.entry(StatelessPluginCheck.KEY, "15min"),
+                Map.entry(ObjectManagerCheck.KEY, "30min"),
+                Map.entry(LiteralNamespaceCheck.KEY, "5min"),
+                Map.entry(ThisInTemplatesCheck.KEY, "45min"),
+                Map.entry(TryProcessSystemResourcesCheck.KEY, "10min"),
+                Map.entry(ObsoleteInstallUpgradeScriptsCheck.KEY, "40min"),
+                Map.entry(InterfaceNameCheck.KEY, "5min"),
+                Map.entry(PerformanceArrayOperationsInLoopCheck.KEY, "20min")
+        );
     }
 
     private String loadResource(String path) {

@@ -1,8 +1,14 @@
 # sonarqube-magento2-rules
 <p>Set of advanced rules for SonarQube, for Magento 2 CMS<p>
+<p> A list of available rules is available at the bottom of the README. Implementation plans are described 
+<a href="https://github.com/rostilos/sonarqube-magento2-rules/blob/main/docs/TODO.md">
+  here
+</a>
+</p>
 
 <h2>Installation</h2>
-To build your plugin project, execute this command from the project root directory:
+To install the plugin you can take either a compiled binary from the assets of the corresponding releases, or build from source.
+To build a plugin from source, execute this command from the project root directory:
 
 `mvn clean package`
 
@@ -10,11 +16,14 @@ The plugin jar file is generated in the project's `target/` directory.
 
 <h2>Deploy</h2>
 <h4>"Cold" Deploy</h4>
-The standard way to install the plugin for regular users is to copy the jar artifact, from the target/ directory to the extensions/plugins/ directory of your SonarQube Server installation, then start the server. The file logs/web.log will then contain a log line similar to:
-Deploy plugin Example Plugin / 0.1-SNAPSHOT
-Scanner extensions such as sensors are immediately retrieved and loaded when scanning source code.
 
-<h4>Installation example</h4>
+The standard way to install the plugin for regular users is to copy the jar artifact, from the `target/` directory to the `extensions/plugins/` directory of your SonarQube Server installation, then start the server.
+
+The file `logs/web.log` will then contain a log line similar to:
+`Deploy plugin Example Plugin / 0.1-SNAPSHOT
+Scanner extensions such as sensors are immediately retrieved and loaded when scanning source code.`
+
+<h4>Installation example ( Docker-based )</h4>
 
 ````
 version: "3.8"
@@ -84,6 +93,11 @@ networks:
     <li>✔️ Var ( As part of the standard PHP ruleset, php:S1765 )</li>
 </ul>
 
+<h4>Performance</h3>
+<ul>
+    <li>✅ ForeachArrayMerge ( is called PerformanceArrayOperationsInLoop, essentially extended to other array operations )</li>
+</ul>
+
 <h4>Classes</h4>
 <ul>
     <li>✅ DiscouragedDependencies ( No explicit proxy/interceptor requests in constructors. )</li>
@@ -133,3 +147,12 @@ networks:
     <li>✅ NoObjectInstantiationInTemplates ( Templates MUST NOT instantiate objects. All objects MUST be passed from the Block objects. )</li>
 </ul>
 
+
+<h2>Additional</h2>
+<p>The plugin is under active development.</p>
+<p>
+    Before the release of the new version, files are analyzed on a “clean” M2 project, as well as on a number of custom real projects (including a set of different modules and themes) to avoid errors and false-positive.
+</p>
+<p>If you encounter problems or false-positive during the analysis - please let me know, I will be grateful for more information.
+
+</p>
