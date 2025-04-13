@@ -39,7 +39,7 @@
 <h3>NamingConvention</h3>
 <ul>
     <li>✅ InterfaceName</li>
-    <li>❌ ReservedWords</li>
+    <li>✅ ReservedWords</li>
 </ul>
 
 <h3>PHP</h3>

@@ -1,0 +1,80 @@
+<h2>Why is this an issue?</h2>
+
+<p>
+    PHP has several reserved words that cannot be used to name a class, interface, trait, or in namespace parts.
+    Using these words can lead to unexpected behavior or errors in PHP code.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre data-diff-id="1" data-diff-type="compliant">
+namespace App\String\Service; // Noncompliant - 'String' is a reserved word
+
+class Int // Noncompliant - 'Int' is a reserved word
+{
+    // Class implementation
+}
+
+interface Iterable // Noncompliant - 'Iterable' is a reserved word
+{
+    // Interface definition
+}
+
+trait Bool // Noncompliant - 'Bool' is a reserved word
+{
+    // Trait implementation
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre data-diff-id="1" data-diff-type="compliant">
+namespace App\StringValue\Service; // Compliant - 'StringValue' instead of 'String'
+
+class Integer // Compliant - 'Integer' instead of 'Int'
+{
+    // Class implementation
+}
+
+interface IterableInterface // Compliant - 'IterableInterface' instead of 'Iterable'
+{
+    // Interface definition
+}
+
+trait BooleanTrait // Compliant - 'BooleanTrait' instead of 'Bool'
+{
+    // Trait implementation
+}
+    </pre>
+
+<h2>Why is this important?</h2>
+<p>PHP reserves certain words for current or future language features. Using these reserved words as class names or in namespaces:</p>
+<ul>
+    <li>May cause conflicts with PHP's internal types</li>
+    <li>Could lead to errors in current or future PHP versions</li>
+    <li>Creates confusion between user-defined types and built-in language constructs</li>
+    <li>May reduce code compatibility across different PHP versions</li>
+</ul>
+
+<h2>Reserved Words</h2>
+<p>The following words are considered reserved:</p>
+<ul>
+    <li><code>int</code> (since PHP 7)</li>
+    <li><code>float</code> (since PHP 7)</li>
+    <li><code>bool</code> (since PHP 7)</li>
+    <li><code>string</code> (since PHP 7)</li>
+    <li><code>true</code> (since PHP 7)</li>
+    <li><code>false</code> (since PHP 7)</li>
+    <li><code>null</code> (since PHP 7)</li>
+    <li><code>void</code> (since PHP 7.1)</li>
+    <li><code>iterable</code> (since PHP 7.1)</li>
+    <li><code>resource</code> (since PHP 7)</li>
+    <li><code>object</code> (since PHP 7)</li>
+    <li><code>mixed</code> (since PHP 7)</li>
+    <li><code>numeric</code> (since PHP 7)</li>
+    <li><code>match</code> (since PHP 8)</li>
+</ul>
+
+<h2>References</h2>
+<ul>
+    <li><a href="https://www.php.net/manual/en/reserved.keywords.php">PHP Manual: Reserved Keywords</a></li>
+    <li><a href="https://www.php.net/manual/en/reserved.other-reserved-words.php">PHP Manual: Other Reserved Words</a></li>
+</ul>
