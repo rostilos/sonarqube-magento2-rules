@@ -49,7 +49,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 TryProcessSystemResourcesCheck.class,
                 ObsoleteInstallUpgradeScriptsCheck.class,
                 InterfaceNameCheck.class,
-                PerformanceArrayOperationsInLoopCheck.class
+                PerformanceArrayOperationsInLoopCheck.class,
+                ArrayAutovivificationCheck.class
         );
     }
 
@@ -89,7 +90,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 Map.entry(TryProcessSystemResourcesCheck.KEY, "10min"),
                 Map.entry(ObsoleteInstallUpgradeScriptsCheck.KEY, "40min"),
                 Map.entry(InterfaceNameCheck.KEY, "5min"),
-                Map.entry(PerformanceArrayOperationsInLoopCheck.KEY, "20min")
+                Map.entry(PerformanceArrayOperationsInLoopCheck.KEY, "20min"),
+                Map.entry(ArrayAutovivificationCheck.KEY, "10min")
         );
     }
 

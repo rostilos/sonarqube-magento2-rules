@@ -87,9 +87,10 @@ networks:
 
 <h4>PHP</h4>
 <ul>
-    <li>✔️ Goto ( As part of the standard PHP ruleset, php:S907 )</li>
     <li>✅ ReturnValue ( Explicit return types MUST BE declared on functions. )</li>
-    <li>✅ LiteralNamespaces</li>
+    <li>✅ LiteralNamespaces ( Avoid Literal Namespace Strings. )</li>
+    <li>✅ ArrayAutovivification ( PHP 8.1+ has deprecated the automatic conversion of false to array )</li>
+    <li>✔️ Goto ( As part of the standard PHP ruleset, php:S907 )</li>
     <li>✔️ Var ( As part of the standard PHP ruleset, php:S1765 )</li>
 </ul>
 
@@ -117,7 +118,7 @@ networks:
 
 <h4>Legacy</h4>
 <ul>
-    <li>✅ InstallUpgrade</li>
+    <li>✅ InstallUpgrade ( ObsoleteInstallUpgradeScripts, Magento 2 has deprecated install and upgrade scripts )</li>
 </ul>
 
 <h4>NamingConvention</h4>
