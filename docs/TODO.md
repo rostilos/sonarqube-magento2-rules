@@ -111,7 +111,7 @@
 
 <h3>Methods</h3>
 <ul>
-    <li>❌ DeprecatedModelMethod</li>
+    <li>✅ DeprecatedModelMethod</li>
 </ul>
 
 <h3>CodeAnalysis</h3>

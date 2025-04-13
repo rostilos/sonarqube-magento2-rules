@@ -121,6 +121,10 @@ networks:
     <li>✅ ObjectManager ( Direct use of objectManager is prohibited )</li>
 </ul>
 
+<h4>Methods</h4>
+<ul>
+    <li>✅ DeprecatedModelMethod</li>
+</ul>
 
 <h4>Legacy</h4>
 <ul>
