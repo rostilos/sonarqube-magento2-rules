@@ -126,6 +126,7 @@ networks:
 <h4>NamingConvention</h4>
 <ul>
     <li>✅ InterfaceName ( Interfaces should have names that end with the 'Interface' suffix )</li>
+    <li>✅ ReservedWords</li>
 </ul>
 
 <h4>CodeAnalysis</h4>
