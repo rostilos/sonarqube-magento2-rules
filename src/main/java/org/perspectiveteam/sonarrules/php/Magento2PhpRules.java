@@ -52,7 +52,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 PerformanceArrayOperationsInLoopCheck.class,
                 ArrayAutovivificationCheck.class,
                 ObsoleteConnectionCheck.class,
-                FinalImplementationCheck.class
+                FinalImplementationCheck.class,
+                RawSqlQueryCheck.class
         );
     }
 
@@ -95,7 +96,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 Map.entry(PerformanceArrayOperationsInLoopCheck.KEY, "20min"),
                 Map.entry(ArrayAutovivificationCheck.KEY, "10min"),
                 Map.entry(ObsoleteConnectionCheck.KEY, "20min"),
-                Map.entry(FinalImplementationCheck.KEY, "5min")
+                Map.entry(FinalImplementationCheck.KEY, "5min"),
+                Map.entry(RawSqlQueryCheck.KEY, "45min")
         );
     }
 

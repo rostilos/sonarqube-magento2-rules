@@ -95,6 +95,11 @@ networks:
     <li>✔️ Var ( As part of the standard PHP ruleset, php:S1765 )</li>
 </ul>
 
+<h4>SQL</h4>
+<ul>
+    <li>✅ RawQuery</li>
+</ul>
+
 <h4>Performance</h3>
 <ul>
     <li>✅ ForeachArrayMerge ( is called PerformanceArrayOperationsInLoop, essentially extended to other array operations )</li>
