@@ -54,7 +54,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 ObsoleteConnectionCheck.class,
                 FinalImplementationCheck.class,
                 RawSqlQueryCheck.class,
-                DeprecatedModelMethodCheck.class
+                DeprecatedModelMethodCheck.class,
+                ReservedWordsCheck.class
         );
     }
 
@@ -99,7 +100,8 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 Map.entry(ObsoleteConnectionCheck.KEY, "20min"),
                 Map.entry(FinalImplementationCheck.KEY, "5min"),
                 Map.entry(RawSqlQueryCheck.KEY, "45min"),
-                Map.entry(DeprecatedModelMethodCheck.KEY, "20min")
+                Map.entry(DeprecatedModelMethodCheck.KEY, "20min"),
+                Map.entry(ReservedWordsCheck.KEY, "10min")
         );
     }
 
