@@ -26,7 +26,7 @@ import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
 )
 public class FunctionArgumentsShouldNotBeModifiedCheck extends PHPVisitorCheck {
 
-    public static final String KEY = "M1.1";
+    public static final String KEY = "FunctionArgumentsShouldNotBeModified";
     public static final String MESSAGE = "Function arguments should not be modified.";
 
     @Override

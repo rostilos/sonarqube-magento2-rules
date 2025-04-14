@@ -5,22 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.perspectiveteam.sonarrules.php.checks.ConstructorDependencyCheck;
-import org.perspectiveteam.sonarrules.php.checks.DirectUseOfObjectManagerCheck;
-import org.perspectiveteam.sonarrules.php.checks.EscapeOutputCheck;
-import org.perspectiveteam.sonarrules.php.checks.EventsInConstructorsCheck;
-import org.perspectiveteam.sonarrules.php.checks.FunctionArgumentsShouldNotBeModifiedCheck;
-import org.perspectiveteam.sonarrules.php.checks.LiteralNamespaceCheck;
-import org.perspectiveteam.sonarrules.php.checks.NoObjectInstantiationInTemplatesCheck;
-import org.perspectiveteam.sonarrules.php.checks.NoProxyInterceptorInConstructorRule;
-import org.perspectiveteam.sonarrules.php.checks.ReturnTypesOnFunctionsCheck;
-import org.perspectiveteam.sonarrules.php.checks.StatelessPluginCheck;
-import org.perspectiveteam.sonarrules.php.checks.StrictTypesDeclarationCheck;
-import org.perspectiveteam.sonarrules.php.checks.ThisInTemplatesCheck;
+import org.perspectiveteam.sonarrules.php.checks.*;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 import org.sonar.plugins.php.api.visitors.PHPCustomRuleRepository;
@@ -35,7 +24,7 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
      */
     @Override
     public String repositoryKey() {
-        return "Magento2";
+        return "magento2";
     }
 
     /**
@@ -46,17 +35,26 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
     public List<Class<?>> checkClasses() {
         return List.of(
                 EventsInConstructorsCheck.class,
-                ReturnTypesOnFunctionsCheck.class,
+                ReturnValueCheck.class,
                 FunctionArgumentsShouldNotBeModifiedCheck.class,
                 StrictTypesDeclarationCheck.class,
                 ConstructorDependencyCheck.class,
-                EscapeOutputCheck.class,
+                XssTemplateCheck.class,
                 NoObjectInstantiationInTemplatesCheck.class,
-                NoProxyInterceptorInConstructorRule.class,
+                DiscouragedDependenciesCheck.class,
                 StatelessPluginCheck.class,
-                DirectUseOfObjectManagerCheck.class,
+                ObjectManagerCheck.class,
                 LiteralNamespaceCheck.class,
-                ThisInTemplatesCheck.class
+                ThisInTemplatesCheck.class,
+                TryProcessSystemResourcesCheck.class,
+                ObsoleteInstallUpgradeScriptsCheck.class,
+                InterfaceNameCheck.class,
+                PerformanceArrayOperationsInLoopCheck.class,
+                ArrayAutovivificationCheck.class,
+                ObsoleteConnectionCheck.class,
+                FinalImplementationCheck.class,
+                RawSqlQueryCheck.class,
+                DeprecatedModelMethodCheck.class
         );
     }
 
@@ -78,22 +76,31 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
         repository.done();
     }
 
-    private static Map<String, String> getStringStringMap() {
-        Map<String, String> remediationCosts = new HashMap<>();
 
-        remediationCosts.put(EventsInConstructorsCheck.KEY, "5min");
-        remediationCosts.put(ReturnTypesOnFunctionsCheck.KEY, "2min");
-        remediationCosts.put(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "5min");
-        remediationCosts.put(StrictTypesDeclarationCheck.KEY, "5min");
-        remediationCosts.put(ConstructorDependencyCheck.KEY, "5min");
-        remediationCosts.put(EscapeOutputCheck.KEY, "2min");
-        remediationCosts.put(NoObjectInstantiationInTemplatesCheck.KEY, "10min");
-        remediationCosts.put(NoProxyInterceptorInConstructorRule.KEY, "5min");
-        remediationCosts.put(StatelessPluginCheck.KEY, "15min");
-        remediationCosts.put(DirectUseOfObjectManagerCheck.KEY, "30min");
-        remediationCosts.put(LiteralNamespaceCheck.KEY, "5min");
-        remediationCosts.put(ThisInTemplatesCheck.KEY, "45min");
-        return remediationCosts;
+    private static Map<String, String> getStringStringMap() {
+        return Map.ofEntries(
+                Map.entry(EventsInConstructorsCheck.KEY, "10min"),
+                Map.entry(ReturnValueCheck.KEY, "15min"),
+                Map.entry(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "5min"),
+                Map.entry(StrictTypesDeclarationCheck.KEY, "10min"),
+                Map.entry(ConstructorDependencyCheck.KEY, "15min"),
+                Map.entry(XssTemplateCheck.KEY, "10min"),
+                Map.entry(NoObjectInstantiationInTemplatesCheck.KEY, "10min"),
+                Map.entry(DiscouragedDependenciesCheck.KEY, "20min"),
+                Map.entry(StatelessPluginCheck.KEY, "15min"),
+                Map.entry(ObjectManagerCheck.KEY, "30min"),
+                Map.entry(LiteralNamespaceCheck.KEY, "5min"),
+                Map.entry(ThisInTemplatesCheck.KEY, "45min"),
+                Map.entry(TryProcessSystemResourcesCheck.KEY, "10min"),
+                Map.entry(ObsoleteInstallUpgradeScriptsCheck.KEY, "40min"),
+                Map.entry(InterfaceNameCheck.KEY, "5min"),
+                Map.entry(PerformanceArrayOperationsInLoopCheck.KEY, "20min"),
+                Map.entry(ArrayAutovivificationCheck.KEY, "10min"),
+                Map.entry(ObsoleteConnectionCheck.KEY, "20min"),
+                Map.entry(FinalImplementationCheck.KEY, "5min"),
+                Map.entry(RawSqlQueryCheck.KEY, "45min"),
+                Map.entry(DeprecatedModelMethodCheck.KEY, "20min")
+        );
     }
 
     private String loadResource(String path) {

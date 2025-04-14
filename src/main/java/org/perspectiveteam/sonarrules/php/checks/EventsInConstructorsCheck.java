@@ -20,7 +20,7 @@ import org.perspectiveteam.sonarrules.php.utils.CheckUtils;
 
 public class EventsInConstructorsCheck extends PHPVisitorCheck {
 
-    public static final String KEY = "M2.3.2";
+    public static final String KEY = "EventsInConstructors";
     public static final String FORBIDDEN_METHOD = "dispatch";
     public static final String MESSAGE = "No events in constructors.";
 

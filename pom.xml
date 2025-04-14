@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.perpectiveteam.sonarrules</groupId>
   <artifactId>sonarqube-magento2-rules</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <name>sonarqube-magento2-rules</name>
   <packaging>sonar-plugin</packaging>
 

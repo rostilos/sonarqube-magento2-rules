@@ -15,7 +15,7 @@ import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
 
 public class NoObjectInstantiationInTemplatesCheck extends PHPVisitorCheck {
 
-    public static final String KEY = "M6.2.6";
+    public static final String KEY = "NoObjectInstantiationInTemplates";
     public static final String MESSAGE = "Templates must not instantiate objects.";
 
     @Override
