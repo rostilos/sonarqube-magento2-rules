@@ -73,7 +73,7 @@ public class RawSqlQueryCheck extends PHPVisitorCheck {
 
     private void checkForRawSql(ExpressionTree tree, boolean caseSensitive) {
         String value = tree.toString();
-        value = value.replaceAll("^['\"]|['\"]$", "");
+        value = value.replaceAll("(^['\"])|(['\"]$)", "");
         String sqlPattern = "^(" + String.join("|", SQL_STATEMENTS) + ")\\s";
 
         if(caseSensitive){

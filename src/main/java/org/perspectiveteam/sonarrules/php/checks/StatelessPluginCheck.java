@@ -52,22 +52,22 @@ public class StatelessPluginCheck extends PHPSubscriptionCheck {
 
     private void checkForStaticProperties(ClassDeclarationTree classTree) {
         classTree.members().stream()
-                .filter(member -> member.is(ClassTree.Kind.CLASS_PROPERTY_DECLARATION))
-                .map(member -> (ClassPropertyDeclarationTree) member)
+                .filter(member -> member.is(Tree.Kind.CLASS_PROPERTY_DECLARATION))
+                .map(ClassPropertyDeclarationTree.class::cast)
                 .filter(property -> property.modifierTokens().stream()
                         .anyMatch(modifier -> modifier.text().equals("static")))
-                .forEach(property -> {
-                    property.declarations().forEach(declaration -> {
-                        String message = String.format(MESSAGE, "static property utilization");
-                        context().newIssue(this, declaration, message);
-                    });
-                });
+                .forEach(property ->
+                        property.declarations().forEach(declaration -> {
+                            String message = String.format(MESSAGE, "static property utilization");
+                            context().newIssue(this, declaration, message);
+                        })
+                );
     }
 
     private void checkForPropertyModifications(ClassDeclarationTree classTree) {
         classTree.members().stream()
-                .filter(member -> member.is(ClassTree.Kind.METHOD_DECLARATION))
-                .map(member -> (MethodDeclarationTree) member)
+                .filter(member -> member.is(Tree.Kind.METHOD_DECLARATION))
+                .map(MethodDeclarationTree.class::cast)
                 .filter(method -> !CheckUtils.isConstructorMethodPromotion(method))
                 .forEach(method -> {
                     if (method.body().is(Tree.Kind.BLOCK)) {

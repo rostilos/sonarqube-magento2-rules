@@ -3,8 +3,8 @@ package org.perspectiveteam.sonarrules.php.checks;
 import org.perspectiveteam.sonarrules.php.utils.CheckUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.plugins.php.api.tree.declaration.DeclaredTypeTree;
 import org.sonar.plugins.php.api.tree.declaration.ReturnTypeClauseTree;
-import org.sonar.plugins.php.api.tree.declaration.TypeTree;
 import org.sonar.plugins.php.api.tree.declaration.MethodDeclarationTree;
 import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
 
@@ -41,8 +41,8 @@ public class ReturnValueCheck extends PHPVisitorCheck {
             return false;
         }
         ReturnTypeClauseTree functionReturnClause = Objects.requireNonNull(tree.returnTypeClause());
-        TypeTree returnType = functionReturnClause.type();
-        return !returnType.typeName().toString().isEmpty();
+        DeclaredTypeTree returnType = functionReturnClause.declaredType();
+        return !returnType.toString().isEmpty();
     }
 
     private boolean isExceptionMethod(MethodDeclarationTree tree) {
