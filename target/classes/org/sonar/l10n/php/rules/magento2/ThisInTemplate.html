@@ -1,0 +1,31 @@
+<h2>Why is this an issue?</h2>
+<p>
+    Magento 2 promotes a clear separation of concerns between business logic and presentation.
+    Using $this in templates creates tight coupling between templates and blocks, making code harder to test and maintain.
+    Similarly, using generic helper variables ($helper or $_helper) often leads to complex, overloaded templates that are difficult to understand and maintain.
+</p>
+
+
+<h2>Noncompliant Code Example</h2>
+
+<pre data-diff-id="2" data-diff-type="noncompliant">
+$this->escapeHtml($this->getProduct()->getName());
+$helper->formatPrice($product->getPrice())
+</pre>
+
+<h2>Compliant Solution</h2>
+
+<pre data-diff-id="1" data-diff-type="compliant">
+$viewModel->getProductName();
+$block->getFormattedPrice();
+</pre>
+
+
+<h2>References</h2>
+<ul>
+    <li>
+        <a href="https://developer.adobe.com/commerce/php/development/components/view-models/" target="_blank">
+            Magento 2 ViewModels Documentation
+        </a>
+    </li>
+</ul>

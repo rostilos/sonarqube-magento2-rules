@@ -1,0 +1,90 @@
+<h2>Why is this an issue?</h2>
+
+<p>
+    This rule detects when resource-intensive array operations are used within loops.
+    Such operations can lead to significant performance degradation, especially when working with large arrays or in loops with many iterations.
+</p>
+
+<h3>Why is this important?</h3>
+<p>Using functions like <code>array_merge()</code> inside loops can cause serious performance issues because:</p>
+<ul>
+    <li>Each call creates a new array and copies all elements from the source arrays</li>
+    <li>Memory usage increases with each iteration</li>
+    <li>Processing time increases dramatically with larger arrays</li>
+    <li>Garbage collection is triggered more frequently, further reducing performance</li>
+</ul>
+
+<p>This is particularly problematic in high-traffic applications like e-commerce platforms where performance is critical.</p>
+
+<h3>Resource-Intensive Array Operations</h3>
+<p>This rule checks for the following functions when used inside loops:</p>
+<ul>
+    <li><strong>Merge/Replace Operations:</strong> array_merge(), array_merge_recursive(), array_replace(), array_replace_recursive()</li>
+    <li><strong>Difference Operations:</strong> array_diff(), array_diff_assoc(), array_diff_key(), array_diff_uassoc(), array_diff_ukey(), array_udiff(), array_udiff_assoc(), array_udiff_uassoc()</li>
+    <li><strong>Intersection Operations:</strong> array_intersect(), array_intersect_assoc(), array_intersect_key(), array_intersect_uassoc(), array_intersect_ukey(), array_uintersect(), array_uintersect_assoc(), array_uintersect_uassoc()</li>
+</ul>
+
+<h3>Noncompliant Code Example</h3>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+$result = [];
+foreach ($items as $item) {
+    // Noncompliant: array_merge in loop
+    $result = array_merge($result, $item->getValues());
+}
+
+$combined = [];
+for ($i = 0; $i < count($dataArrays); $i++) {
+    // Noncompliant: array_merge_recursive in loop
+    $combined = array_merge_recursive($combined, $dataArrays[$i]);
+}
+
+while ($row = $resultSet->fetch()) {
+    // Noncompliant: array_diff in loop
+    $differences = array_diff($masterArray, $row);
+    // Process differences...
+}
+</pre>
+
+<h3>Compliant Solution</h3>
+<pre data-diff-id="1" data-diff-type="compliant">
+// Solution 1: Collect items first, then merge once
+$collections = [];
+foreach ($items as $item) {
+    $collections[] = $item->getValues();
+}
+// Single array_merge operation outside the loop
+$result = array_merge(...$collections);
+
+// Solution 2: Direct array addition where appropriate
+$result = [];
+foreach ($items as $item) {
+    // Direct array addition instead of array_merge
+    foreach ($item->getValues() as $key => $value) {
+        $result[$key] = $value;
+    }
+}
+
+// Solution 3: Use SplFixedArray for better performance with numeric keys
+$result = [];
+foreach ($items as $item) {
+    // Simple array concatenation for numerically indexed arrays
+    $result = $result + $item->getValues();
+}
+</pre>
+
+<h3>Exceptions</h3>
+<p>There might be cases where these functions are necessary within loops for specific logic requirements. In such cases, consider:</p>
+<ul>
+    <li>Restructuring your algorithm to minimize loop iterations</li>
+    <li>Processing smaller chunks of data at a time</li>
+    <li>Using alternative approaches like array union operator (+) where applicable</li>
+    <li>Adding a comment explaining why the performance impact is acceptable in this specific case</li>
+</ul>
+
+<h3>References</h3>
+<ul>
+    <li><a href="https://www.php.net/manual/en/function.array-merge.php">PHP Documentation: array_merge</a></li>
+    <li><a href="https://www.php.net/manual/en/language.operators.array.php">PHP Documentation: Array Operators</a></li>
+    <li><a href="https://dev.to/klnjmm/never-use-arraymerge-in-a-for-loop-in-php-5go1">Never use array_merge in a loop in PHP</a></li>
+    <li><a href="https://www.exakat.io/speeding-up-array_merge/">Speeding up array_merge()</a></li>
+</ul>

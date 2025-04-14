@@ -1,0 +1,51 @@
+<h2>Why is this an issue?</h2>
+<p>
+    Follow <a href="https://developer.adobe.com/commerce/php/development/security/cross-site-scripting/" target="_blank">
+    XSS prevention strategies</a> guidelines for escaping output.
+</p>
+<p>
+    Output processing involves sanitizing strings that may have come from external data sources before using it to render views.
+    It is the main method of protecting your extension from XSS attacks.</p>
+<p>The general rule is: Do not trust dynamic values.</p>
+
+<h3>Noncompliant code example</h3>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+&lt;?= __('Text to translate') ?&gt;
+...
+&lt;?php echo $customer->getName() ?&gt;
+...
+&lt;div data-bind='settings: &lt;?= $myJson ?&gt;'&gt;&lt;/div&gt;
+</pre>
+
+<h3>Compliant solution</h3>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;?= $escaper->escapeHtml(__('Text to translate')) ?&gt;
+...
+&lt;?php echo $escaper->escapeHtml($customer->getName()) ?&gt;
+...
+&lt;div data-bind='settings: &lt;?= $escaper->escapeHtmlAttr($myJson) ?&gt;'&gt;&lt;/div&gt;
+</pre>
+
+
+<h3>Exceptions</h3>
+<ul>
+    <li>/* @noEscape */ before output. Output does not require escaping. Test is green.</li>
+    <li>/* @escapeNotVerified */ before output. Output escaping is not checked and should be verified. Test is green.</li>
+    <li>Methods which contain "html" in their names (for example echo $object->{suffix}Html{postfix}()).
+        Data is ready for the HTML output. Test is green.
+    </li>
+    <li>
+        AbstractBlock methods escapeHtml, escapeHtmlAttr, escapeUrl, escapeJs are allowed. Test is green.
+    </li>
+    <li>Type casting and php function count() are allowed (for example echo (int)$var, (bool)$var, count($var)). Test is green.</li>
+    <li>Primitives (for example echo 'some text', 1, 1.30). Test is green.</li>
+</ul>
+
+<h2>References</h2>
+<ul>
+    <li>
+        <a href="https://developer.adobe.com/commerce/php/development/security/cross-site-scripting/" target="_blank">
+            Cross-site scripting (XSS). Magento 2 documentation
+        </a>
+    </li>
+</ul>

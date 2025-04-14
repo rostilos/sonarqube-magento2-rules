@@ -1,0 +1,134 @@
+<h2>Why is this an issue?</h2>
+<p>
+    Magento 2 plugins can be instantiated multiple times during a single request.
+    If a plugin maintains state, it can lead to unpredictable behavior, race conditions, and difficult-to-debug issues.
+</p>
+<p>This rule triggers when a class containing plugin methods (prefixed with <code>before</code>, <code>around</code>, or <code>after</code>)
+    exhibits behavior that could make it stateful. This includes:
+</p>
+<ul>
+    <li>Declaring non-static class properties</li>
+    <li>Modifying instance properties within plugin methods</li>
+</ul>
+
+<h3>Noncompliant code example</h3>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+class SomePlugin
+{
+    protected static $count = 0; // Noncompliant: Static property
+
+    public function beforeSomeMethod($subject, $arg)
+    {
+        self::$count++;
+        return [$arg];
+    }
+
+    public function afterSomeMethod($subject, $result)
+    {
+        return $result . " Called " . self::$count . " times"; // Using static state
+    }
+}
+</pre>
+
+<pre data-diff-id="2" data-diff-type="noncompliant">
+namespace Vendor\Module\Plugin;
+
+class CheckoutPlugin
+{
+    private $counter;
+
+    public function __construct()
+    {
+        $this->counter = 0;
+    }
+
+    public function aroundProcess(\Magento\Checkout\Model\Cart $subject, callable $proceed)
+    {
+        // Noncompliant: Modifying instance state
+        $this->counter++;
+
+        return $proceed();
+    }
+
+    public function beforeSave(\Magento\Checkout\Model\Cart $subject)
+    {
+        // Noncompliant: Using instance state
+        if ($this->counter > 5) {
+            throw new \Exception('Too many operations');
+        }
+    }
+}
+</pre>
+
+<h3>Compliant example</h3>
+<pre data-diff-id="1" data-diff-type="compliant">
+namespace Vendor\Module\Plugin;
+
+class CheckoutPlugin
+{
+    private $logger;
+
+    public function __construct(\Psr\Log\LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function aroundProcess(\Magento\Checkout\Model\Cart $subject, callable $proceed)
+    {
+        $this->logger->info('Processing cart');
+
+        return $proceed();
+    }
+
+    public function beforeSave(\Magento\Checkout\Model\Cart $subject)
+    {
+        // Compliant: No state is maintained between calls
+        $itemCount = count($subject->getItems());
+
+        if ($itemCount > 100) {
+            throw new \Exception('Too many items');
+        }
+    }
+}
+</pre>
+
+<h3>When to Suppress</h3>
+<p>
+    There might be exceptional cases where a plugin needs to maintain state for a legitimate reason.
+    In such cases, you can suppress the rule with a comment.
+    However, this should be done with caution and only after careful consideration of the potential consequences.
+</p>
+<h3>Example: </h3>
+<pre data-diff-id="1" data-diff-type="compliant">
+namespace Vendor\Module\Plugin;
+
+class CatalogProductPlugin
+{
+    // Compliant: Static property for shared cache
+    // @SuppressWarnings("M4.4")
+    private static $processedIds = [];
+
+    public function afterGetName(\Magento\Catalog\Model\Product $subject, $result)
+    {
+        // Tracking in static property is acceptable
+        // @SuppressWarnings("M4.4")
+        self::$processedIds[] = $subject->getId();
+
+        return $result . ' - Enhanced';
+    }
+}
+</pre>
+
+<h2>References</h2>
+<ul>
+    <li>
+        <a href="https://developer.adobe.com/commerce/php/development/components/plugins/" target="_blank">
+            Magento 2 Plugins documentation
+        </a>
+    </li>
+    <li>
+        <a href="https://developer.adobe.com/commerce/php/development/components/dependency-injection/" target="_blank">
+            Configuring Dependency Injection
+        </a>
+    </li>
+</ul>
