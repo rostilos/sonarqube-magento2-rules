@@ -11,14 +11,15 @@ import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
 import java.util.Objects;
 
 @Rule(
-        key = ReturnValueCheckCheck.KEY,
-        name = ReturnValueCheckCheck.MESSAGE,
+        key = ReturnValueCheck.KEY,
+        name = ReturnValueCheck.MESSAGE,
         description = "Explicit return types must be declared on all functions to improve code clarity and type safety.",
         priority = Priority.MAJOR,
         tags = {"magento2", "convention", "psr", "maintainability", "php7"}
 )
 
-public class ReturnValueCheckCheck extends PHPVisitorCheck {
+//TODO: Sometimes (considering the peculiarities of M2) it is not quite possible to correctly specify the returned type. It is also necessary to add a possibility to check for return type by annotations
+public class ReturnValueCheck extends PHPVisitorCheck {
 
     public static final String KEY = "ReturnValue";
     public static final String MESSAGE = "Functions must declare explicit return types.";

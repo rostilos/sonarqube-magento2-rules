@@ -6,6 +6,6 @@ import org.perspectiveteam.sonarrules.plugins.php.CheckVerifier;
 public class ReturnValueCheckTest {
     @Test
     void test() throws Exception {
-        CheckVerifier.verify(new ReturnValueCheckCheck(), "ReturnValueCheck.php");
+        CheckVerifier.verify(new ReturnValueCheck(), "ReturnValueCheck.php");
     }
 }

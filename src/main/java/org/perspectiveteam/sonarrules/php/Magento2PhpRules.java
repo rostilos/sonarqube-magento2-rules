@@ -35,7 +35,7 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
     public List<Class<?>> checkClasses() {
         return List.of(
                 EventsInConstructorsCheck.class,
-                ReturnValueCheckCheck.class,
+                ReturnValueCheck.class,
                 FunctionArgumentsShouldNotBeModifiedCheck.class,
                 StrictTypesDeclarationCheck.class,
                 ConstructorDependencyCheck.class,
@@ -80,7 +80,7 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
     private static Map<String, String> getStringStringMap() {
         return Map.ofEntries(
                 Map.entry(EventsInConstructorsCheck.KEY, "10min"),
-                Map.entry(ReturnValueCheckCheck.KEY, "15min"),
+                Map.entry(ReturnValueCheck.KEY, "15min"),
                 Map.entry(FunctionArgumentsShouldNotBeModifiedCheck.KEY, "5min"),
                 Map.entry(StrictTypesDeclarationCheck.KEY, "10min"),
                 Map.entry(ConstructorDependencyCheck.KEY, "15min"),

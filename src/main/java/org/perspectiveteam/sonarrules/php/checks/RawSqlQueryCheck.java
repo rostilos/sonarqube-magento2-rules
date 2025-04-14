@@ -30,22 +30,32 @@ public class RawSqlQueryCheck extends PHPVisitorCheck {
 
     @Override
     public void visitLiteral(LiteralTree tree) {
-        checkForRawSql(tree);
         super.visitLiteral(tree);
+        if(isExcludedFile()){
+            return;
+        }
+        checkForRawSql(tree, true);
     }
 
     @Override
     public void visitAssignmentExpression(AssignmentExpressionTree tree) {
+        super.visitAssignmentExpression(tree);
+        if(isExcludedFile()){
+            return;
+        }
         if (tree.value().is(Tree.Kind.REGULAR_STRING_LITERAL,
                 Tree.Kind.EXPANDABLE_STRING_LITERAL,
                 Tree.Kind.HEREDOC_LITERAL)) {
-            checkForRawSql(tree.value());
+            checkForRawSql(tree.value(), true);
         }
-        super.visitAssignmentExpression(tree);
     }
 
     @Override
     public void visitFunctionCall(FunctionCallTree tree) {
+        super.visitFunctionCall(tree);
+        if(isExcludedFile()){
+            return;
+        }
         if (tree.callee().is(Tree.Kind.OBJECT_MEMBER_ACCESS)) {
             String functionName = ((MemberAccessTree) tree.callee()).member().toString();
 
@@ -54,23 +64,30 @@ public class RawSqlQueryCheck extends PHPVisitorCheck {
                     if (argument.is(Tree.Kind.REGULAR_STRING_LITERAL,
                             Tree.Kind.EXPANDABLE_STRING_LITERAL,
                             Tree.Kind.HEREDOC_LITERAL)) {
-                        checkForRawSql(argument);
+                        checkForRawSql(argument, false);
                     }
                 });
             }
         }
-
-
-        super.visitFunctionCall(tree);
     }
 
-    private void checkForRawSql(ExpressionTree tree) {
+    private void checkForRawSql(ExpressionTree tree, boolean caseSensitive) {
         String value = tree.toString();
         value = value.replaceAll("^['\"]|['\"]$", "");
         String sqlPattern = "^(" + String.join("|", SQL_STATEMENTS) + ")\\s";
 
-        if (Pattern.compile(sqlPattern, Pattern.CASE_INSENSITIVE).matcher(value.trim()).find()) {
-            context().newIssue(this, tree, String.format(MESSAGE, value.trim()));
+        if(caseSensitive){
+            if (Pattern.compile(sqlPattern).matcher(value.trim()).find()) {
+                context().newIssue(this, tree, String.format(MESSAGE, value.trim()));
+            }
+        }else{
+            if (Pattern.compile(sqlPattern, Pattern.CASE_INSENSITIVE).matcher(value.trim()).find()) {
+                context().newIssue(this, tree, String.format(MESSAGE, value.trim()));
+            }
         }
+    }
+
+    private boolean isExcludedFile() {
+        return context().getPhpFile().filename().endsWith(".phtml");
     }
 }
