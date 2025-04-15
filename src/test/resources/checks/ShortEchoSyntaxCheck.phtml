@@ -1,0 +1,25 @@
+<?php
+?>
+<div class="product-name">
+    <?php echo $block->escapeHtml($_product->getName()); // Noncompliant {{Short echo tag syntax must be used; expected "<?=" but found "<?php echo"}} ?>
+</div>
+
+<span class="price">
+    <?php echo $block->formatPrice($_product->getPrice()); // Noncompliant {{Short echo tag syntax must be used; expected "<?=" but found "<?php echo"}} ?>
+</span>
+
+<div class="description">
+    <?php echo $block->escapeHtml($_product->getDescription()); // Noncompliant {{Short echo tag syntax must be used; expected "<?=" but found "<?php echo"}} ?>
+</div>
+
+<div class="product-name">
+    <?= $block->escapeHtml($_product->getName()) // Compliant ?>
+</div>
+
+<span class="price">
+    <?= $block->formatPrice($_product->getPrice()) // Compliant ?>
+</span>
+
+<div class="description">
+    <?= $block->escapeHtml($_product->getDescription()) // Compliant ?>
+</div>

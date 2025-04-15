@@ -91,6 +91,7 @@ networks:
     <li>✅ LiteralNamespaces ( Avoid Literal Namespace Strings. )</li>
     <li>✅ ArrayAutovivification ( PHP 8.1+ has deprecated the automatic conversion of false to array )</li>
     <li>✅ FinalImplementation</li>
+    <li>✅ ShortEchoSyntax</li>
     <li>✔️ Goto ( As part of the standard PHP ruleset, php:S907 )</li>
     <li>✔️ Var ( As part of the standard PHP ruleset, php:S1765 )</li>
 </ul>
@@ -113,6 +114,7 @@ networks:
 <h4>Security</h4>
 <ul>
     <li>✅ XssTemplate ( All output that could contain user-supplied data must be properly escaped )</li>
+    <li>✅ LanguageConstruct ( exit & die statements usage covered by php:S1799 )</li>
 </ul>
 
 <h4>Templates</h4>
@@ -130,6 +132,7 @@ networks:
 <ul>
     <li>✅ InstallUpgrade ( ObsoleteInstallUpgradeScripts, Magento 2 has deprecated install and upgrade scripts )</li>
     <li>✅ ObsoleteConnection</li>
+    <li>✅ AbstractBlock</li>
 </ul>
 
 <h4>NamingConvention</h4>
