@@ -14,6 +14,30 @@ To build a plugin from source, execute this command from the project root direct
 
 The plugin jar file is generated in the project's `target/` directory.
 
+<h2>Compatibility</h2>
+<p>
+Specifies the SQ server versions on which the plugin was tested. 
+Correctness of work on versions lower/higher is not excluded, but is not guaranteed at the moment
+</p>
+<table>
+    <thead>
+        <tr>
+        <th>SonarQube Version</th>
+        <th>Plugin Version</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>24.12</td>
+            <td>1.2.0</td>
+        </tr>
+        <tr>
+            <td>10.6 - 10.7</td>
+            <td>1.0.0 - 1.1.0</td>
+        </tr>
+    </tbody>
+</table>
+
 <h2>Deploy</h2>
 <h4>"Cold" Deploy</h4>
 
