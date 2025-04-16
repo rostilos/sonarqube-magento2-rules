@@ -36,7 +36,6 @@ public class IncludeFileCheck extends PHPVisitorCheck {
     @Override
     public void visitFunctionCall(FunctionCallTree tree) {
         super.visitFunctionCall(tree);
-        //if (tree.callee().is(Tree.Kind.NAME_IDENTIFIER)) {
         String functionName = tree.callee().toString().toLowerCase();
 
         if (INCLUDE_FUNCTIONS.contains(functionName) && !tree.arguments().isEmpty()) {
@@ -65,7 +64,6 @@ public class IncludeFileCheck extends PHPVisitorCheck {
 
             context().newIssue(this, tree, message.toString());
         }
-        //}
     }
 
     private boolean hasVariable(Tree expression) {
