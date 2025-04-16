@@ -58,10 +58,10 @@
 <ul>
     <li>✅ XssTemplate</li>
     <li>✅ LanguageConstruct ( exit & die statements usage covered by php:S1799 )</li>
+    <li>✅ IncludeFile</li>
     <li>️⚠️ InsecureFunction ( Partially implemented as part of the standard PHP ruleset ( exec ), php:S1523 )</li>
     <li>️️⚠️ Superglobal ( Partially implemented as part of the standard PHP ruleset, php:S2011 )</li>
     <li>❌ ExecutableRegEx</li>
-    <li>❌ IncludeFile</li>
 </ul>
 
 <h3>Html</h3>
@@ -95,7 +95,7 @@
 
 <h3>Namespaces</h3>
 <ul>
-    <li>❌ ImportsFromTestNamespace</li>
+    <li>✅ ImportsFromTestNamespace</li>
 </ul>
 
 <h3>Templates</h3>

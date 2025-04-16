@@ -58,7 +58,9 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 ReservedWordsCheck.class,
                 AbstractBlockCheck.class,
                 ShortEchoSyntaxCheck.class,
-                LanguageConstructCheck.class
+                LanguageConstructCheck.class,
+                ImportsFromTestNamespaceCheck.class,
+                IncludeFileCheck.class
         );
     }
 
@@ -107,7 +109,9 @@ public class Magento2PhpRules implements RulesDefinition, PHPCustomRuleRepositor
                 Map.entry(ReservedWordsCheck.KEY, "10min"),
                 Map.entry(AbstractBlockCheck.KEY, "10min"),
                 Map.entry(ShortEchoSyntaxCheck.KEY, "5min"),
-                Map.entry(LanguageConstructCheck.KEY, "15min")
+                Map.entry(LanguageConstructCheck.KEY, "15min"),
+                Map.entry(ImportsFromTestNamespaceCheck.KEY, "5min"),
+                Map.entry(IncludeFileCheck.KEY, "15min")
         );
     }
 

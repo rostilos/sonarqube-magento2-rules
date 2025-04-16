@@ -84,7 +84,6 @@ networks:
 <ul>
     <li>✅ TryProcessSystemResources ( Functions that use system resources should be properly wrapped in try-catch blocks )</li>
 </ul>
-
 <h4>PHP</h4>
 <ul>
     <li>✅ ReturnValue ( Explicit return types MUST BE declared on functions. )</li>
@@ -95,46 +94,39 @@ networks:
     <li>✔️ Goto ( As part of the standard PHP ruleset, php:S907 )</li>
     <li>✔️ Var ( As part of the standard PHP ruleset, php:S1765 )</li>
 </ul>
-
 <h4>SQL</h4>
 <ul>
     <li>✅ RawQuery</li>
 </ul>
-
-<h4>Performance</h3>
+<h4>Performance</h4>
 <ul>
     <li>✅ ForeachArrayMerge ( is called PerformanceArrayOperationsInLoop, essentially extended to other array operations )</li>
 </ul>
-
 <h4>Classes</h4>
 <ul>
     <li>✅ DiscouragedDependencies ( No explicit proxy/interceptor requests in constructors. )</li>
 </ul>
-
 <h4>Security</h4>
 <ul>
     <li>✅ XssTemplate ( All output that could contain user-supplied data must be properly escaped )</li>
     <li>✅ LanguageConstruct ( exit & die statements usage covered by php:S1799 )</li>
+    <li>✅ IncludeFile</li>
 </ul>
-
 <h4>Templates</h4>
 <ul>
     <li>✅ ThisInTemplate ( The use of $this in templates is forbidden. Using $helper is discouraged )</li>
     <li>✅ ObjectManager ( Direct use of objectManager is prohibited )</li>
 </ul>
-
 <h4>Methods</h4>
 <ul>
     <li>✅ DeprecatedModelMethod</li>
 </ul>
-
 <h4>Legacy</h4>
 <ul>
     <li>✅ InstallUpgrade ( ObsoleteInstallUpgradeScripts, Magento 2 has deprecated install and upgrade scripts )</li>
     <li>✅ ObsoleteConnection</li>
     <li>✅ AbstractBlock</li>
 </ul>
-
 <h4>NamingConvention</h4>
 <ul>
     <li>✅ InterfaceName ( Interfaces should have names that end with the 'Interface' suffix )</li>
@@ -144,6 +136,10 @@ networks:
 <h4>CodeAnalysis</h4>
 <ul>
     <li>✔️ EmptyBlock ( As part of the standard PHP ruleset, php:S1116 )</li>
+</ul>
+<h4>Namespaces</h4>
+<ul>
+    <li>✅ ImportsFromTestNamespace</li>
 </ul>
 
 <h3>Adobe's technical guideline rules, <a href="https://developer.adobe.com/commerce/php/coding-standards/technical-guidelines/">Ref.</a></h3>
