@@ -13,7 +13,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.debug>true</maven.compiler.debug>
-    <version.sonarqube-plugin-api>11.3.0.2824</version.sonarqube-plugin-api>
+    <version.sonarqube-plugin-api>10.14.0.2599</version.sonarqube-plugin-api>
   </properties>
 
 
@@ -46,7 +46,7 @@
     <dependency>
       <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-plugin-api-impl</artifactId>
-      <version>25.4.0.105899</version>
+      <version>24.12.0.100206</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
