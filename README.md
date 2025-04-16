@@ -14,6 +14,30 @@ To build a plugin from source, execute this command from the project root direct
 
 The plugin jar file is generated in the project's `target/` directory.
 
+<h2>Compatibility</h2>
+<p>
+Specifies the SQ server versions on which the plugin was tested. 
+Correctness of work on versions lower/higher is not excluded, but is not guaranteed at the moment
+</p>
+<table>
+    <thead>
+        <tr>
+        <th>SonarQube Version</th>
+        <th>Plugin Version</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>24.12</td>
+            <td>1.2.0</td>
+        </tr>
+        <tr>
+            <td>10.6 - 10.7</td>
+            <td>1.0.0 - 1.1.0</td>
+        </tr>
+    </tbody>
+</table>
+
 <h2>Deploy</h2>
 <h4>"Cold" Deploy</h4>
 
@@ -84,54 +108,49 @@ networks:
 <ul>
     <li>✅ TryProcessSystemResources ( Functions that use system resources should be properly wrapped in try-catch blocks )</li>
 </ul>
-
 <h4>PHP</h4>
 <ul>
     <li>✅ ReturnValue ( Explicit return types MUST BE declared on functions. )</li>
     <li>✅ LiteralNamespaces ( Avoid Literal Namespace Strings. )</li>
     <li>✅ ArrayAutovivification ( PHP 8.1+ has deprecated the automatic conversion of false to array )</li>
     <li>✅ FinalImplementation</li>
+    <li>✅ ShortEchoSyntax</li>
     <li>✔️ Goto ( As part of the standard PHP ruleset, php:S907 )</li>
     <li>✔️ Var ( As part of the standard PHP ruleset, php:S1765 )</li>
 </ul>
-
 <h4>SQL</h4>
 <ul>
     <li>✅ RawQuery</li>
 </ul>
-
-<h4>Performance</h3>
+<h4>Performance</h4>
 <ul>
     <li>✅ ForeachArrayMerge ( is called PerformanceArrayOperationsInLoop, essentially extended to other array operations )</li>
 </ul>
-
 <h4>Classes</h4>
 <ul>
     <li>✅ DiscouragedDependencies ( No explicit proxy/interceptor requests in constructors. )</li>
 </ul>
-
 <h4>Security</h4>
 <ul>
     <li>✅ XssTemplate ( All output that could contain user-supplied data must be properly escaped )</li>
+    <li>✅ LanguageConstruct ( exit & die statements usage covered by php:S1799 )</li>
+    <li>✅ IncludeFile</li>
 </ul>
-
 <h4>Templates</h4>
 <ul>
     <li>✅ ThisInTemplate ( The use of $this in templates is forbidden. Using $helper is discouraged )</li>
     <li>✅ ObjectManager ( Direct use of objectManager is prohibited )</li>
 </ul>
-
 <h4>Methods</h4>
 <ul>
     <li>✅ DeprecatedModelMethod</li>
 </ul>
-
 <h4>Legacy</h4>
 <ul>
     <li>✅ InstallUpgrade ( ObsoleteInstallUpgradeScripts, Magento 2 has deprecated install and upgrade scripts )</li>
     <li>✅ ObsoleteConnection</li>
+    <li>✅ AbstractBlock</li>
 </ul>
-
 <h4>NamingConvention</h4>
 <ul>
     <li>✅ InterfaceName ( Interfaces should have names that end with the 'Interface' suffix )</li>
@@ -141,6 +160,10 @@ networks:
 <h4>CodeAnalysis</h4>
 <ul>
     <li>✔️ EmptyBlock ( As part of the standard PHP ruleset, php:S1116 )</li>
+</ul>
+<h4>Namespaces</h4>
+<ul>
+    <li>✅ ImportsFromTestNamespace</li>
 </ul>
 
 <h3>Adobe's technical guideline rules, <a href="https://developer.adobe.com/commerce/php/coding-standards/technical-guidelines/">Ref.</a></h3>
