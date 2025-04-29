@@ -1,6 +1,7 @@
 node_modules
 .DS_Store
-target/
+target/*
+!target/classes
 node/
 .idea/
 sonar-example-plugin.iml

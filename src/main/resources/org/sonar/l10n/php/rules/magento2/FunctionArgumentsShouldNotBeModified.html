@@ -1,0 +1,41 @@
+<h2>Why is this an issue?</h2>
+<p>Modifying function arguments can lead to:</p>
+<ul>
+    <li>Unexpected behavior when the modified argument is used later in the calling code</li>
+    <li>Decreased code readability and maintainability</li>
+    <li>Difficulty in reasoning about the function's behavior</li>
+    <li>Potential side effects in the calling code</li>
+</ul>
+
+<h2>Noncompliant Code Example</h2>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+public function arrayFunction(array $items)
+{
+    $items[] = 'new item'; // Noncompliant: Function argument "$items" should not be modified.
+    $items['key'] = 'value'; // Noncompliant: Function argument "$items" should not be modified.
+
+    foreach ($items as &$item) { // Using reference in foreach is also modifying the argument
+        $item = strtoupper($item); //  Noncompliant This modifies $items indirectly
+    }
+
+    return $items;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre data-diff-id="1" data-diff-type="compliant">
+function processData($data) {
+  $processedData = trim($data); // Compliant - using a local variable
+  return $processedData;
+}
+</pre>
+
+<h2>Why is this important?</h2>
+
+
+<h2>Exceptions</h2>
+<p>
+    There are some cases where modifying function arguments might be acceptable, particularly for
+    performance reasons with large data structures. However, in such cases, it should be clearly
+    documented that the function modifies its arguments.
+</p>

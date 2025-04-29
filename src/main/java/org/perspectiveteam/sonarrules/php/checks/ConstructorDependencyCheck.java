@@ -22,20 +22,18 @@ import java.util.List;
 )
 
 public class ConstructorDependencyCheck extends PHPVisitorCheck {
-    public static final String KEY = "M2.3";
+    public static final String KEY = "ConstructorDependency";
     public static final String MESSAGE = "Constructor limited to dependency assignment and validation.";
 
     @Override
     public void visitMethodDeclaration(MethodDeclarationTree tree) {
-        if (CheckUtils.isConstructorMethodPromotion(tree)) {
-            if (tree.body().is(Tree.Kind.BLOCK)) {
-                List<StatementTree> statements = ((BlockTree) tree.body()).statements();
-                statements.forEach(statement -> {
-                    if (!isAllowedStatement(statement)) {
-                        context().newIssue(this, statement, MESSAGE);
-                    }
-                });
-            }
+        if (CheckUtils.isConstructorMethodPromotion(tree) && tree.body().is(Tree.Kind.BLOCK)) {
+            List<StatementTree> statements = ((BlockTree) tree.body()).statements();
+            statements.forEach(statement -> {
+                if (!isAllowedStatement(statement)) {
+                    context().newIssue(this, statement, MESSAGE);
+                }
+            });
         }
         super.visitMethodDeclaration(tree);
     }

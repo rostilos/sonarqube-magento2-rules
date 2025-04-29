@@ -1,0 +1,8 @@
+<?php
+
+$block->getChildHtml('block_name', true); //Compliant
+$block->getChildHtml('block_name', true, true); // Noncompliant {{3rd parameter is not needed anymore for getChildHtml()}}
+$block->getChildChildHtml('a', 'b', 'c'); //Compliant
+$block->getChildChildHtml('a', 'b', 'c', 'd'); // Noncompliant {{4th parameter is not needed anymore for getChildChildHtml()}}
+
+?>

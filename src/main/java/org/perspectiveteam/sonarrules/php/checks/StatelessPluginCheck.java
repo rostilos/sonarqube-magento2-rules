@@ -16,14 +16,14 @@ import java.util.List;
 import org.perspectiveteam.sonarrules.php.utils.CheckUtils;
 
 @Rule(
-        key = "M4.4",
+        key = StatelessPluginCheck.KEY,
         name = "Plugins must be stateless",
         description = "Plugins in Magento 2 should not have properties with state as they can be instantiated multiple times during a request",
         priority = Priority.CRITICAL,
         tags = {"magento2", "bug"}
 )
 public class StatelessPluginCheck extends PHPSubscriptionCheck {
-    public static final String KEY = "M4.4";
+    public static final String KEY = "StatelessPlugin";
     private static final String MESSAGE = "Plugins must be stateless. Found potential stateful behavior: %s";
 
     private static final Tree.Kind[] INCREMENT_DECREMENT = {
@@ -52,22 +52,22 @@ public class StatelessPluginCheck extends PHPSubscriptionCheck {
 
     private void checkForStaticProperties(ClassDeclarationTree classTree) {
         classTree.members().stream()
-                .filter(member -> member.is(ClassTree.Kind.CLASS_PROPERTY_DECLARATION))
-                .map(member -> (ClassPropertyDeclarationTree) member)
+                .filter(member -> member.is(Tree.Kind.CLASS_PROPERTY_DECLARATION))
+                .map(ClassPropertyDeclarationTree.class::cast)
                 .filter(property -> property.modifierTokens().stream()
                         .anyMatch(modifier -> modifier.text().equals("static")))
-                .forEach(property -> {
-                    property.declarations().forEach(declaration -> {
-                        String message = String.format(MESSAGE, "static property utilization");
-                        context().newIssue(this, declaration, message);
-                    });
-                });
+                .forEach(property ->
+                        property.declarations().forEach(declaration -> {
+                            String message = String.format(MESSAGE, "static property utilization");
+                            context().newIssue(this, declaration, message);
+                        })
+                );
     }
 
     private void checkForPropertyModifications(ClassDeclarationTree classTree) {
         classTree.members().stream()
-                .filter(member -> member.is(ClassTree.Kind.METHOD_DECLARATION))
-                .map(member -> (MethodDeclarationTree) member)
+                .filter(member -> member.is(Tree.Kind.METHOD_DECLARATION))
+                .map(MethodDeclarationTree.class::cast)
                 .filter(method -> !CheckUtils.isConstructorMethodPromotion(method))
                 .forEach(method -> {
                     if (method.body().is(Tree.Kind.BLOCK)) {

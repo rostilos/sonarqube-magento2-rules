@@ -17,7 +17,7 @@ import java.util.List;
 )
 
 public class ThisInTemplatesCheck extends PHPVisitorCheck {
-    public static final String KEY = "MCS0.3";
+    public static final String KEY = "ThisInTemplate";
     private static final List<String> DISCOURAGED_HELPER_VARS = Arrays.asList("$helper", "$_helper");
 
 

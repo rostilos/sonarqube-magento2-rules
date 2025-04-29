@@ -1,0 +1,25 @@
+<h2>Why is this an issue?</h2>
+<p>This rule detects possible improper usage of include and require functions in PHP.</p>
+
+<h3>Noncompliant Code Example</h3>
+<pre>
+// Noncompliant: URL in include
+include("https://example.com/script.php");
+
+// Noncompliant: String concatenation
+include($base_dir . "/file.php");
+
+// Noncompliant: Variable usage
+include($filename);
+</pre>
+
+
+<h3>Why is this important?</h3>
+<p>File inclusion vulnerabilities occur when a web application dynamically includes external files based on user-controlled input. This can lead to:</p>
+<ul>
+    <li>Remote code execution vulnerabilities</li>
+    <li>Information disclosure vulnerabilities</li>
+    <li>Denial-of-service attacks</li>
+</ul>
+
+<p>Using variables or string concatenation with include/require functions can be dangerous if user input is not properly sanitized.</p>

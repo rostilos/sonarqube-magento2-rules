@@ -1,0 +1,76 @@
+<h2>Why is this an issue?</h2>
+
+<p>This rule detects when a variable previously set to <code>false</code> is later accessed as an array. In PHP 8.1 and later, this automatic conversion (autovivification) is deprecated and will generate warnings.</p>
+
+<h3>Why is this important?</h3>
+<p>Starting with PHP 8.1, automatic conversion of <code>false</code> to array when accessing it with array syntax is deprecated. This can lead to several issues:</p>
+<ul>
+    <li>Deprecation warnings in production environments</li>
+    <li>Code that will break in future PHP versions</li>
+    <li>Logical errors where arrays are created unexpectedly</li>
+    <li>Hard-to-track bugs due to implicit type conversion</li>
+</ul>
+
+<h3>Noncompliant Code Example</h3>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+function processSomething() {
+    $data = false;
+    $data['key'] = 'value'; // Noncompliant - $data will be automatically converted from false to array
+
+    return $data;
+}
+
+function processItems($items) {
+    $result = false;  // Set to false initially
+
+    foreach ($items as $item) {
+        $result[] = $item->getValue(); // Noncompliant - implicit conversion from false to array
+    }
+
+    return $result;
+}
+</pre>
+
+<h3>Compliant Solution</h3>
+<pre>
+function processSomething() {
+    $data = [];
+    $data['key'] = 'value'; // Compliant - $data is already an array
+
+    return $data;
+}
+
+function processItems($items) {
+    $result = [];
+
+    foreach ($items as $item) {
+        $result[] = $item->getValue(); // Compliant - $result is already an array
+    }
+
+    return $result ?: false;
+}
+
+function conditionalProcess($condition) {
+    $data = $condition ? [] : null;
+
+    if ($condition) {
+        $data['key'] = 'value'; // Only access as array when we know it's an array
+    }
+
+    return $data;
+}
+</pre>
+
+<h3>Exceptions</h3>
+<p>This rule specifically targets variables that are first assigned <code>false</code> and then later accessed as arrays. It does not warn about:</p>
+<ul>
+    <li>Variables initialized with <code>null</code> (although similar autovivification issues exist)</li>
+    <li>Variables initialized with <code>[]</code> (empty array)</li>
+    <li>Variables properly checked for their type before array access</li>
+</ul>
+
+<h3>References</h3>
+<ul>
+    <li><a href="https://www.php.net/manual/en/migration81.deprecated.php">PHP 8.1 Deprecated Features</a></li>
+    <li><a href="https://www.php.net/manual/en/language.types.array.php">PHP Arrays Documentation</a></li>
+</ul>

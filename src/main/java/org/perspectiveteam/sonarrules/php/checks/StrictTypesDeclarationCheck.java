@@ -20,7 +20,7 @@ import java.util.List;
 
 public class StrictTypesDeclarationCheck extends PHPVisitorCheck {
 
-    public static final String KEY = "M1.3.1";
+    public static final String KEY = "StrictTypesDeclaration";
     public static final String MESSAGE = "PHP files must declare strict types.";
 
     @Override

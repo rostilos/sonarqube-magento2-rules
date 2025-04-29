@@ -1,0 +1,53 @@
+<h2>Why is this an issue?</h2>
+<p>This rule detects usage of obsolete connection methods that are no longer recommended in Magento development.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+class MyClass
+{
+    public function doSomething()
+    {
+        $connection = $this->_getReadConnection();
+        $connection = $this->getWriteAdapter();
+    }
+}
+    </pre>
+
+<h2>Compliant Solution</h2>
+<pre data-diff-id="1" data-diff-type="compliant">
+class MyClass
+{
+    public function doSomething()
+    {
+        $connection = $this->getConnection();
+    }
+
+}
+    </pre>
+
+<h2>Why is this important?</h2>
+<p>Magento has deprecated several connection-related methods in favor of the more unified <code>getConnection()</code> approach. Using the newer methods:</p>
+<ul>
+    <li>Ensures compatibility with future versions</li>
+    <li>Follows Magento best practices for database connections</li>
+    <li>Makes code more maintainable and consistent</li>
+    <li>Prevents potential issues as obsolete methods may be removed in future versions</li>
+</ul>
+
+<h2>Obsolete Methods</h2>
+<p>The following methods are considered obsolete:</p>
+<ul>
+    <li><code>_getReadConnection</code></li>
+    <li><code>_getWriteConnection</code></li>
+    <li><code>_getReadAdapter</code></li>
+    <li><code>_getWriteAdapter</code></li>
+    <li><code>getReadConnection</code></li>
+    <li><code>getWriteConnection</code></li>
+    <li><code>getReadAdapter</code></li>
+    <li><code>getWriteAdapter</code></li>
+</ul>
+
+<h2>References</h2>
+<ul>
+    <li><a href="https://devdocs.magento.com/guides/v2.4/extension-dev-guide/db-upgrades.html">Magento Developer Documentation - Database Access</a></li>
+</ul>

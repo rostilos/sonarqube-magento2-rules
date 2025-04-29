@@ -1,0 +1,52 @@
+<h2>Why is this an issue?</h2>
+<p>Magento is a highly extensible and customizable platform. The use of <code>final</code> classes and methods is prohibited as it prevents extension and customization.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+final class MyClass // Noncompliant
+{
+    public function someMethod()
+    {
+        ...
+    }
+}
+
+class AnotherClass
+{
+    final public function finalMethod() // Noncompliant
+    {
+        ...
+    }
+}
+    </pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+class MyClass // Compliant
+{
+    public function someMethod()
+    {
+       ...
+    }
+}
+
+class AnotherClass
+{
+    public function method() // Compliant
+    {
+        ...
+    }
+}
+    </pre>
+
+<h2>Why is this important?</h2>
+<p>The <code>final</code> keyword prevents classes from being extended and methods from being overridden. In Magento:</p>
+<ul>
+    <li>Extensibility is a core principle that allows merchants and developers to customize the platform to their needs</li>
+    <li>Plugins (interceptors) cannot work with final methods</li>
+    <li>Proxy generation fails with final classes</li>
+    <li>Dependency Injection becomes more difficult with final implementations</li>
+</ul>
+
+<h2>Exceptions</h2>
+<p>There are generally no exceptions to this rule in Magento development. Even if a class or method is not intended to be extended, it should not be marked as final to maintain compatibility with Magento's extensibility mechanisms.</p>

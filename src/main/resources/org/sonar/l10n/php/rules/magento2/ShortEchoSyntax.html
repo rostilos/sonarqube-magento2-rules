@@ -1,0 +1,50 @@
+<h2>Why is this an issue?</h2>
+
+<p>This rule enforces the use of short echo syntax (<code>&lt;?= $var ?&gt;</code>) instead of regular echo statements (<code>&lt;?php echo $var; ?&gt;</code>) in .phtml template files.</p>
+
+<h2>Why is this an issue?</h2>
+<p>Using short echo syntax in template files has several benefits:</p>
+<ul>
+    <li>Improves readability by making template code more concise</li>
+    <li>Follows Magento 2 coding standards for template files</li>
+    <li>Reduces visual clutter in template files where many variables are output</li>
+    <li>Makes the code more maintainable by clearly distinguishing output statements from logic</li>
+</ul>
+
+<h2>Noncompliant Code Example</h2>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+&lt;div class="product-name"&gt;
+    &lt;?php echo $block->escapeHtml($_product->getName()); ?&gt;
+&lt;/div&gt;
+
+&lt;span class="price"&gt;
+    &lt;?php echo $block->formatPrice($_product->getPrice()); ?&gt;
+&lt;/span&gt;
+
+&lt;div class="description"&gt;
+    &lt;?php echo $block->escapeHtml($_product->getDescription()); ?&gt;
+&lt;/div&gt;
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;div class="product-name"&gt;
+    &lt;?= $block->escapeHtml($_product->getName()) ?&gt;
+&lt;/div&gt;
+
+&lt;span class="price"&gt;
+    &lt;?= $block->formatPrice($_product->getPrice()) ?&gt;
+&lt;/span&gt;
+
+&lt;div class="description"&gt;
+    &lt;?= $block->escapeHtml($_product->getDescription()) ?&gt;
+&lt;/div&gt;
+</pre>
+
+<h2>Exceptions</h2>
+<p>This rule applies only to .phtml template files. It does not enforce the short echo syntax in .php files where regular PHP code is written.</p>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://devdocs.magento.com/guides/v2.4/coding-standards/code-standard-php.html">Magento 2 PHP Coding Standards</a></li>
+</ul>
