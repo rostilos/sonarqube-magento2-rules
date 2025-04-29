@@ -3,7 +3,7 @@ on:
     branches:
       - main
   pull_request:
-      branches: [main]
+      branches: [main, sonarqube]
       types: [opened, synchronize, reopened]
 
 name: SonarQube Analyze
