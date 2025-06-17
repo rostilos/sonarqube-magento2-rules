@@ -20,9 +20,9 @@ package org.rostilos.sonarrules.php.checks;
 import org.junit.jupiter.api.Test;
 import org.rostilos.sonarrules.php.plugins.CheckVerifier;
 
-public class PerformanceArrayOperationsInLoopCheckTest {
+class PerformanceArrayOperationsInLoopCheckTest {
     @Test
-    void test() throws Exception {
+    void test() {
         CheckVerifier.verify(new PerformanceArrayOperationsInLoopCheck(), "PerformanceArrayOperationsInLoopCheck.php");
     }
 }

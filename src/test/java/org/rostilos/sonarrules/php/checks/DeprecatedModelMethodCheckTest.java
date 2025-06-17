@@ -20,10 +20,10 @@ package org.rostilos.sonarrules.php.checks;
 import org.junit.jupiter.api.Test;
 import org.rostilos.sonarrules.php.plugins.CheckVerifier;
 
-public class DeprecatedModelMethodCheckTest {
+class DeprecatedModelMethodCheckTest {
 
     @Test
-    void test() throws Exception {
+    void test(){
         CheckVerifier.verify(new DeprecatedModelMethodCheck(), "DeprecatedModelMethodCheck.php");
     }
 }

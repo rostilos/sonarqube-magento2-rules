@@ -20,9 +20,9 @@ package org.rostilos.sonarrules.php.checks;
 import org.junit.jupiter.api.Test;
 import org.rostilos.sonarrules.php.plugins.CheckVerifier;
 
-public class AbstractBlockCheckTest {
+class AbstractBlockCheckTest {
     @Test
-    void test() throws Exception {
+    void test() {
         CheckVerifier.verify(new AbstractBlockCheck(), "AbstractBlock/AbstractBlockCheck.php");
         CheckVerifier.verify(new AbstractBlockCheck(), "AbstractBlock/AbstractBlockCheck.phtml");
     }

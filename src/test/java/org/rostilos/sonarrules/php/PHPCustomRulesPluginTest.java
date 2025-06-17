@@ -28,7 +28,7 @@ import org.sonar.api.utils.Version;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PHPCustomRulesPluginTest {
+class PHPCustomRulesPluginTest {
     @Test
     void shouldTestContext() {
         PHPCustomRulesPlugin plugin = new PHPCustomRulesPlugin();

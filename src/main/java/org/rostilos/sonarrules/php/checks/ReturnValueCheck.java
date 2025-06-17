@@ -35,7 +35,6 @@ import java.util.Objects;
         tags = {"magento2", "convention", "psr", "maintainability", "php7"}
 )
 
-//TODO: Sometimes (considering the peculiarities of M2) it is not quite possible to correctly specify the returned type. It is also necessary to add a possibility to check for return type by annotations
 public class ReturnValueCheck extends PHPVisitorCheck {
 
     public static final String KEY = "ReturnValue";

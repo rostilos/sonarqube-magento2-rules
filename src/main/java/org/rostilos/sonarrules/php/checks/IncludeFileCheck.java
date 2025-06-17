@@ -52,11 +52,10 @@ public class IncludeFileCheck extends PHPVisitorCheck {
         super.visitFunctionCall(tree);
         String functionName = tree.callee().toString().toLowerCase();
 
-        if (INCLUDE_FUNCTIONS.contains(functionName) && !tree.arguments().isEmpty()) {
+        if (INCLUDE_FUNCTIONS.contains(functionName) && !tree.callArguments().isEmpty()) {
             CallArgumentTree argument = tree.callArguments().get(0);
             StringBuilder message = new StringBuilder(MESSAGE_BASE);
 
-            //TODO: tweak this additional messages
             if (argument.is(Tree.Kind.REGULAR_STRING_LITERAL)) {
                 String includePath = ((LiteralTree) argument).value().replaceAll("^[\"']|[\"']$", "");
                 if (URL_PATTERN.matcher(includePath).matches()) {
