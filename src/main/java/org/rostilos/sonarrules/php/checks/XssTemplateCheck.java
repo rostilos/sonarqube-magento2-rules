@@ -49,6 +49,8 @@ public class XssTemplateCheck extends PHPVisitorCheck {
 
     public static final Pattern NO_ESCAPE_COMMENT_PATTERN = Pattern.compile("@(?:noEscape|escapeNotVerified)\\b");
     public static final Pattern SAFE_METHODS_PATTER = Pattern.compile("^(.*?)Html(.)?$");
+    private static final Pattern ESCAPER_PATTERN =
+            Pattern.compile("\\$escaper->escape[A-Za-z]+\\([^)]*\\)");
 
     private final Set<Integer> noEscapeLines = new HashSet<>();
     private final Map<Integer, Tree> unescapedEchos = new HashMap<>();
@@ -103,7 +105,7 @@ public class XssTemplateCheck extends PHPVisitorCheck {
 
 
     private boolean isEscaped(String content) {
-        return content.matches(".*\\$escaper->escape[A-Za-z]+\\(.*\\).*");
+        return ESCAPER_PATTERN.matcher(content).find();
     }
 
     private void checkXSSVulnerableOutput(Tree tree, String functionName) {

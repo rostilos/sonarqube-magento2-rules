@@ -57,7 +57,7 @@ public class IncludeFileCheck extends PHPVisitorCheck {
             StringBuilder message = new StringBuilder(MESSAGE_BASE);
 
             if (argument.is(Tree.Kind.REGULAR_STRING_LITERAL)) {
-                String includePath = ((LiteralTree) argument).value().replaceAll("^[\"']|[\"']$", "");
+                String includePath = ((LiteralTree) argument).value().replaceAll("(^[\"'])|([\"']$)", "");
                 if (URL_PATTERN.matcher(includePath).matches()) {
                     message.append(" Passing URLs is forbidden.");
                 }
