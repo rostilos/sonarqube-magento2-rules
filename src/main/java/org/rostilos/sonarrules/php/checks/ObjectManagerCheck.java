@@ -165,7 +165,7 @@ public class ObjectManagerCheck extends PHPVisitorCheck {
     }
 
     public void checkIfDirectUsageOfObjectManager(String objectName, String memberName, Tree contextTree) {
-        if ((OBJECT_MANAGER_ALIASES.contains(objectName) || objectName.contains("ObjectManager")) && memberName.equals("getInstance")) {
+        if ((OBJECT_MANAGER_ALIASES.contains(objectName) || objectName.contains(ObjectManagerCheck.KEY)) && memberName.equals("getInstance")) {
             context().newIssue(this, contextTree, MESSAGE);
         }
     }

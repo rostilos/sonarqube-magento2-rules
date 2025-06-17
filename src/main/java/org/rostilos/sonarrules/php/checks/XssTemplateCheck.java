@@ -48,7 +48,7 @@ public class XssTemplateCheck extends PHPVisitorCheck {
     public static final String MESSAGE = "Unescaped output detected.";
 
     public static final Pattern NO_ESCAPE_COMMENT_PATTERN = Pattern.compile("@(?:noEscape|escapeNotVerified)\\b");
-    public static final Pattern SAFE_METHODS_PATTER = Pattern.compile("^(.*?)Html(.*)?$");
+    public static final Pattern SAFE_METHODS_PATTER = Pattern.compile("^(.*?)Html(.)?$");
 
     private final Set<Integer> noEscapeLines = new HashSet<>();
     private final Map<Integer, Tree> unescapedEchos = new HashMap<>();

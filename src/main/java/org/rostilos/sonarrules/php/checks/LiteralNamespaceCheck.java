@@ -38,7 +38,7 @@ public class LiteralNamespaceCheck extends PHPVisitorCheck {
 
     public static final String KEY = "LiteralNamespace";
     public static final String MESSAGE = "Avoid Literal Namespace Strings.";
-    private static final Pattern LITERAL_NAMESPACE_PATTERN = Pattern.compile("^[\\\\]{0,2}[A-Z][A-Za-z]+([\\\\]{1,2}[A-Z][A-Za-z]+){2,}(?!\\\\+)$");
+    private static final Pattern LITERAL_NAMESPACE_PATTERN = Pattern.compile("^\\\\{0,2}+[A-Z][A-Za-z]++(\\\\{1,2}+[A-Z][A-Za-z]++){2,}+(?!\\\\+)$");
 
     @Override
     public void visitLiteral(LiteralTree tree) {
