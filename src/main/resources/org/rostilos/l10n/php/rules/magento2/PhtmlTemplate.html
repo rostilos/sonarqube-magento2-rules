@@ -1,0 +1,49 @@
+<!--
+  Copyright (C) 2025 Rostislav Suleimanov
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<h2>Why is this an issue?</h2>
+<p>The rule detects legacy practices in phtml template files:</p>
+<ul>
+    <li><strong>Access to protected/private Block members</strong> - Templates should only use public methods</li>
+    <li><strong>Deprecated "text/javascript" type attribute</strong> - Not needed in HTML5</li>
+</ul>
+
+<h2>Noncompliant Code Example</h2>
+ <pre data-diff-id="1" data-diff-type="noncompliant">
+$block->_getProtectedData(); // Noncompliant {{Access to protected and private members of Block class is obsolete in phtml templates. Use only public members.}}
+$block->_privateHelper(); // Noncompliant {{Access to protected and private members of Block class is obsolete in phtml templates. Use only public members.}}
+
+&lt;script type="text/javascript"&gt; // Noncompliant {{Please do not use "text/javascript" type attribute.}}
+    console.log('Hello');
+&lt;/script&gt;
+</pre>
+
+<h2>Compliant Solution</h2>
+ <pre data-diff-id="2" data-diff-type="compliant">
+$block->getPublicData(); // Compliant
+$block->publicHelper(); // Compliant
+
+&lt;script&gt; // Compliant
+    console.log('Hello');
+&lt;/script&gt;
+</pre>
+
+<h2>What to check</h2>
+<ul>
+    <li>Variable <code>$block</code> accessing members starting with underscore (<code>_</code>)</li>
+    <li>HTML script tags with <code>type="text/javascript"</code> attribute</li>
+</ul>

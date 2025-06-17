@@ -1,0 +1,35 @@
+<!--
+  Copyright (C) 2025 Rostislav Suleimanov
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<h2>Why is this an issue?</h2>
+<p>
+    All new PHP files MUST have strict type mode enabled by starting with declare(strict_types=1);.
+    All updated PHP files SHOULD have strict type mode enabled. PHP interfaces MAY have this declaration.
+</p>
+<p>
+    PHP code becomes more robust when type hinting (argument types, return types) are added.
+    With the declare(strict_types=1) added, there is less chance for bugs that related to type casting.
+</p>
+
+<h2>References</h2>
+<ul>
+    <li>
+        <a href="https://www.php.net/manual/en/language.types.declarations.php#language.types.declarations.strict" target="_blank">
+            PHP Type declarations documentation
+        </a>
+    </li>
+</ul>
