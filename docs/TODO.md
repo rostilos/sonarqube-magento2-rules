@@ -19,9 +19,9 @@
     <li>✅ InstallUpgrade</li>
     <li>✅ ObsoleteConnection</li>
     <li>✅ AbstractBlock</li>
+    <li>✅ PhtmlTemplate</li>
     <li>❌ MageEntity</li>
-    <li>❌ EmailTemplate</li>
-    <li>❌ PhtmlTemplate</li>
+    <li>✖️ EmailTemplate ( HTML scope )</li>
     <li>✖️ ObsoleteConfigNodes ( XML scope )</li>
     <li>✖️ Layout ( XML scope )</li>
     <li>✖️ RestrictedCode ( XML & JS Scope )</li>
@@ -61,7 +61,6 @@
     <li>✅ IncludeFile</li>
     <li>️⚠️ InsecureFunction ( Partially implemented as part of the standard PHP ruleset ( exec ), php:S1523 )</li>
     <li>️️⚠️ Superglobal ( Partially implemented as part of the standard PHP ruleset, php:S2011 )</li>
-    <li>❌ ExecutableRegEx</li>
 </ul>
 
 <h3>Html</h3>
@@ -127,6 +126,7 @@
 <h3>Strings</h3>
 <ul>
     <li>️️⚠️ StringConcat  ( Partially implemented as part of the standard PHP ruleset, php:S2005 )</li>
+    <li>❌ ExecutableRegEx</li>
 </ul>
 
 <h3>GraphQL</h3>

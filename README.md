@@ -1,4 +1,3 @@
-# sonarqube-magento2-rules
 <p>Set of advanced rules for SonarQube, for Magento 2 CMS<p>
 <p> A list of available rules is available at the bottom of the README. Implementation plans are described 
 <a href="https://github.com/rostilos/sonarqube-magento2-rules/blob/main/docs/TODO.md">
@@ -150,6 +149,7 @@ networks:
     <li>✅ InstallUpgrade ( ObsoleteInstallUpgradeScripts, Magento 2 has deprecated install and upgrade scripts )</li>
     <li>✅ ObsoleteConnection</li>
     <li>✅ AbstractBlock</li>
+    <li>✅ PhtmlTemplate</li>
 </ul>
 <h4>NamingConvention</h4>
 <ul>
@@ -181,6 +181,11 @@ networks:
 </ul>
 <ul>
     <li>✅ NoObjectInstantiationInTemplates ( Templates MUST NOT instantiate objects. All objects MUST be passed from the Block objects. )</li>
+</ul>
+
+<h4>Etc. </h4>
+<ul>
+    <li>❌ UnusedFunctionParametersCheck ( fix plugins false-positives )</li>
 </ul>
 
 
