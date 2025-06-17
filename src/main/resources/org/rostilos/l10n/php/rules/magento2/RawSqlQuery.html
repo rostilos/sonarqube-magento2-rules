@@ -1,0 +1,76 @@
+<!--
+  Copyright (C) 2025 Rostislav Suleimanov
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<h2>Why is this an issue?</h2>
+
+<ul>
+    <li>Security vulnerabilities (SQL injection attacks)</li>
+    <li>Database compatibility issues</li>
+    <li>Maintenance difficulties</li>
+    <li>Inconsistent data handling</li>
+    <li>Breaking Magento's upgrade path</li>
+</ul>
+
+<p>Always use Magento 2's built-in data access methods from the ORM framework.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+public function getCustomerData($customerId)
+{
+    $connection = $this->resourceConnection->getConnection();
+    $sql = "SELECT * FROM customer_entity WHERE entity_id = " . $customerId; // Noncompliant
+    return $connection->query($sql);
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre data-diff-id="1" data-diff-type="compliant">
+// Using Repository Pattern
+public function getCustomerData($customerId)
+{
+    return $this->customerRepository->getById($customerId);
+}
+
+// Using Collection
+public function getCustomerCollection($customerId)
+{
+    return $this->customerCollectionFactory->create()
+        ->addFieldToFilter('entity_id', $customerId);
+}
+
+// Using Resource Model for complex queries
+public function getCustomDataWithJoins($customerId)
+{
+    $connection = $this->resource->getConnection();
+    $select = $connection->select()
+        ->from(['ce' => $this->resource->getTableName('customer_entity')])
+        ->join(
+            ['ea' => $this->resource->getTableName('eav_attribute')],
+            'ea.entity_type_id = ce.entity_type_id',
+            ['attribute_code']
+        )
+        ->where('ce.entity_id = ?', $customerId);
+
+    return $connection->fetchAll($select);
+}
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://developer.adobe.com/commerce/php/best-practices/extensions/security/#avoid-raw-sql-queries">Magento Devdocs: Avoid Raw SQL Queries</a></li>
+    <li><a href="https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1 - Injection</a></li>
+</ul>
