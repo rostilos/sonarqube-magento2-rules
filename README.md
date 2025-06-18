@@ -193,6 +193,7 @@ networks:
 <p>The plugin is under active development.</p>
 <p>
     Before the release of the new version, files are analyzed on a “clean” M2 project, as well as on a number of custom real projects (including a set of different modules and themes) to avoid errors and false-positive.
+  
 </p>
 <p>If you encounter problems or false-positive during the analysis - please let me know, I will be grateful for more information.
 
