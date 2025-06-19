@@ -5,18 +5,11 @@
 </a>
 </p>
 
-<h2>Installation</h2>
-To install the plugin you can take either a compiled binary from the assets of the corresponding releases, or build from source.
-To build a plugin from source, execute this command from the project root directory:
-
-`mvn clean package`
-
-The plugin jar file is generated in the project's `target/` directory.
-
 <h2>Compatibility</h2>
 <p>
 Specifies the SQ server versions on which the plugin was tested. 
-Correctness of work on versions lower/higher is not excluded, but is not guaranteed at the moment
+Correctness of work on versions lower/higher is not excluded, but is not guaranteed at the moment.
+For example, version 1.3.0 was successfully installed on SQ Server v10.7, but was not fully tested
 </p>
 <table>
     <thead>
@@ -26,6 +19,10 @@ Correctness of work on versions lower/higher is not excluded, but is not guarant
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>24.12 - LATEST</td>
+            <td>1.3.0</td>
+        </tr>
         <tr>
             <td>24.12</td>
             <td>1.2.0</td>
@@ -37,16 +34,31 @@ Correctness of work on versions lower/higher is not excluded, but is not guarant
     </tbody>
 </table>
 
-<h2>Deploy</h2>
-<h4>"Cold" Deploy</h4>
+<h2>Installation</h2>
+<h3>Using the Marketplace</h3>
+<ol>
+  <li>Go to the <b>Administration -> Marketplace</b> tab</li>
+  <li>In the list of available plugins, click “install” on the plugin “PHP Custom Rules for Magento 2 CMS”.</li>
+  <li>After confirm the restart of the SQ server</li>
+  <li>After restarting the SQ server instance the plugin is ready to work, you can proceed to customizing ruleset)</li>
+</ol>
+![Screenshot_20250619_192206](https://github.com/user-attachments/assets/d8f856bc-8419-42bc-9dd3-75a6e0dc1ff2)
+
+<h3>"Cold" Deploy</h3>
+To install the plugin manually you can take either a compiled binary from the assets of the corresponding releases, or build from source.
+To build a plugin from source, execute this command from the project root directory:
+
+`mvn clean package`
+
+The plugin jar file is generated in the project's `target/` directory.
 
 The standard way to install the plugin for regular users is to copy the jar artifact, from the `target/` directory to the `extensions/plugins/` directory of your SonarQube Server installation, then start the server.
 
 The file `logs/web.log` will then contain a log line similar to:
-`Deploy plugin Example Plugin / 0.1-SNAPSHOT
+`Deploy plugin PHP Custom Rules for Magento 2 CMS / 0.1-SNAPSHOT
 Scanner extensions such as sensors are immediately retrieved and loaded when scanning source code.`
 
-<h4>Installation example ( Docker-based )</h4>
+<h3>Docker-based</h3>
 
 ````
 version: "3.8"
@@ -98,6 +110,13 @@ networks:
   sonar_network:
 
 ````
+
+
+<h2>Configuration</h2>
+<p>Once the plugin is installed, there will be a number of rules available for use in rollsets.
+Rules from the plugin are available by Magento2 repository key</p>
+![Screenshot_20250619_193509](https://github.com/user-attachments/assets/61c9b745-4c4c-493c-a17a-aa760de90c60)
+
 
 <h2>Available rules</h2>
 
@@ -193,8 +212,7 @@ networks:
 <p>The plugin is under active development.</p>
 <p>
     Before the release of the new version, files are analyzed on a “clean” M2 project, as well as on a number of custom real projects (including a set of different modules and themes) to avoid errors and false-positive.
-  
 </p>
-<p>If you encounter problems or false-positive during the analysis - please let me know, I will be grateful for more information.
-
+<p>
+  If you encounter problems or false-positive during the analysis - please let me know, I will be grateful for more information.
 </p>
