@@ -43,7 +43,9 @@ For example, version 1.3.0 was successfully installed on SQ Server v10.7, but wa
   <li>After confirm the restart of the SQ server</li>
   <li>After restarting the SQ server instance the plugin is ready to work, you can proceed to customizing ruleset)</li>
 </ol>
-![Screenshot_20250619_192206](https://github.com/user-attachments/assets/d8f856bc-8419-42bc-9dd3-75a6e0dc1ff2)
+
+![Screenshot_20250619_192206](https://github.com/user-attachments/assets/b12118af-cb1c-4153-affb-675746a1e186)
+
 
 <h3>"Cold" Deploy</h3>
 To install the plugin manually you can take either a compiled binary from the assets of the corresponding releases, or build from source.
@@ -116,6 +118,7 @@ networks:
 <h2>Configuration</h2>
 <p>Once the plugin is installed, there will be a number of rules available for use in rollsets.
 Rules from the plugin are available by Magento2 repository key</p>
+
 ![Screenshot_20250619_193509](https://github.com/user-attachments/assets/61c9b745-4c4c-493c-a17a-aa760de90c60)
 
 
