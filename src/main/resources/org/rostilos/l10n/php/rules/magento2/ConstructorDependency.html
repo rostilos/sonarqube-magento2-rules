@@ -1,0 +1,70 @@
+<!--
+  Copyright (C) 2025 Rostislav Suleimanov
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<h2>Why is this an issue?</h2>
+<p>
+    Class constructor can have only dependency assignment operations and/or argument validation operations.
+    No other operations are allowed.
+</p>
+<p>Class constructors are meant to initialize the object and ensure that the class is in a valid state before it is used</p>
+
+<h3>Noncompliant code example</h3>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+class UserService
+{
+    private $userRepository;
+    private $logger;
+
+    public function __construct(UserRepository $userRepository, Logger $logger)
+    {
+        // Dependency assignment
+        $this->userRepository = $userRepository;
+        $this->logger = $logger;
+
+        // Business logic in the constructor (bad practice)
+        if ($this->userRepository->getUserCount() > 100) {
+            $this->logger->log('Too many users');
+        }
+    }
+}
+</pre>
+
+<h3>Compliant solution</h3>
+<pre data-diff-id="1" data-diff-type="compliant">
+class Composite
+{
+    private $renderers;
+    private $logger;
+
+    public function __construct(array $renderers, NotificationLogger $notificationLogger, Logger $logger)
+    {
+        // Dependency assignment
+        $this->logger = $logger;
+        $this->notificationLogger = $notificationLogger ?? \Magento\Framework\App\ObjectManager::getInstance()->get(NotificationLogger::class);
+
+        //argument validation operations.
+        foreach ($renderers as $renderer) {
+            if (!$renderer instanceof RendererInterface) {
+                throw new InvalidArgumentException(
+                    sprintf('Instance of the phrase renderer is expected, got %s instead.', get_class($renderer))
+                );
+            }
+        }
+        $this->renderers = $renderers;
+    }
+}
+</pre>

@@ -1,0 +1,58 @@
+<!--
+  Copyright (C) 2025 Rostislav Suleimanov
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<h2>Why is this an issue?</h2>
+<p>Modifying function arguments can lead to:</p>
+<ul>
+    <li>Unexpected behavior when the modified argument is used later in the calling code</li>
+    <li>Decreased code readability and maintainability</li>
+    <li>Difficulty in reasoning about the function's behavior</li>
+    <li>Potential side effects in the calling code</li>
+</ul>
+
+<h2>Noncompliant Code Example</h2>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+public function arrayFunction(array $items)
+{
+    $items[] = 'new item'; // Noncompliant: Function argument "$items" should not be modified.
+    $items['key'] = 'value'; // Noncompliant: Function argument "$items" should not be modified.
+
+    foreach ($items as &$item) { // Using reference in foreach is also modifying the argument
+        $item = strtoupper($item); //  Noncompliant This modifies $items indirectly
+    }
+
+    return $items;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre data-diff-id="1" data-diff-type="compliant">
+function processData($data) {
+  $processedData = trim($data); // Compliant - using a local variable
+  return $processedData;
+}
+</pre>
+
+<h2>Why is this important?</h2>
+
+
+<h2>Exceptions</h2>
+<p>
+    There are some cases where modifying function arguments might be acceptable, particularly for
+    performance reasons with large data structures. However, in such cases, it should be clearly
+    documented that the function modifies its arguments.
+</p>

@@ -1,0 +1,39 @@
+<!--
+  Copyright (C) 2025 Rostislav Suleimanov
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<h2>Why is this an issue?</h2>
+
+<p>This rule detects the use of discouraged PHP language constructs that should be avoided in Magento 2 code:</p>
+<ul>
+    <li><code>echo</code> and <code>print</code>: Direct output to the browser is discouraged in Magento 2. Output should be controlled through the proper templating system.</li>
+    <li>Backticks (<code>`</code>): Backtick usage for command execution is a security risk and should be avoided.</li>
+</ul>
+
+<pre data-diff-id="2" data-diff-type="noncompliant">
+function someFunction() {
+    echo "Some output";
+    print "More output";
+    $output = `ls -la`;
+}
+</pre>
+
+
+<h2>References</h2>
+<ul>
+    <li><a href="https://www.php.net/manual/en/language.operators.execution.php">PHP Docs - Execution Operators</a></li>
+    <li><a href="https://owasp.org/www-community/attacks/Command_Injection">OWASP - Command Injection</a></li>
+</ul>

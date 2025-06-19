@@ -1,0 +1,52 @@
+<!--
+  Copyright (C) 2025 Rostislav Suleimanov
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="container">
+    <?php if ($block->hasItems()): ?>
+        <ul>
+            <?php foreach ($block->getItems() as $item): ?>
+                <li><?= $item->getName() ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+    <?= $block->_getProtectedData() // Noncompliant {{Access to protected and private members of Block class is obsolete in phtml templates. Use only public members.}} ?>
+
+    <?php echo $block->_privateMethod(); // Noncompliant {{Access to protected and private members of Block class is obsolete in phtml templates. Use only public members.}} ?>
+
+    <?php $result = $block->_helperMethod('param'); // Noncompliant {{Access to protected and private members of Block class is obsolete in phtml templates. Use only public members.}} ?>
+</div>
+
+<script type="text/javascript"> <?php // Noncompliant {{Please do not use "text/javascript" type attribute.}} ?>
+    console.log('Hello World');
+</script>
+
+<script type="TEXT/JAVASCRIPT"> <?php // Noncompliant {{Please do not use "text/javascript" type attribute.}} ?>
+    alert('Test');
+</script>
+
+<script>
+    console.log('Hello World');
+</script>
+
+<script type="application/javascript">
+    alert('Test');
+</script>
+
+<script type="module">
+    import { something } from './module.js';
+</script>
